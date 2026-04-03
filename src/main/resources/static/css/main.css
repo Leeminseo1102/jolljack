@@ -1,0 +1,672 @@
+/* =====================================================
+   main.css - 메인 페이지 전용 스타일
+   ===================================================== */
+
+/* ===== 전체 레이아웃 ===== */
+
+body {
+    background-color: #f7fbf8;
+}
+
+/* =====================================================
+   헤더
+   ===================================================== */
+
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e8f0e8;
+    box-shadow: 0 2px 12px rgba(35, 70, 42, 0.06);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 헤더 로고 */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.header-logo img {
+    height: 36px;
+    width: auto;
+}
+
+.header-logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: #61b436;
+    letter-spacing: 1px;
+}
+
+/* 헤더 네비 - 비회원 */
+.nav-guest {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-nav-login {
+    padding: 8px 22px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-nav-login:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* 헤더 네비 - 회원 */
+.nav-member {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-username {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2e7d32;
+}
+
+.btn-nav-mypage {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: background-color 0.15s;
+}
+
+.btn-nav-mypage:hover {
+    background-color: #f0f7f0;
+    color: #2e7d32;
+}
+
+.btn-nav-logout {
+    font-size: 14px;
+    font-weight: 600;
+    color: #999;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-nav-logout:hover {
+    background-color: #fef2f2;
+    color: #d04545;
+}
+
+/* =====================================================
+   히어로 섹션
+   ===================================================== */
+
+.hero-section {
+    background: linear-gradient(160deg, #edf6ef 0%, #f7fbf8 60%, #e8f4fd 100%);
+    padding: 90px 32px 110px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 히어로 배경 원형 장식 */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba(129, 199, 132, 0.2);
+    pointer-events: none;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: 10%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(100, 181, 246, 0.15);
+    pointer-events: none;
+}
+
+.hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-text {
+    width: 100%;
+    max-width: 920px;
+    background: #ffffff;
+    border: 1px solid #dbe7dc;
+    border-radius: 20px;
+    box-shadow: 0 14px 34px rgba(35, 70, 42, 0.12);
+    text-align: center;
+    padding: 30px 32px 34px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #c8e6c9;
+}
+
+.hero-title {
+    font-size: 40px;
+    font-weight: 900;
+    color: #1f2b20;
+    line-height: 1.3;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+}
+
+.hero-highlight {
+    color: #2e7d32;
+    position: relative;
+}
+
+.hero-desc {
+    font-size: 16px;
+    color: #6a7c6b;
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+.hero-cta-guest,
+.hero-cta-member {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-hero-primary {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(46, 125, 50, 0.4);
+}
+
+.btn-hero-secondary {
+    padding: 14px 32px;
+    background: #fff;
+    color: #2e7d32;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 2px solid #c8e6c9;
+    transition: background-color 0.15s, transform 0.15s;
+}
+
+.btn-hero-secondary:hover {
+    background-color: #f1f8f1;
+    transform: translateY(-2px);
+}
+
+/* 히어로 이미지 */
+.hero-image {
+    flex: 0 0 auto;
+}
+
+.hero-img {
+    width: 320px;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(46, 125, 50, 0.15));
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+}
+
+/* =====================================================
+   서비스 카드 섹션
+   ===================================================== */
+
+.service-section {
+    padding: 80px 32px;
+    background: #fff;
+}
+
+.service-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1f2b20;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-desc {
+    font-size: 15px;
+    color: #8a9a8b;
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+/* 카드 그리드 */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+/* 서비스 카드 */
+.service-card {
+    background: #fbfdfb;
+    border: 1.5px solid #e4ede4;
+    border-radius: 20px;
+    padding: 36px 32px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(35, 70, 42, 0.10);
+    border-color: #a5d6a7;
+}
+
+/* 카드 아이콘 */
+.service-card-icon {
+    width: 82px;
+    height: 82px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1.5px solid #e3e9e4;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover .service-card-icon {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(35, 70, 42, 0.08);
+}
+
+.crop-icon {
+    background: #ffffff;
+}
+
+.diag-icon {
+    background: #ffffff;
+}
+
+.service-card-icon img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+/* 카드 타이틀 */
+.service-card-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1f2b20;
+}
+
+/* 카드 설명 */
+.service-card-desc {
+    font-size: 14px;
+    color: #6a7c6b;
+    line-height: 1.7;
+}
+
+/* 카드 태그 */
+.service-card-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 4px 12px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* 카드 버튼 텍스트 */
+.service-card-btn {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-top: 4px;
+}
+
+/* =====================================================
+   날씨 배너 (회원)
+   ===================================================== */
+
+.weather-section {
+    padding: 32px;
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+}
+
+.weather-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 32px;
+    border: 1.5px solid #c8e6c9;
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.07);
+}
+
+.weather-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.weather-icon {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+.weather-label {
+    font-size: 12px;
+    color: #8a9a8b;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.weather-region {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1f2b20;
+}
+
+.btn-weather {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: #fff;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-weather:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   CTA 배너 (비회원)
+   ===================================================== */
+
+.cta-section {
+    padding: 80px 32px;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.cta-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.cta-desc {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.cta-btns {
+    display: flex;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.btn-cta-primary {
+    padding: 14px 28px;
+    background: #fff;
+    color: #2e7d32;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cta-secondary {
+    padding: 14px 28px;
+    background: transparent;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: background-color 0.15s, transform 0.15s;
+}
+
+.btn-cta-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   푸터
+   ===================================================== */
+
+.main-footer {
+    background: #1f2b20;
+    padding: 36px 32px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo-img {
+    height: 30px;
+    width: auto;
+    filter: brightness(0) invert(1) opacity(0.7);
+}
+
+.footer-logo-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
+@media (max-width: 900px) {
+    .hero-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-cta-guest,
+    .hero-cta-member {
+        justify-content: center;
+    }
+
+    .hero-img {
+        width: 220px;
+    }
+
+    .hero-title {
+        font-size: 32px;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cta-btns {
+        justify-content: center;
+    }
+
+    .weather-inner {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-inner {
+        padding: 0 16px;
+    }
+
+    .hero-section {
+        padding: 48px 16px 64px;
+    }
+
+    .hero-text {
+        padding: 24px 18px 26px;
+    }
+
+    .hero-title {
+        font-size: 26px;
+    }
+
+    .hero-desc {
+        font-size: 14px;
+    }
+
+    .hero-cta-guest,
+    .hero-cta-member {
+        flex-direction: column;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .service-section {
+        padding: 48px 16px;
+    }
+
+    .service-card {
+        padding: 24px 20px;
+    }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 지역 선택</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+    <link rel="stylesheet" th:href="@{/css/signup-crop.css}">
+</head>
+<body>
+
+<div class="signup-wrapper">
+    <div class="bg-circle-bottom"></div>
+
+    <div class="signup-shell">
+        <div class="signup-card">
+            <div class="signup-card-top">
+                <div class="signup-service-brand">
+                    <img th:src="@{/img/logo.png}" alt="AgriWatch 로고" class="signup-service-logo">
+                    <div class="signup-service-name">AGRIWATCH</div>
+                </div>
+
+                <h1 class="signup-title">회원가입</h1>
+                <p class="signup-subtitle">지역과 선호 작물을 선택해주세요</p>
+            </div>
+
+            <div class="step-indicator">
+                <div class="step-item">
+                    <div class="step-circle done">✓</div>
+                    <span class="step-label done">이메일 인증</span>
+                </div>
+                <div class="step-line done"></div>
+                <div class="step-item">
+                    <div class="step-circle done">✓</div>
+                    <span class="step-label done">계정 정보</span>
+                </div>
+                <div class="step-line done"></div>
+                <div class="step-item">
+                    <div class="step-circle active">3</div>
+                    <span class="step-label active">지역 선택</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sidoSelect">시도</label>
+                <select id="sidoSelect" class="form-select">
+                    <option value="">시도를 선택해주세요</option>
+                    <option th:each="sido : ${sidoList}"
+                            th:value="${sido.sidoName}"
+                            th:text="${sido.sidoName}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sigunguSelect">시군구</label>
+                <select id="sigunguSelect" class="form-select" disabled>
+                    <option value="">시군구를 선택해주세요</option>
+                </select>
+                <span id="regionMsg" class="msg-error"></span>
+            </div>
+
+            <div class="form-group crop-select-group">
+                <label class="optional-label">
+                    선호 작물
+                    <span>(선택)</span>
+                </label>
+
+                <div class="crop-select-box">
+                    <div class="crop-grid" id="cropGrid">
+
+                        <div class="crop-item crop-rice" data-id="1">
+                            <div class="crop-icon-box">
+                                <img th:src="@{/img/bbuu.png}" alt="벼">
+                            </div>
+                            <div class="crop-name">벼</div>
+                        </div>
+
+                        <div class="crop-item crop-potato" data-id="2">
+                            <div class="crop-icon-box">
+                                <img th:src="@{/img/gamja.png}" alt="감자">
+                            </div>
+                            <div class="crop-name">감자</div>
+                        </div>
+
+                        <div class="crop-item crop-pepper" data-id="3">
+                            <div class="crop-icon-box">
+                                <img th:src="@{/img/gochu.png}" alt="고추">
+                            </div>
+                            <div class="crop-name">고추</div>
+                        </div>
+
+                        <div class="crop-item crop-grape" data-id="4">
+                            <div class="crop-icon-box">
+                                <img th:src="@{/img/podo.png}" alt="포도">
+                            </div>
+                            <div class="crop-name">포도</div>
+                        </div>
+
+                        <div class="crop-item crop-cabbage" data-id="5">
+                            <div class="crop-icon-box">
+                                <img th:src="@{/img/bachu.png}" alt="배추">
+                            </div>
+                            <div class="crop-name">배추</div>
+                        </div>
+
+                        <div class="crop-item crop-apple" data-id="6">
+                            <div class="crop-icon-box">
+                                <img th:src="@{/img/saga.png}" alt="사과">
+                            </div>
+                            <div class="crop-name">사과</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <input type="hidden" id="favoriteCropId" value="">
+            </div>
+
+            <button type="button" id="btnComplete" class="btn btn-primary btn-full">가입 완료</button>
+
+            <div class="signup-footer">
+                이미 계정이 있으신가요? <a th:href="@{/login/form}">로그인</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/signup-step3.js}"></script>
+
+</body>
+</html>

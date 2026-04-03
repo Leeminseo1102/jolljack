@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRIWATCH</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+
+<body>
+
+<header class="main-header">
+    <div class="header-inner">
+
+        <a class="header-logo">
+            <img th:src="@{/img/logo.png}">
+            <span class="header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <nav class="header-nav">
+
+            <div th:if="${session.userId == null}" class="nav-guest">
+                <a th:href="@{/login/form}" class="btn-nav-login">로그인</a>
+            </div>
+
+            <div th:if="${session.userId != null}" class="nav-member">
+                <span class="nav-username"
+                      th:text="${session.userName} + '님'">사용자님</span>
+                <a th:href="@{/mypage}" class="btn-nav-mypage">마이페이지</a>
+                <button id="btnLogout" class="btn-nav-logout">로그아웃</button>
+            </div>
+
+        </nav>
+    </div>
+</header>
+
+<section class="hero-section">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <p class="hero-badge">🌿 AI 기반 스마트 농업 플랫폼</p>
+            <h1 class="hero-title">
+                날씨 조건이 <span class="hero-highlight">작물에 미치는 영향</span>을<br>
+                <span class="hero-highlight">리스크·대응까지</span> 한 번에 보여줍니다.<br>
+            </h1>
+            <p class="hero-desc">
+                지역의 기온·강수·습도 등 기상 데이터를 수집해<br>
+                작물 생육 적합성과 병해 발생 가능성을 분석하고,<br>
+                예방·대응 방안을 함께 제공합니다.
+            </p>
+
+            <div th:if="${session.userId == null}" class="hero-cta-guest">
+                <a th:href="@{/login/form}" class="btn-hero-primary">시작하기</a>
+            </div>
+
+            <div th:if="${session.userId != null}" class="hero-cta-member">
+                <a th:href="@{/crop}" class="btn-hero-primary">재배 분석 시작</a>
+                <a th:href="@{/diag}" class="btn-hero-secondary">병충해 진단</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-section">
+    <div class="service-inner">
+
+        <h2 class="section-title">주요 서비스</h2>
+        <p class="section-desc">AGRIWATCH의 핵심 기능을 경험해보세요</p>
+
+        <div class="service-grid">
+
+            <div class="service-card"
+                 th:attr="data-url=${session.userId == null} ? '/login/form' : '/crop'">
+                <div class="service-card-icon crop-icon">
+                    <img th:src="@{/img/돋보기.png}" alt="재배 분석">
+                </div>
+                <h3 class="service-card-title">재배 분석</h3>
+                <p class="service-card-desc">
+                    지역을 선택하면 기상청 데이터와 AI가<br>
+                    최적의 작물과 재배 방법을 추천해드립니다
+                </p>
+                <div class="service-card-tags">
+                    <span class="tag">작물 추천</span>
+                    <span class="tag">재배 방법</span>
+                    <span class="tag">리스크 분석</span>
+                </div>
+                <span class="service-card-btn">분석 시작 →</span>
+            </div>
+
+            <div class="service-card"
+                 th:attr="data-url=${session.userId == null} ? '/login/form' : '/diag'">
+                <div class="service-card-icon diag-icon">
+                    <img th:src="@{/img/ai 진단 이미지.png}" alt="AI 병충해 진단">
+                </div>
+                <h3 class="service-card-title">AI 병충해 진단</h3>
+                <p class="service-card-desc">
+                    작물 사진을 업로드하면 AI가<br>
+                    예상 병명과 해결책을 알려드립니다
+                </p>
+                <div class="service-card-tags">
+                    <span class="tag">이미지 분석</span>
+                    <span class="tag">병명 진단</span>
+                    <span class="tag">해결책 제시</span>
+                </div>
+                <span class="service-card-btn">진단 시작 →</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section th:if="${session.userId == null}" class="cta-section">
+    <div class="cta-inner">
+        <div class="cta-text">
+            <h2 class="cta-title">지금 바로 시작해보세요</h2>
+            <p class="cta-desc">회원가입 후 AI 기반 스마트 농업 서비스를 무료로 이용하세요</p>
+        </div>
+        <div class="cta-btns">
+            <a th:href="@{/signup/step1}" class="btn-cta-primary">회원가입</a>
+            <a th:href="@{/login/form}" class="btn-cta-secondary">로그인</a>
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="footer-inner">
+        <div class="footer-logo">
+            <span class="footer-logo-text">AGRIWATCH</span>
+        </div>
+        <p class="footer-copy">© 2025 AGRIWATCH. All rights reserved.</p>
+    </div>
+</footer>
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
+
+</body>
+</html>

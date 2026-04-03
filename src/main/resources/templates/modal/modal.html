@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="commonModal" id="commonModal" class="common-modal hidden">
+    <div class="common-modal-dim"></div>
+
+    <div class="common-modal-box" role="dialog" aria-modal="true" aria-labelledby="commonModalTitle">
+        <div class="common-modal-content">
+            <h2 id="commonModalTitle" class="common-modal-title"></h2>
+            <div id="commonModalBody" class="common-modal-body"></div>
+            <div id="commonModalExtra" class="common-modal-extra"></div>
+        </div>
+
+        <div id="commonModalBtnWrap" class="common-modal-btn-wrap">
+            <button type="button"
+                    id="commonModalCancel"
+                    class="common-modal-btn common-modal-btn-cancel">
+                취소
+            </button>
+
+            <button type="button"
+                    id="commonModalConfirm"
+                    class="common-modal-btn common-modal-btn-confirm">
+                확인
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

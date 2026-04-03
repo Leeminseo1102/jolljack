@@ -1,0 +1,137 @@
+/* =====================================================
+   common.css - 프로젝트 공통 스타일
+   ===================================================== */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: inherit;
+}
+
+input, select {
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+/* =====================================================
+   공통 버튼
+   ===================================================== */
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.btn-primary {
+    background-color: #2e7d32;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #1b5e20;
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #bdbdbd;
+}
+
+.btn-sm {
+    padding: 7px 14px;
+    font-size: 13px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =====================================================
+   공통 폼 인풋
+   ===================================================== */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #2e7d32;
+}
+
+/* =====================================================
+   공통 메시지
+   ===================================================== */
+
+.msg-success {
+    color: #2e7d32;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.msg-error {
+    color: #c62828;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.msg-info {
+    color: #1565c0;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* =====================================================
+   공통 카드
+   ===================================================== */
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+}

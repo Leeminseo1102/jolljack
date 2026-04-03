@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.jolljack.mapper.ISignupMapper">
+
+    <select id="checkEmail" parameterType="UserDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE email = #{email}
+          AND status = 'ACTIVE'
+    </select>
+
+    <select id="checkLoginId" parameterType="UserDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE login_id = #{loginId}
+          AND status = 'ACTIVE'
+    </select>
+
+    <insert id="insertUser" parameterType="UserDTO">
+        INSERT INTO users (
+            login_id,
+            password_hash,
+            name,
+            email,
+            region_id,
+            favorite_crop_id,
+            status,
+            created_at,
+            updated_at
+        ) VALUES (
+                     #{loginId},
+                     #{passwordHash},
+                     #{name},
+                     #{email},
+                     #{regionId},
+                     #{favoriteCropId},
+                     'ACTIVE',
+                     NOW(),
+                     NOW()
+                 )
+    </insert>
+
+    <select id="getSidoList" resultType="RegionDTO">
+        SELECT DISTINCT sido_name AS sidoName
+        FROM region
+        ORDER BY sido_name
+    </select>
+
+    <select id="getSigunguList" parameterType="RegionDTO" resultType="RegionDTO">
+        SELECT sigungu_name AS sigunguName
+        FROM region
+        WHERE sido_name = #{sidoName}
+        ORDER BY sigungu_name
+    </select>
+
+    <select id="getRegionId" parameterType="RegionDTO" resultType="RegionDTO">
+        SELECT region_id AS regionId
+        FROM region
+        WHERE sido_name = #{sidoName}
+          AND sigungu_name = #{sigunguName}
+            LIMIT 1
+    </select>
+
+    <select id="getCropList" resultType="CropDTO">
+        SELECT crop_id AS cropId,
+               crop_name AS cropName
+        FROM crop
+        ORDER BY crop_name
+    </select>
+
+</mapper>

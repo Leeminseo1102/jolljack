@@ -1,0 +1,224 @@
+/* =====================================================
+   login.css - 로그인 전용 스타일 (signup.css 구조 통일)
+   ===================================================== */
+
+.login-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: linear-gradient(180deg, #edf6ef 0%, #f7fbf8 100%);
+    overflow: hidden;
+}
+
+/* 왼쪽 위 배경 원형 */
+.login-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    left: -80px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background-color: rgba(129, 199, 132, 0.35);
+    z-index: 0;
+}
+
+/* 오른쪽 위 배경 원형 */
+.login-wrapper::after {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background-color: rgba(100, 181, 246, 0.35);
+    z-index: 0;
+}
+
+/* 오른쪽 아래 배경 원형 */
+.bg-circle-bottom {
+    position: absolute;
+    bottom: 80px;
+    right: 120px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(129, 199, 132, 0.25);
+    z-index: 0;
+}
+
+.login-shell {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 2;
+}
+
+.login-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 42px 40px 34px;
+    box-shadow: 0 18px 45px rgba(35, 70, 42, 0.10);
+    border: 1px solid #eef3ee;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== 카드 상단 브랜드 영역 ===== */
+
+.login-card-top {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-service-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.login-service-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-bottom: 6px;
+}
+
+.login-service-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: #61b436;
+    line-height: 1.1;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1f2b20;
+    margin-bottom: 6px;
+}
+
+.login-subtitle {
+    font-size: 13px;
+    color: #7d887f;
+    line-height: 1.4;
+}
+
+/* ===== 폼 그룹 ===== */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334235;
+}
+
+/* ===== 인풋 ===== */
+
+.form-control {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1.5px solid #dfe7df;
+    border-radius: 12px;
+    font-size: 14px;
+    background: #fbfdfb;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #53a65c;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(83, 166, 92, 0.1);
+}
+
+.form-control::placeholder {
+    color: #b8c2b9;
+}
+
+/* ===== 버튼 ===== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: #ffffff;
+}
+
+.btn-full {
+    width: 100%;
+    height: 52px;
+    margin-top: 8px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== 메시지 ===== */
+
+.msg-error {
+    color: #d04545;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* ===== 하단 푸터 ===== */
+
+.login-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #96a198;
+}
+
+.login-links a {
+    color: #2e7d32;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+.login-links .divider {
+    color: #d0d8d1;
+    font-size: 12px;
+}

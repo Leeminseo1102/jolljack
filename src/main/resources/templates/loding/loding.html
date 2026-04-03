@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGRIWATCH 로딩</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f7ec;
+            font-family: 'Malgun Gothic', sans-serif;
+            gap: 24px;
+        }
+
+        /* overflow:hidden 이 여기 있어서 박스 밖은 안 보임 */
+        .scene {
+            position: relative;
+            width: 480px;
+            height: 280px;
+            background: #f8fdf5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        .deco {
+            position: absolute;
+            border-radius: 50%;
+            background: #a8d99c;
+            opacity: 0.45;
+        }
+        .deco-tl { width: 80px; height: 80px; top: -25px; left: -25px; }
+        .deco-tr { width: 90px; height: 90px; top: -30px; right: -30px; border-radius: 0 0 0 100%; }
+        .deco-bl { width: 60px; height: 60px; bottom: 45px; left: -18px; border-radius: 0 100% 100% 100%; }
+
+        .logo {
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #4a9c38;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        .logo svg { width: 14px; height: 14px; }
+
+        /* position:absolute — JS가 left/top 직접 제어 */
+        .sky-obj {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            z-index: 5;
+        }
+        .sky-obj img { width: 100%; height: 100%; object-fit: contain; }
+        #cloud { display: none; }
+
+        .plant-wrap {
+            position: absolute;
+            bottom: 62px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+        }
+        #plantImg {
+            width: 70px;
+            display: block;
+            transform-origin: bottom center;
+        }
+
+        .grass {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 62px;
+            z-index: 6; overflow: hidden;
+        }
+        .grass-svg { width: 100%; height: 100%; }
+
+        .loading-text {
+            font-size: 22px;
+            color: #4a9c38;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+    <div class="deco deco-tl"></div>
+    <div class="deco deco-tr"></div>
+    <div class="deco deco-bl"></div>
+
+    <div class="logo">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 1 L9.8 5.8 L15 6.2 L11 9.8 L12.4 15 L8 12.2 L3.6 15 L5 9.8 L1 6.2 L6.2 5.8 Z" fill="#4a9c38"/>
+        </svg>
+        AGRIWATCH
+    </div>
+
+    <div class="sky-obj" id="sun"><img src="sun.png" alt="해"/></div>
+    <div class="sky-obj" id="cloud"><img src="clou.png" alt="구름"/></div>
+
+    <div class="plant-wrap">
+        <img src="pull.png" alt="식물" id="plantImg"/>
+    </div>
+
+    <div class="grass">
+        <svg class="grass-svg" viewBox="0 0 480 62" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <rect width="480" height="62" fill="#7cc46a"/>
+            <g fill="#5aaa48">
+                <path d="M0,30 Q6,8 12,30 Q18,8 24,30 Q30,8 36,30 Q42,8 48,30 Q54,8 60,30 Q66,8 72,30 Q78,8 84,30 Q90,8 96,30 Q102,8 108,30 Q114,8 120,30 Q126,8 132,30 Q138,8 144,30 Q150,8 156,30 Q162,8 168,30 Q174,8 180,30 Q186,8 192,30 Q198,8 204,30 Q210,8 216,30 Q222,8 228,30 Q234,8 240,30 Q246,8 252,30 Q258,8 264,30 Q270,8 276,30 Q282,8 288,30 Q294,8 300,30 Q306,8 312,30 Q318,8 324,30 Q330,8 336,30 Q342,8 348,30 Q354,8 360,30 Q366,8 372,30 Q378,8 384,30 Q390,8 396,30 Q402,8 408,30 Q414,8 420,30 Q426,8 432,30 Q438,8 444,30 Q450,8 456,30 Q462,8 468,30 Q474,8 480,30 L480,62 L0,62 Z"/>
+            </g>
+            <g fill="#6dc45a" opacity="0.65">
+                <path d="M3,36 Q9,18 15,36 Q21,18 27,36 Q33,18 39,36 Q45,18 51,36 Q57,18 63,36 Q69,18 75,36 Q81,18 87,36 Q93,18 99,36 Q105,18 111,36 Q117,18 123,36 Q129,18 135,36 Q141,18 147,36 Q153,18 159,36 Q165,18 171,36 Q177,18 183,36 Q189,18 195,36 Q201,18 207,36 Q213,18 219,36 Q225,18 231,36 Q237,18 243,36 Q249,18 255,36 Q261,18 267,36 Q273,18 279,36 Q285,18 291,36 Q297,18 303,36 Q309,18 315,36 Q321,18 327,36 Q333,18 339,36 Q345,18 351,36 Q357,18 363,36 Q369,18 375,36 Q381,18 387,36 Q393,18 399,36 Q405,18 411,36 Q417,18 423,36 Q429,18 435,36 Q441,18 447,36 Q453,18 459,36 Q465,18 471,36 Q477,18 480,36 L480,62 L3,62 Z"/>
+            </g>
+        </svg>
+    </div>
+</div>
+
+<div class="loading-text">식물이 자라는 중<span id="dots"></span></div>
+
+<script>
+    const SCENE_W = 480;
+    const SCENE_H = 280;
+    const OBJ_W   = 56;
+    const OBJ_H   = 56;
+    const GRASS_H = 62;
+    const TRAVEL  = 5000;
+
+    const sunEl    = document.getElementById('sun');
+    const cloudEl  = document.getElementById('cloud');
+    const plantImg = document.getElementById('plantImg');
+    const dotsEl   = document.getElementById('dots');
+
+    // 반원 궤도 설정
+    // 오브젝트 중심 기준으로 계산
+    // 시작: 오른쪽 끝 밖 → 끝: 왼쪽 끝 밖
+    // 반원이 박스 상단을 넘지 않도록 RY를 제한
+
+    const START_CX = SCENE_W + OBJ_W / 2;      // 오른쪽 밖 (중심 X)
+    const END_CX   = -OBJ_W / 2;               // 왼쪽 밖 (중심 X)
+    const BASE_CY  = SCENE_H - GRASS_H - 20;   // 반원 바닥 Y (잔디 위)
+
+    const MID_CX   = (START_CX + END_CX) / 2;  // 반원 중심 X
+    const RX       = (START_CX - END_CX) / 2;  // 가로 반지름
+    // 세로 반지름: 꼭대기가 박스 상단(+OBJ_H 여유) 안에 들어오게
+    const MAX_RY   = BASE_CY - OBJ_H;          // 꼭대기가 top=0 아래에 있으려면
+    const RY       = Math.min(BASE_CY * 0.85, MAX_RY);
+
+    // 점 애니메이션
+    let dotCount = 0;
+    setInterval(() => {
+        dotCount = (dotCount + 1) % 4;
+        dotsEl.textContent = '.'.repeat(dotCount);
+    }, 500);
+
+    // 식물 크기 (0.55 ~ 1.0, 확연히 차이남)
+    let plantScale = 1.0;
+    let plantDir   = -1;
+    let lastPT     = null;
+    function animatePlant(ts) {
+        if (!lastPT) lastPT = ts;
+        const delta = (ts - lastPT) / 1000;
+        lastPT = ts;
+        plantScale += plantDir * delta * 0.38;
+        if (plantScale <= 0.55) { plantScale = 0.55; plantDir = 1; }
+        if (plantScale >= 1.0)  { plantScale = 1.0;  plantDir = -1; }
+        plantImg.style.transform = `scale(${plantScale})`;
+        requestAnimationFrame(animatePlant);
+    }
+    requestAnimationFrame(animatePlant);
+
+    // 반원 이동: angle 0(오른쪽) → π(왼쪽), 위쪽 반원
+    let objIndex = 0;
+
+    function easeInOutSine(t) {
+        return -(Math.cos(Math.PI * t) - 1) / 2;
+    }
+
+    function flyObject() {
+        const isSun = (objIndex % 2 === 0);
+        sunEl.style.display   = isSun ? 'block' : 'none';
+        cloudEl.style.display = isSun ? 'none'  : 'block';
+        const activeEl = isSun ? sunEl : cloudEl;
+
+        let startTime = null;
+
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            const progress = Math.min((ts - startTime) / TRAVEL, 1);
+            const ease = easeInOutSine(progress);
+
+            // angle 0 = 오른쪽, angle π = 왼쪽
+            const angle = Math.PI * ease;
+            // 오브젝트 중심 좌표
+            const cx = MID_CX + RX * Math.cos(angle);
+            const cy = BASE_CY - RY * Math.sin(angle);  // sin>0 이면 위로
+
+            // left/top은 오브젝트 왼쪽 상단 기준
+            activeEl.style.left = (cx - OBJ_W / 2) + 'px';
+            activeEl.style.top  = (cy - OBJ_H / 2) + 'px';
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                objIndex++;
+                setTimeout(flyObject, 600);
+            }
+        }
+        requestAnimationFrame(step);
+    }
+
+    flyObject();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 계정 정보</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+
+<div class="signup-wrapper">
+    <div class="bg-circle-bottom"></div>
+
+    <div class="signup-shell">
+        <div class="signup-card">
+            <div class="signup-card-top">
+                <div class="signup-service-brand">
+                    <img th:src="@{/img/logo.png}" alt="AgriWatch 로고" class="signup-service-logo">
+                    <div class="signup-service-name">AGRIWATCH</div>
+                </div>
+
+                <h1 class="signup-title">회원가입</h1>
+                <p class="signup-subtitle">계정 정보를 입력해주세요</p>
+            </div>
+
+            <div class="step-indicator">
+                <div class="step-item">
+                    <div class="step-circle done">✓</div>
+                    <span class="step-label done">이메일 인증</span>
+                </div>
+                <div class="step-line done"></div>
+                <div class="step-item">
+                    <div class="step-circle active">2</div>
+                    <span class="step-label active">계정 정보</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">지역 선택</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="loginId">아이디</label>
+                <div class="input-with-btn">
+                    <input type="text" id="loginId" class="form-control" placeholder="4~20자 영문, 숫자" maxlength="20">
+                    <button type="button" id="btnCheckId" class="btn btn-secondary btn-sm">중복확인</button>
+                </div>
+                <span id="loginIdMsg" class="msg-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" class="form-control" placeholder="8~20자 영문+숫자 포함" maxlength="20">
+                <span id="passwordMsg" class="msg-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordConfirm">비밀번호 확인</label>
+                <input type="password" id="passwordConfirm" class="form-control" placeholder="비밀번호를 다시 입력해주세요" maxlength="20">
+                <span id="passwordConfirmMsg" class="msg-error"></span>
+            </div>
+
+            <button type="button" id="btnNext" class="btn btn-primary btn-full">다음</button>
+
+            <div class="signup-footer">
+                이미 계정이 있으신가요? <a th:href="@{/login}">로그인</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/signup-step2.js}"></script>
+
+</body>
+</html>

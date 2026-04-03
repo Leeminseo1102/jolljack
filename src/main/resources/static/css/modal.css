@@ -1,0 +1,128 @@
+.common-modal.hidden {
+    display: none;
+}
+
+.common-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.common-modal-dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 28, 22, 0.38);
+    backdrop-filter: blur(2px);
+}
+
+.common-modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 360px);
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 28px 24px 22px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    border: 1px solid #edf2ed;
+    text-align: center;
+}
+
+.common-modal-content {
+    margin-bottom: 20px;
+}
+
+.common-modal-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.5;
+    color: #111111;
+    word-break: keep-all;
+}
+
+.common-modal-body {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #666666;
+    word-break: keep-all;
+}
+
+.common-modal-extra {
+    margin-top: 14px;
+}
+
+.common-modal-btn-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.common-modal-btn {
+    width: 82px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
+}
+
+.common-modal-btn:hover {
+    transform: translateY(-1px);
+}
+
+.common-modal-btn-cancel {
+    background: #e60000;
+    color: #ffffff;
+}
+
+.common-modal-btn-confirm {
+    background: #2f92ff;
+    color: #ffffff;
+}
+
+.common-modal-btn-neutral {
+    background: #f1f3f1;
+    color: #555555;
+}
+
+.common-modal-select {
+    width: 100%;
+    height: 36px;
+    border: 1px solid #d8e1d9;
+    border-radius: 999px;
+    padding: 0 14px;
+    font-size: 13px;
+    color: #333333;
+    background: #ffffff;
+    outline: none;
+}
+
+.common-modal-select:focus {
+    border-color: #9ccc65;
+}
+
+@media (max-width: 600px) {
+    .common-modal-box {
+        width: min(92vw, 320px);
+        padding: 24px 18px 18px;
+        border-radius: 24px;
+    }
+
+    .common-modal-title {
+        font-size: 20px;
+    }
+
+    .common-modal-body {
+        font-size: 13px;
+    }
+}
