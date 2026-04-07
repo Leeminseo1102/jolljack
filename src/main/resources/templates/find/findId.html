@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/findId.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+
+<div class="findid-wrapper">
+    <div class="bg-circle-bottom"></div>
+
+    <div class="findid-shell">
+        <div class="findid-card">
+
+            <div class="findid-card-top">
+                <div class="findid-service-brand">
+                    <a th:href="@{/main/view}">
+                        <img th:src="@{/img/logo.png}" alt="AgriWatch 로고" class="findid-service-logo">
+                    </a>
+                    <div class="findid-service-name">AGRIWATCH</div>
+                </div>
+                <h1 class="findid-title">아이디 찾기</h1>
+                <p class="findid-subtitle">가입 시 등록한 이름과 이메일로 아이디를 찾을 수 있습니다</p>
+            </div>
+
+            <div id="stepVerify">
+
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" class="form-control"
+                           placeholder="가입 시 등록한 이름을 입력해주세요" maxlength="50">
+                    <span id="nameMsg" class="msg-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <div class="input-with-btn">
+                        <input type="email" id="email" class="form-control"
+                               placeholder="가입 시 등록한 이메일을 입력해주세요" maxlength="100">
+                        <button type="button" id="btnSendCode" class="btn btn-primary btn-sm">전송</button>
+                    </div>
+                    <span id="emailMsg" class="msg-error"></span>
+                </div>
+
+                <div class="form-group" id="codeArea" style="display: none;">
+                    <label for="inputCode">인증코드</label>
+                    <div class="input-with-btn">
+                        <input type="text" id="inputCode" class="form-control"
+                               placeholder="인증코드 6자리를 입력해주세요" maxlength="6">
+                        <button type="button" id="btnVerify" class="btn btn-primary btn-sm">확인</button>
+                    </div>
+                    <div class="code-status-row">
+                        <span id="codeMsg" class="msg-error"></span>
+                        <span id="codeTimer" class="msg-info"></span>
+                    </div>
+                </div>
+
+                <button type="button" id="btnFindId" class="btn btn-primary btn-full" disabled>
+                    아이디 찾기
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/findId.js}"></script>
+
+</body>
+</html>
