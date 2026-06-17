@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.jolljack.mapper.IDiseaseDiagnosisMapper">
+
+    <insert id="insertDiseaseDiagnosis"
+            parameterType="DiseaseDiagnosisDTO"
+            useGeneratedKeys="true"
+            keyProperty="diagnosisId">
+        INSERT INTO disease_diagnosis (
+            user_id,
+            predicted_disease_name,
+            disease_description,
+            solution_text,
+            symptom_summary,
+            prevention_text,
+            created_at
+        ) VALUES (
+                     #{userId},
+                     #{predictedDiseaseName},
+                     #{diseaseDescription},
+                     #{solutionText},
+                     #{symptomSummary},
+                     #{preventionText},
+                     NOW()
+                 )
+    </insert>
+
+    <select id="getDiseaseDiagnosisResult"
+            parameterType="DiseaseDiagnosisDTO"
+            resultType="DiseaseDiagnosisDTO">
+        SELECT diagnosis_id,
+               user_id,
+               predicted_disease_name,
+               disease_description,
+               solution_text,
+               symptom_summary,
+               prevention_text,
+               created_at
+        FROM disease_diagnosis
+        WHERE diagnosis_id = #{diagnosisId}
+          AND user_id = #{userId}
+            LIMIT 1
+    </select>
+
+</mapper>

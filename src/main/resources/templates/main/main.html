@@ -28,7 +28,7 @@
             <div th:if="${session.userId != null}" class="nav-member">
                 <span class="nav-username"
                       th:text="${session.userName} + '님'">사용자님</span>
-                <a th:href="@{/mypage}" class="btn-nav-mypage">마이페이지</a>
+                <a th:href="@{/mypage/view}" class="btn-nav-mypage">마이페이지</a>
                 <button id="btnLogout" class="btn-nav-logout">로그아웃</button>
             </div>
 
@@ -55,8 +55,8 @@
             </div>
 
             <div th:if="${session.userId != null}" class="hero-cta-member">
-                <a th:href="@{/crop}" class="btn-hero-primary">재배 분석 시작</a>
-                <a th:href="@{/diag}" class="btn-hero-secondary">병충해 진단</a>
+                <a th:href="@{/crop/region}" class="btn-hero-primary">재배 분석 시작</a>
+                <a th:href="@{/diag/ImgTrans}" class="btn-hero-secondary">병충해 진단</a>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
         <div class="service-grid">
 
             <div class="service-card"
-                 th:attr="data-url=${session.userId == null} ? '/login/form' : '/crop'">
+                 th:attr="data-url=${session.userId == null} ? '/login/form' : '/crop/region'">
                 <div class="service-card-icon crop-icon">
                     <img th:src="@{/img/돋보기.png}" alt="재배 분석">
                 </div>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="service-card"
-                 th:attr="data-url=${session.userId == null} ? '/login/form' : '/diag'">
+                 th:attr="data-url=${session.userId == null} ? '/login/form' : '/diag/ImgTrans'">
                 <div class="service-card-icon diag-icon">
                     <img th:src="@{/img/ai 진단 이미지.png}" alt="AI 병충해 진단">
                 </div>

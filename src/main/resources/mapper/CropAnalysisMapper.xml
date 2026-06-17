@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.jolljack.mapper.ICropAnalysisMapper">
+
+    <insert id="insertCropAnalysis"
+            parameterType="CropAnalysisDTO"
+            useGeneratedKeys="true"
+            keyProperty="analysisId">
+        INSERT INTO crop_analysis (
+            user_id,
+            region_id,
+            recommended_crop_id,
+            recommended_reason,
+            cultivation_method,
+            risk_summary,
+            weather_summary,
+            score,
+            created_at
+        ) VALUES (
+                     #{userId},
+                     #{regionId},
+                     #{recommendedCropId},
+                     #{recommendedReason},
+                     #{cultivationMethod},
+                     #{riskSummary},
+                     #{weatherSummary},
+                     #{score},
+                     NOW()
+                 )
+    </insert>
+
+    <select id="getCropAnalysisResult" parameterType="CropAnalysisDTO" resultType="CropAnalysisDTO">
+        SELECT ca.analysis_id,
+               ca.user_id,
+               ca.region_id,
+               ca.recommended_crop_id,
+               ca.recommended_reason,
+               ca.cultivation_method,
+               ca.risk_summary,
+               ca.weather_summary,
+               ca.score,
+               ca.created_at,
+               c.crop_name,
+               r.full_region_name
+        FROM crop_analysis ca
+                 INNER JOIN crop c
+                            ON ca.recommended_crop_id = c.crop_id
+                 INNER JOIN region r
+                            ON ca.region_id = r.region_id
+        WHERE ca.analysis_id = #{analysisId}
+          AND ca.user_id = #{userId}
+            LIMIT 1
+    </select>
+
+</mapper>

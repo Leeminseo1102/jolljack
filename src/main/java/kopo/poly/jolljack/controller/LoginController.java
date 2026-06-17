@@ -88,4 +88,18 @@ public class LoginController {
             return "redirect:/";
         }
     }
+
+    @ResponseBody
+    @PostMapping("/restore")
+    public Map<String, Object> restore(HttpSession session) throws Exception {
+
+        log.info("{}.restore Start!", this.getClass().getName());
+
+        Map<String, Object> rMap = loginService.restoreUserProc(session);
+
+        log.info("{}.restore End!", this.getClass().getName());
+
+        return rMap;
+    }
+
 }

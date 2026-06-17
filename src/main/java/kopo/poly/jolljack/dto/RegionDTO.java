@@ -25,4 +25,10 @@ public class RegionDTO {
     // 생성일시
     private String createdAt;
 
+    //기상청 지역 아이디
+    private String kmaAreaId;
+
+    //기상청 허브 지역 아이디
+    private Integer kmaStn;
+
 }

@@ -1,4 +1,4 @@
-package kopo.poly.jolljack.dto;
+package kopo.poly.jolljack.dto;//레코드로 수정
 
 import lombok.*;
 

@@ -23,4 +23,8 @@ public interface ISignupMapper {
     RegionDTO getRegionId(RegionDTO pDTO) throws Exception;
 
     List<CropDTO> getCropList() throws Exception;
+
+    RegionDTO getRegionByRegionId(RegionDTO pDTO) throws Exception;
+
+    CropDTO getCropByCropName(CropDTO pDTO) throws Exception;
 }

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 병충해 진단</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/crop.css}">
+    <link rel="stylesheet" th:href="@{/css/ImgTrans.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+
+<header class="crop-header">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/main/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <nav class="crop-nav">
+            <a th:href="@{/crop/region}" class="crop-nav-item">
+                🌱 재배 분석
+            </a>
+            <a th:href="@{/diag/ImgTrans}" class="crop-nav-item active">
+                🔍 AI 병충해 진단
+            </a>
+        </nav>
+
+        <div class="crop-header-user">
+            <span class="header-username" th:text="${session.userName} + '님'">사용자님</span>
+            <a th:href="@{/mypage/view}" class="crop-nav-item">마이페이지</a>
+        </div>
+
+    </div>
+</header>
+
+<main class="img-trans-main">
+    <section class="img-trans-section">
+        <div class="img-trans-inner">
+
+            <div class="img-trans-title-box">
+                <h1 class="img-trans-title">병충해 진단</h1>
+                <p class="img-trans-subtitle">
+                    작물 사진을 업로드하면 AI가 병충해 의심 증상과<br>
+                    대응 방법을 분석합니다.
+                </p>
+            </div>
+
+            <div class="img-trans-layout">
+
+                <article class="img-upload-card">
+
+                    <div class="img-upload-top">
+                        <div class="img-upload-icon-box">
+                            <img th:src="@{/img/ai 진단 이미지.png}" alt="AI 병충해 진단">
+                        </div>
+
+                        <div>
+                            <h2 class="img-upload-title">이미지 업로드</h2>
+                            <p class="img-upload-desc">진단할 작물 이미지를 선택해주세요.</p>
+                        </div>
+                    </div>
+
+                    <div id="uploadBox" class="img-upload-box">
+                        <input type="file"
+                               id="imageInput"
+                               name="image"
+                               class="img-file-input"
+                               accept="image/jpeg,image/png,image/webp">
+
+                        <div id="uploadPlaceholder" class="img-upload-placeholder">
+                            <div class="img-upload-plus">＋</div>
+                            <strong>작물 사진을 업로드해주세요</strong>
+                            <p>클릭하거나 이미지를 끌어다 놓으세요</p>
+                            <span>jpg, png, webp / 최대 5MB</span>
+                        </div>
+
+                        <div id="previewArea" class="img-preview-area" style="display: none;">
+                            <img id="previewImage" class="img-preview-image" alt="업로드 이미지 미리보기">
+                        </div>
+                    </div>
+
+                    <div class="img-upload-guide">
+                        <p><strong>잎의 반점, 변색, 구멍, 말림 등 증상이 잘 보이게 촬영해주세요.</strong></p>
+                        <p><strong>너무 어둡거나 흔들린 사진은 분석 정확도가 떨어질 수 있습니다.</strong></p>
+                    </div>
+
+                    <span id="imageMsg" class="msg-error"></span>
+
+                    <div class="img-button-row">
+                        <button type="button" id="btnResetImage" class="btn btn-secondary btn-img-reset" disabled>
+                            다시 선택
+                        </button>
+
+                        <button type="button" id="btnDiagnosis" class="btn btn-primary btn-img-diagnosis" disabled>
+                            진단 시작
+                        </button>
+                    </div>
+
+                </article>
+
+                <aside class="img-guide-card">
+                    <h2 class="img-guide-title">촬영 가이드</h2>
+
+                    <div class="img-guide-list">
+
+                        <div class="img-guide-item">
+                            <span class="img-guide-no">1</span>
+                            <div>
+                                <h3>증상 부위를 크게 촬영</h3>
+                                <strong>병반, 변색, 구멍 등 이상 증상이 화면 중앙에 오게 해주세요.</strong>
+                            </div>
+                        </div>
+
+                        <div class="img-guide-item">
+                            <span class="img-guide-no">2</span>
+                            <div>
+                                <h3>배경은 단순하게</h3>
+                                <strong>진단할 작물 외의 물체가 너무 많이 나오지 않게 해주세요.</strong>
+                            </div>
+                        </div>
+
+                        <div class="img-guide-item">
+                            <span class="img-guide-no">3</span>
+                            <div>
+                                <h3>밝은 곳에서 촬영해주세요</h3>
+                                <strong>역광이나 그림자가 심하면 사진을 인식하기 어렵습니다.</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="img-guide-notice">
+                        <h3>안내</h3>
+                        <p><strong>예상 진단이므로 실제 병명과 다를 수 있습니다.</strong></p>
+                    </div>
+                </aside>
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/ImgTrans.js}"></script>
+
+</body>
+</html>

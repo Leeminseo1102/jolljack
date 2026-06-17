@@ -43,20 +43,23 @@
     </insert>
 
     <select id="getSidoList" resultType="RegionDTO">
-        SELECT DISTINCT sido_name AS sidoName
+        SELECT DISTINCT sido_name
         FROM region
         ORDER BY sido_name
     </select>
 
     <select id="getSigunguList" parameterType="RegionDTO" resultType="RegionDTO">
-        SELECT sigungu_name AS sigunguName
+        SELECT sigungu_name
         FROM region
         WHERE sido_name = #{sidoName}
         ORDER BY sigungu_name
     </select>
 
     <select id="getRegionId" parameterType="RegionDTO" resultType="RegionDTO">
-        SELECT region_id AS regionId
+        SELECT region_id,
+               sido_name,
+               sigungu_name,
+               full_region_name
         FROM region
         WHERE sido_name = #{sidoName}
           AND sigungu_name = #{sigunguName}
@@ -64,10 +67,30 @@
     </select>
 
     <select id="getCropList" resultType="CropDTO">
-        SELECT crop_id AS cropId,
-               crop_name AS cropName
+        SELECT crop_id,
+               crop_name
         FROM crop
         ORDER BY crop_name
+    </select>
+
+    <select id="getRegionByRegionId" parameterType="RegionDTO" resultType="RegionDTO">
+        SELECT region_id  regionId,
+               sido_name  sidoName,
+               sigungu_name  sigunguName,
+               full_region_name  fullRegionName,
+               kma_area_id  kmaAreaId,
+               kma_stn  kmaStn
+        FROM region
+        WHERE region_id = #{regionId}
+            LIMIT 1
+    </select>
+
+    <select id="getCropByCropName" parameterType="CropDTO" resultType="CropDTO">
+        SELECT crop_id   cropId,
+               crop_name cropName
+        FROM crop
+        WHERE crop_name = #{cropName}
+            LIMIT 1
     </select>
 
 </mapper>

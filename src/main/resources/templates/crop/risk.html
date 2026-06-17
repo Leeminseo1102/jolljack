@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리스크 분석</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/crop.css}">
+    <link rel="stylesheet" th:href="@{/css/risk.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+
+<header class="crop-header" th:if="${reportMode != true}">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/main/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <nav class="crop-nav">
+            <a th:href="@{/crop/region}" class="crop-nav-item active">
+                🌱 재배 분석
+            </a>
+            <a th:href="@{/diag/ImgTrans}" class="crop-nav-item">
+                🔍 AI 병충해 진단
+            </a>
+        </nav>
+
+        <div class="crop-header-user">
+            <span class="header-username" th:text="${session.userName} + '님'">사용자님</span>
+            <a th:href="@{/mypage/view}" class="crop-nav-item">마이페이지</a>
+        </div>
+
+    </div>
+</header>
+
+<header class="crop-header" th:if="${reportMode == true}">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/mypage/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <div class="crop-header-user">
+            <span class="header-username" th:text="${session.userName} + '님'">사용자님</span>
+        </div>
+
+    </div>
+</header>
+
+<main class="risk-main">
+    <section class="risk-section">
+        <div class="risk-inner">
+
+            <div class="risk-card">
+                <h1 class="risk-page-title">리스크 분석</h1>
+
+                <div class="risk-top-info">
+                    <span id="riskRegionName" class="risk-region-name">-</span>
+                </div>
+
+                <div class="risk-content-grid">
+
+                    <!-- 왼쪽 -->
+                    <article class="risk-left-panel">
+                        <div class="risk-crop-badge-wrap">
+                            <span id="riskCropName" class="risk-crop-badge">작물명</span>
+                        </div>
+
+                        <div class="risk-list-box">
+                            <div class="risk-list-title">리스크 내용</div>
+                            <ul id="riskList" class="risk-list">
+                                <li class="risk-empty">리스크 데이터를 불러오는 중입니다.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- 오른쪽 -->
+                    <article class="risk-right-panel">
+                        <div class="risk-chart-title">리스크</div>
+
+                        <div class="risk-chart-wrap">
+                            <canvas id="riskChart"></canvas>
+                        </div>
+
+                        <div id="riskLegend" class="risk-legend"></div>
+                    </article>
+
+                </div>
+
+                <div class="risk-bottom">
+                    <button type="button"
+                            id="btnMain"
+                            class="btn-risk-confirm"
+                            th:text="${reportMode == true} ? '마이페이지로' : '메인페이지로'">
+                        메인페이지로
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+    const REPORT_MODE = /*[[${reportMode}]]*/ false;
+    const ANALYSIS_ID = /*[[${analysisId}]]*/ null;
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/risk.js}"></script>
+
+</body>
+</html>

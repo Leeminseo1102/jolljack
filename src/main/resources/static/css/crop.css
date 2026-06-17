@@ -1,0 +1,273 @@
+/* =====================================================
+   기본
+   ===================================================== */
+
+body {
+    background-color: #f4f8f4;
+}
+
+/* =====================================================
+   헤더
+   ===================================================== */
+
+.crop-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e4ede4;
+    box-shadow: 0 2px 12px rgba(35, 70, 42, 0.06);
+}
+
+.crop-header-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 로고 */
+.crop-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.crop-header-logo img {
+    height: 34px;
+}
+
+.crop-header-logo-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: #61b436;
+}
+
+/* 네비 */
+.crop-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.crop-nav-item {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #6a7c6b;
+    text-decoration: none;
+}
+
+.crop-nav-item.active {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* 유저 */
+.crop-header-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.header-username {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2e7d32;
+}
+
+.btn-header-logout {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: #999;
+}
+
+/* =====================================================
+   메인
+   ===================================================== */
+
+.crop-main {
+    padding: 40px 20px;
+}
+
+.crop-main-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =====================================================
+   제목 + 이미지
+   ===================================================== */
+
+.crop-page-title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.title-with-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.crop-title {
+    font-size: 50px;
+    font-weight: 800;
+}
+
+.crop-subtitle {
+    font-size: 14px;
+    color: #777;
+}
+
+.title-img {
+    width: 90px;
+}
+
+/* =====================================================
+   카드 영역
+   ===================================================== */
+
+.crop-content-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.crop-select-section {
+    width: 100%;
+    max-width: 500px;
+}
+
+.select-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.select-card-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+/* =====================================================
+   입력
+   ===================================================== */
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-select {
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 0 12px;
+}
+
+.form-select:disabled {
+    background: #f0f0f0;
+}
+
+/* =====================================================
+   선택 미리보기
+   ===================================================== */
+
+.selected-region-preview {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.preview-value {
+    font-weight: bold;
+}
+
+/* =====================================================
+   버튼
+   ===================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-full {
+    width: 100%;
+    height: 56px;
+    font-size: 18px;
+    border-radius: 14px;
+}
+
+/* =====================================================
+   안내
+   ===================================================== */
+
+.select-guide {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* =====================================================
+   메시지
+   ===================================================== */
+
+.msg-error {
+    color: red;
+    font-size: 12px;
+}
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
+@media (max-width: 640px) {
+
+    .title-with-img {
+        gap: 10px;
+    }
+
+    .title-img {
+        width: 65px;
+    }
+
+    .crop-title {
+        font-size: 24px;
+    }
+
+    .btn-full {
+        height: 52px;
+        font-size: 16px;
+    }
+}

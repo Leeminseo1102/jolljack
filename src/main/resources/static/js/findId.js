@@ -64,28 +64,28 @@ function resetVerifyState() {
     btnVerify.disabled = false;
 }
 
-function startTimer() {
+function startTimer(expireTime) {
     clearInterval(timerInterval);
 
-    let remaining = 3 * 60;
-
-    codeTimer.textContent = '03:00';
     codeTimer.className = 'msg-info';
 
     timerInterval = setInterval(function () {
-        remaining -= 1;
 
-        const min = String(Math.floor(remaining / 60)).padStart(2, '0');
-        const sec = String(remaining % 60).padStart(2, '0');
-
-        codeTimer.textContent = min + ':' + sec;
+        const remaining = Math.floor((expireTime - Date.now()) / 1000);
 
         if (remaining <= 0) {
             clearInterval(timerInterval);
             codeTimer.textContent = '인증 시간이 만료되었습니다.';
             codeTimer.className = 'msg-error';
             resetVerifyState();
+            return;
         }
+
+        const min = String(Math.floor(remaining / 60)).padStart(2, '0');
+        const sec = String(remaining % 60).padStart(2, '0');
+
+        codeTimer.textContent = min + ':' + sec;
+
     }, 1000);
 }
 
@@ -141,7 +141,7 @@ btnSendCode.addEventListener('click', function () {
             clearMsg(codeMsg);
 
             resetVerifyState();
-            startTimer();
+            startTimer(res.expireTime);
 
             btnSendCode.textContent = '재전송';
         }

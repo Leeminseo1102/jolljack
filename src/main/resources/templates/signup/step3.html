@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/signup.css}">
     <link rel="stylesheet" th:href="@{/css/signup-crop.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
 </head>
 <body>
 
@@ -127,10 +128,13 @@
     </div>
 </div>
 
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
 <script th:inline="javascript">
     const CTX = /*[[@{/}]]*/ '/';
 </script>
 <script th:src="@{/js/signup-step3.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
 
 </body>
 </html>

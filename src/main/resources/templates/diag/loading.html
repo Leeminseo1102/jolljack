@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>병충해 진단 로딩</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/cropLoading.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+
+<div class="crop-loading-wrapper">
+    <div class="crop-loading-scene">
+        <div class="crop-loading-deco crop-loading-deco-tl"></div>
+        <div class="crop-loading-deco crop-loading-deco-tr"></div>
+        <div class="crop-loading-deco crop-loading-deco-bl"></div>
+
+        <div class="crop-loading-logo">
+            <a th:href="@{/main/view}" class="crop-loading-logo-link">
+                <img th:src="@{/img/logo.png}" alt="AgriWatch 로고" class="crop-loading-logo-img">
+            </a>
+            <span class="crop-loading-logo-text">AGRIWATCH</span>
+        </div>
+
+        <div class="crop-loading-sky-obj" id="sun">
+            <img th:src="@{/img/sun.png}" alt="해">
+        </div>
+
+        <div class="crop-loading-sky-obj" id="cloud">
+            <img th:src="@{/img/clou.png}" alt="구름">
+        </div>
+
+        <div class="crop-loading-plant-wrap">
+            <img th:src="@{/img/pull.png}" alt="식물" id="plantImg" class="crop-loading-plant-img">
+        </div>
+
+        <div class="crop-loading-grass">
+            <svg class="crop-loading-grass-svg" viewBox="0 0 480 62" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <rect width="480" height="62" fill="#7cc46a"/>
+                <g fill="#5aaa48">
+                    <path d="M0,30 Q6,8 12,30 Q18,8 24,30 Q30,8 36,30 Q42,8 48,30 Q54,8 60,30 Q66,8 72,30 Q78,8 84,30 Q90,8 96,30 Q102,8 108,30 Q114,8 120,30 Q126,8 132,30 Q138,8 144,30 Q150,8 156,30 Q162,8 168,30 Q174,8 180,30 Q186,8 192,30 Q198,8 204,30 Q210,8 216,30 Q222,8 228,30 Q234,8 240,30 Q246,8 252,30 Q258,8 264,30 Q270,8 276,30 Q282,8 288,30 Q294,8 300,30 Q306,8 312,30 Q318,8 324,30 Q330,8 336,30 Q342,8 348,30 Q354,8 360,30 Q366,8 372,30 Q378,8 384,30 Q390,8 396,30 Q402,8 408,30 Q414,8 420,30 Q426,8 432,30 Q438,8 444,30 Q450,8 456,30 Q462,8 468,30 Q474,8 480,30 L480,62 L0,62 Z"/>
+                </g>
+                <g fill="#6dc45a" opacity="0.65">
+                    <path d="M3,36 Q9,18 15,36 Q21,18 27,36 Q33,18 39,36 Q45,18 51,36 Q57,18 63,36 Q69,18 75,36 Q81,18 87,36 Q93,18 99,36 Q105,18 111,36 Q117,18 123,36 Q129,18 135,36 Q141,18 147,36 Q153,18 159,36 Q165,18 171,36 Q177,18 183,36 Q189,18 195,36 Q201,18 207,36 Q213,18 219,36 Q225,18 231,36 Q237,18 243,36 Q249,18 255,36 Q261,18 267,36 Q273,18 279,36 Q285,18 291,36 Q297,18 303,36 Q309,18 315,36 Q321,18 327,36 Q333,18 339,36 Q345,18 351,36 Q357,18 363,36 Q369,18 375,36 Q381,18 387,36 Q393,18 399,36 Q405,18 411,36 Q417,18 423,36 Q429,18 435,36 Q441,18 447,36 Q453,18 459,36 Q465,18 471,36 Q477,18 480,36 L480,62 L3,62 Z"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <div class="crop-loading-text-wrap">
+        <h1 class="crop-loading-title">병충해 진단 중<span id="dots"></span></h1>
+        <p class="crop-loading-subtitle">업로드한 이미지의 증상을 분석하고 병충해 후보를 비교하고 있습니다</p>
+    </div>
+</div>
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/diagLoading.js}"></script>
+
+</body>
+</html>

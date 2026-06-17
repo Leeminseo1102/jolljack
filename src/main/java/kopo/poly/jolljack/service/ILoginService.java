@@ -13,4 +13,9 @@ public interface ILoginService {
     // 로그아웃 처리 (세션 초기화)
     void logoutProc(HttpSession session) throws Exception;
 
+    /**
+     * 탈퇴 계정 복구 처리
+     */
+    Map<String, Object> restoreUserProc(HttpSession session) throws Exception;
+
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재배 분석 - 지역 선택</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/crop.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+
+<header class="crop-header">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/main/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <nav class="crop-nav">
+            <a th:href="@{/crop/region}" class="crop-nav-item active">
+                🌱 재배 분석
+            </a>
+            <a th:href="@{/diag/ImgTrans}" class="crop-nav-item">
+                🔍 AI 병충해 진단
+            </a>
+        </nav>
+
+        <div class="crop-header-user">
+            <span class="header-username" th:text="${session.userName} + '님'">사용자님</span>
+            <a th:href="@{/mypage/view}" class="crop-nav-item">마이페이지</a>
+        </div>
+
+    </div>
+</header>
+
+<main class="crop-main">
+    <div class="crop-main-inner">
+
+        <div class="crop-page-title">
+                <div class="title-text">
+                    <h1 class="crop-title">재배 분석</h1>
+                    <p class="crop-subtitle">분석할 지역을 선택해주세요</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 중앙 카드 -->
+        <div class="crop-content-layout">
+
+            <div class="crop-select-section">
+                <div class="select-card">
+
+                    <h2 class="select-card-title">지역 선택</h2>
+
+                    <div class="form-group">
+                        <label>시도</label>
+                        <select id="sidoSelect" class="form-select">
+                            <option value="">시도를 선택해주세요</option>
+                            <option th:each="sido : ${sidoList}"
+                                    th:value="${sido.sidoName}"
+                                    th:text="${sido.sidoName}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>시군구</label>
+                        <select id="sigunguSelect" class="form-select" disabled>
+                            <option value="">시군구를 선택해주세요</option>
+                        </select>
+                        <span id="regionMsg" class="msg-error"></span>
+                    </div>
+
+                    <div class="selected-region-preview" id="selectedPreview" style="display: none;">
+                        <div class="preview-label">선택된 지역</div>
+                        <div class="preview-value" id="previewText"></div>
+                    </div>
+
+                    <button type="button" id="btnAnalyze" class="btn btn-primary btn-full">
+                        다음
+                    </button>
+
+                    <div class="select-guide">
+                        <p>📍 지역 선택 후 로딩 페이지로 이동합니다</p>
+                        <p>🌤 로딩 페이지에서 기상 데이터 조회를 진행합니다</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/region.js}"></script>
+
+</body>
+</html>

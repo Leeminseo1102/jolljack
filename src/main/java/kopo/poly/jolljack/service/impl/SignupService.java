@@ -7,6 +7,7 @@ import kopo.poly.jolljack.dto.CropDTO;
 import kopo.poly.jolljack.dto.RegionDTO;
 import kopo.poly.jolljack.dto.UserDTO;
 import kopo.poly.jolljack.mapper.ISignupMapper;
+import kopo.poly.jolljack.service.IRedisService;
 import kopo.poly.jolljack.service.ISignupService;
 import kopo.poly.jolljack.util.CmmUtil;
 import kopo.poly.jolljack.util.EncryptUtil;
@@ -32,13 +33,12 @@ public class SignupService implements ISignupService {
     @Value("${spring.mail.username}")
     private String fromMail;
 
+    private final IRedisService redisService;
     private final ISignupMapper signupMapper;
     private final JavaMailSender mailSender;
 
     private static final String SESSION_SIGNUP_NAME = "signupName";
     private static final String SESSION_SIGNUP_EMAIL = "signupEmail";
-    private static final String SESSION_EMAIL_CODE = "emailCode";
-    private static final String SESSION_EMAIL_CODE_EXPIRE_TIME = "emailCodeExpireTime";
     private static final String SESSION_EMAIL_VERIFIED = "emailVerified";
     private static final String SESSION_SIGNUP_LOGIN_ID = "signupLoginId";
     private static final String SESSION_SIGNUP_PASSWORD = "signupPassword";
@@ -75,12 +75,19 @@ public class SignupService implements ISignupService {
 
         session.setAttribute(SESSION_SIGNUP_NAME, name);
         session.setAttribute(SESSION_SIGNUP_EMAIL, email);
-        session.setAttribute(SESSION_EMAIL_CODE, code);
-        session.setAttribute(SESSION_EMAIL_CODE_EXPIRE_TIME, System.currentTimeMillis() + (3 * 60 * 1000L));
         session.removeAttribute(SESSION_EMAIL_VERIFIED);
+
+        // Redis에 인증번호 저장
+        redisService.setEmailVerifyCode("signup", email, code);
+
+        // Redis TTL 기준으로 만료시간 계산
+        long ttl = redisService.getEmailVerifyCodeTtl("signup", email);
+        long expireTime = System.currentTimeMillis() + (ttl * 1000L);
 
         rMap.put("result", "SEND_OK");
         rMap.put("msg", getMsg("SEND_OK"));
+        rMap.put("ttl", ttl);
+        rMap.put("expireTime", expireTime);
 
         return rMap;
     }
@@ -89,10 +96,10 @@ public class SignupService implements ISignupService {
     public Map<String, Object> verifyEmailCodeProc(HttpServletRequest request, HttpSession session) throws Exception {
 
         String inputCode = CmmUtil.nvl(request.getParameter("inputCode"));
-        String savedCode = CmmUtil.nvl((String) session.getAttribute(SESSION_EMAIL_CODE));
-        Long expireTime = (Long) session.getAttribute(SESSION_EMAIL_CODE_EXPIRE_TIME);
+        String email = CmmUtil.nvl((String) session.getAttribute(SESSION_SIGNUP_EMAIL));
+        String savedCode = redisService.getEmailVerifyCode("signup", email);
 
-        String result = verifyEmailCode(inputCode, savedCode, expireTime);
+        String result = verifyEmailCode(inputCode, savedCode);
 
         Map<String, Object> rMap = new HashMap<>();
         rMap.put("result", result);
@@ -100,8 +107,7 @@ public class SignupService implements ISignupService {
 
         if ("CODE_OK".equals(result)) {
             session.setAttribute(SESSION_EMAIL_VERIFIED, true);
-            session.removeAttribute(SESSION_EMAIL_CODE);
-            session.removeAttribute(SESSION_EMAIL_CODE_EXPIRE_TIME);
+            redisService.deleteEmailVerifyCode("signup", email);
         }
 
         return rMap;
@@ -314,18 +320,14 @@ public class SignupService implements ISignupService {
         return "EMAIL_OK";
     }
 
-    private String verifyEmailCode(String inputCode, String savedCode, Long expireTime) {
+    private String verifyEmailCode(String inputCode, String savedCode) {
 
         if (CmmUtil.nvl(inputCode).isEmpty()) {
             return "CODE_EMPTY";
         }
 
-        if (expireTime == null || System.currentTimeMillis() > expireTime) {
-            return "CODE_EXPIRED";
-        }
-
         if (CmmUtil.nvl(savedCode).isEmpty()) {
-            return "CODE_MISMATCH";
+            return "CODE_EXPIRED";
         }
 
         if (!savedCode.equals(inputCode.trim())) {
@@ -422,8 +424,6 @@ public class SignupService implements ISignupService {
     private void clearSignupSession(HttpSession session) {
         session.removeAttribute(SESSION_SIGNUP_NAME);
         session.removeAttribute(SESSION_SIGNUP_EMAIL);
-        session.removeAttribute(SESSION_EMAIL_CODE);
-        session.removeAttribute(SESSION_EMAIL_CODE_EXPIRE_TIME);
         session.removeAttribute(SESSION_EMAIL_VERIFIED);
         session.removeAttribute(SESSION_SIGNUP_LOGIN_ID);
         session.removeAttribute(SESSION_SIGNUP_PASSWORD);

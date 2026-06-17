@@ -16,7 +16,12 @@ function ajaxGet(url, callback) {
                 const res = JSON.parse(xhr.responseText);
                 callback(res);
             } else {
-                alert('요청 처리 중 오류가 발생했습니다.');
+                CommonModal.open({
+                    title: '오류',
+                    body: '요청 처리 중 오류가 발생했습니다.',
+                    confirmText: '확인',
+                    hideCancel: true
+                });
             }
         }
     };
@@ -36,7 +41,12 @@ function ajaxPost(url, data, callback) {
                 const res = JSON.parse(xhr.responseText);
                 callback(res);
             } else {
-                alert('요청 처리 중 오류가 발생했습니다.');
+                CommonModal.open({
+                    title: '오류',
+                    body: '요청 처리 중 오류가 발생했습니다.',
+                    confirmText: '확인',
+                    hideCancel: true
+                });
             }
         }
     };
@@ -127,8 +137,15 @@ btnComplete.addEventListener('click', function () {
 
     ajaxPost(CTX + 'signup/complete', data, function (res) {
         if (res.result === 'SIGNUP_OK') {
-            alert(res.msg);
-            location.href = CTX + 'login/form';
+            CommonModal.open({
+                title: '회원가입 완료',
+                body: res.msg,
+                confirmText: '로그인으로',
+                hideCancel: true,
+                onConfirm: function () {
+                    location.href = CTX + 'login/form';
+                }
+            });
             return;
         }
 
@@ -138,8 +155,15 @@ btnComplete.addEventListener('click', function () {
         }
 
         if (res.result === 'SESSION_INVALID') {
-            alert(res.msg + '\n처음부터 다시 진행해주세요.');
-            location.href = CTX + 'signup/step1';
+            CommonModal.open({
+                title: '다시 진행해주세요',
+                body: res.msg + '<br>처음부터 다시 진행해주세요.',
+                confirmText: '확인',
+                hideCancel: true,
+                onConfirm: function () {
+                    location.href = CTX + 'signup/step1';
+                }
+            });
             return;
         }
 

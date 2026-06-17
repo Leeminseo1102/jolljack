@@ -10,45 +10,28 @@ import lombok.*;
 @ToString
 public class DiseaseDiagnosisDTO {
 
-    // 진단 아이디 (PK)
+    // 진단 아이디 PK
     private Long diagnosisId;
 
-    // 회원번호 (FK → user.user_id)
+    // 회원번호 FK
     private Long userId;
 
-    // 이미지 경로 (VARCHAR 500)
-    private String imageUrl;
-
-    // 원본 파일명 (VARCHAR 255)
-    private String originalFileName;
-
-    // 예상 병명 (VARCHAR 150)
+    // 최종 예측 병충해명
     private String predictedDiseaseName;
 
-    // 병설명
+    // 병충해 설명
     private String diseaseDescription;
 
-    // 해결방안
+    // 방제 / 해결 방법
     private String solutionText;
 
-    // 증상요약 (VARCHAR 20)
+    // 증상 요약 + 후보별 매치 점수 요약
     private String symptomSummary;
 
-    // 예방방법
+    // 예방 방법
     private String preventionText;
 
     // 생성일시
     private String createdAt;
-
-//    // -----------------------------------------------
-//    // DB 컬럼 외 - 비즈니스 로직용 필드
-//    // -----------------------------------------------
-//
-    // 업로드된 이미지 파일 (MultipartFile → Base64 변환 전 임시 저장)
-    // Controller에서 Service로 넘길 때 사용
-    private String imageBase64;
-
-    // 이미지 MIME 타입 (ex: image/jpeg, image/png)
-    private String imageMimeType;
 
 }

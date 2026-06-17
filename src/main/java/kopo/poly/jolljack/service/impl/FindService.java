@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import kopo.poly.jolljack.dto.UserDTO;
 import kopo.poly.jolljack.mapper.IFindMapper;
 import kopo.poly.jolljack.service.IFindService;
+import kopo.poly.jolljack.service.IRedisService;
 import kopo.poly.jolljack.util.CmmUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,20 +28,18 @@ public class FindService implements IFindService {
     @Value("${spring.mail.username}")
     private String fromMail;
 
+    private final IRedisService redisService;
     private final IFindMapper findMapper;
     private final JavaMailSender mailSender;
 
     private static final String SESSION_FIND_NAME = "findName";
     private static final String SESSION_FIND_EMAIL = "findEmail";
-    private static final String SESSION_FIND_CODE = "findCode";
-    private static final String SESSION_FIND_CODE_EXPIRE_TIME = "findCodeExpireTime";
     private static final String SESSION_FIND_VERIFIED = "findVerified";
+
     private static final String SESSION_FIND_PW_USER_ID = "findPwUserId";
     private static final String SESSION_FIND_PW_LOGIN_ID = "findPwLoginId";
     private static final String SESSION_FIND_PW_NAME = "findPwName";
     private static final String SESSION_FIND_PW_EMAIL = "findPwEmail";
-    private static final String SESSION_FIND_PW_CODE = "findPwCode";
-    private static final String SESSION_FIND_PW_CODE_EXPIRE_TIME = "findPwCodeExpireTime";
     private static final String SESSION_FIND_PW_VERIFIED = "findPwVerified";
 
     @Override
@@ -90,12 +89,18 @@ public class FindService implements IFindService {
 
         session.setAttribute(SESSION_FIND_NAME, name);
         session.setAttribute(SESSION_FIND_EMAIL, email);
-        session.setAttribute(SESSION_FIND_CODE, code);
-        session.setAttribute(SESSION_FIND_CODE_EXPIRE_TIME, System.currentTimeMillis() + (3 * 60 * 1000L));
         session.removeAttribute(SESSION_FIND_VERIFIED);
+
+        redisService.setEmailVerifyCode("find-id", email, code);
+
+
+        long ttl = redisService.getEmailVerifyCodeTtl("find-id", email);
+        long expireTime = System.currentTimeMillis() + (ttl * 1000L);
 
         rMap.put("result", "SEND_OK");
         rMap.put("msg", getMsg("SEND_OK"));
+        rMap.put("ttl", ttl);
+        rMap.put("expireTime", expireTime);
 
         log.info("{}.sendFindIdEmailCodeProc End!", this.getClass().getName());
 
@@ -108,10 +113,10 @@ public class FindService implements IFindService {
         log.info("{}.verifyFindIdEmailCodeProc Start!", this.getClass().getName());
 
         String inputCode = CmmUtil.nvl(request.getParameter("inputCode"));
-        String savedCode = CmmUtil.nvl((String) session.getAttribute(SESSION_FIND_CODE));
-        Long expireTime = (Long) session.getAttribute(SESSION_FIND_CODE_EXPIRE_TIME);
+        String email = CmmUtil.nvl((String) session.getAttribute(SESSION_FIND_EMAIL));
+        String savedCode = redisService.getEmailVerifyCode("find-id", email);
 
-        String result = verifyEmailCode(inputCode, savedCode, expireTime);
+        String result = verifyEmailCode(inputCode, savedCode);
 
         Map<String, Object> rMap = new HashMap<>();
         rMap.put("result", result);
@@ -119,8 +124,7 @@ public class FindService implements IFindService {
 
         if ("CODE_OK".equals(result)) {
             session.setAttribute(SESSION_FIND_VERIFIED, true);
-            session.removeAttribute(SESSION_FIND_CODE);
-            session.removeAttribute(SESSION_FIND_CODE_EXPIRE_TIME);
+            redisService.deleteEmailVerifyCode("find-id", email);
         }
 
         log.info("{}.verifyFindIdEmailCodeProc End!", this.getClass().getName());
@@ -176,18 +180,14 @@ public class FindService implements IFindService {
         return rMap;
     }
 
-    private String verifyEmailCode(String inputCode, String savedCode, Long expireTime) {
+    private String verifyEmailCode(String inputCode, String savedCode) {
 
         if (CmmUtil.nvl(inputCode).isEmpty()) {
             return "CODE_EMPTY";
         }
 
-        if (expireTime == null || System.currentTimeMillis() > expireTime) {
-            return "CODE_EXPIRED";
-        }
-
         if (CmmUtil.nvl(savedCode).isEmpty()) {
-            return "CODE_MISMATCH";
+            return "CODE_EXPIRED";
         }
 
         if (!savedCode.equals(inputCode.trim())) {
@@ -235,8 +235,6 @@ public class FindService implements IFindService {
     private void clearFindIdSession(HttpSession session) {
         session.removeAttribute(SESSION_FIND_NAME);
         session.removeAttribute(SESSION_FIND_EMAIL);
-        session.removeAttribute(SESSION_FIND_CODE);
-        session.removeAttribute(SESSION_FIND_CODE_EXPIRE_TIME);
         session.removeAttribute(SESSION_FIND_VERIFIED);
     }
 
@@ -300,12 +298,17 @@ public class FindService implements IFindService {
         session.setAttribute(SESSION_FIND_PW_LOGIN_ID, loginId);
         session.setAttribute(SESSION_FIND_PW_NAME, name);
         session.setAttribute(SESSION_FIND_PW_EMAIL, email);
-        session.setAttribute(SESSION_FIND_PW_CODE, code);
-        session.setAttribute(SESSION_FIND_PW_CODE_EXPIRE_TIME, System.currentTimeMillis() + (3 * 60 * 1000L));
         session.removeAttribute(SESSION_FIND_PW_VERIFIED);
+
+        redisService.setEmailVerifyCode("find-pw", email, code);
+
+        long ttl = redisService.getEmailVerifyCodeTtl("find-pw", email);
+        long expireTime = System.currentTimeMillis() + (ttl * 1000L);
 
         rMap.put("result", "SEND_OK");
         rMap.put("msg", getMsg("SEND_OK"));
+        rMap.put("ttl", ttl);
+        rMap.put("expireTime", expireTime);
 
         log.info("{}.sendFindPwEmailCodeProc End!", this.getClass().getName());
 
@@ -318,10 +321,10 @@ public class FindService implements IFindService {
         log.info("{}.verifyFindPwEmailCodeProc Start!", this.getClass().getName());
 
         String inputCode = CmmUtil.nvl(request.getParameter("inputCode"));
-        String savedCode = CmmUtil.nvl((String) session.getAttribute(SESSION_FIND_PW_CODE));
-        Long expireTime = (Long) session.getAttribute(SESSION_FIND_PW_CODE_EXPIRE_TIME);
+        String email = CmmUtil.nvl((String) session.getAttribute(SESSION_FIND_PW_EMAIL));
+        String savedCode = redisService.getEmailVerifyCode("find-pw", email);
 
-        String result = verifyEmailCode(inputCode, savedCode, expireTime);
+        String result = verifyEmailCode(inputCode, savedCode);
 
         Map<String, Object> rMap = new HashMap<>();
         rMap.put("result", result);
@@ -329,8 +332,7 @@ public class FindService implements IFindService {
 
         if ("CODE_OK".equals(result)) {
             session.setAttribute(SESSION_FIND_PW_VERIFIED, true);
-            session.removeAttribute(SESSION_FIND_PW_CODE);
-            session.removeAttribute(SESSION_FIND_PW_CODE_EXPIRE_TIME);
+            redisService.deleteEmailVerifyCode("find-pw", email);
         }
 
         log.info("{}.verifyFindPwEmailCodeProc End!", this.getClass().getName());
@@ -451,8 +453,6 @@ public class FindService implements IFindService {
         session.removeAttribute(SESSION_FIND_PW_LOGIN_ID);
         session.removeAttribute(SESSION_FIND_PW_NAME);
         session.removeAttribute(SESSION_FIND_PW_EMAIL);
-        session.removeAttribute(SESSION_FIND_PW_CODE);
-        session.removeAttribute(SESSION_FIND_PW_CODE_EXPIRE_TIME);
         session.removeAttribute(SESSION_FIND_PW_VERIFIED);
     }
 

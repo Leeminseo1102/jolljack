@@ -5,8 +5,8 @@
 <mapper namespace="kopo.poly.jolljack.mapper.IFindMapper">
 
     <select id="getUserByNameAndEmail" parameterType="UserDTO" resultType="UserDTO">
-        SELECT user_id  AS userId,
-               login_id AS loginId,
+        SELECT user_id,
+               login_id,
                name,
                email,
                status
@@ -18,11 +18,11 @@
     </select>
 
     <select id="getUserByLoginIdAndNameAndEmail" parameterType="UserDTO" resultType="UserDTO">
-        SELECT user_id       AS userId,
-               login_id      AS loginId,
+        SELECT user_id,
+               login_id,
                name,
                email,
-               password_hash AS passwordHash,
+               password_hash,
                status
         FROM users
         WHERE login_id = #{loginId}
@@ -40,8 +40,8 @@
     </update>
 
     <select id="getUserByUserId" parameterType="UserDTO" resultType="UserDTO">
-        SELECT user_id       AS userId,
-               password_hash AS passwordHash
+        SELECT user_id,
+               password_hash
         FROM users
         WHERE user_id = #{userId}
           AND status = 'ACTIVE'

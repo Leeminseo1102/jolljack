@@ -1,0 +1,512 @@
+body {
+    background: #f3f5f3;
+}
+
+/* =====================================================
+   결과 상단 지도 영역
+   ===================================================== */
+
+.result-main {
+    width: 100%;
+}
+
+.result-hero-section {
+    padding: 20px 20px 30px;
+    background: linear-gradient(180deg, #f4f8f4 0%, #eef6ef 100%);
+}
+
+.result-hero-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.result-map-card {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 140px);
+    min-height: 620px;
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #dfe9df;
+    box-shadow: 0 18px 45px rgba(35, 70, 42, 0.10);
+}
+
+.result-map {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+/* 범례 */
+.result-legend {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 420px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #dde7dd;
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(35, 70, 42, 0.10);
+}
+
+.result-legend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 56px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.result-legend-item img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.legend-color {
+    width: 28px;
+    height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.legend-rice {
+    background: #E4E66B;
+}
+
+.legend-potato {
+    background: #F0B400;
+}
+
+.legend-apple {
+    background: #EA0000;
+}
+
+.legend-grape {
+    background: #A45AE9;
+}
+
+.legend-pepper {
+    background: #A8001F;
+}
+
+.legend-cabbage {
+    background: #61E61A;
+}
+
+/* 지도 위 추천 정보 */
+.result-map-overlay {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    z-index: 20;
+    min-width: 280px;
+    max-width: 380px;
+    padding: 18px 18px 16px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #dde7dd;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(35, 70, 42, 0.10);
+}
+
+.result-map-overlay-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c8c7d;
+    margin-bottom: 10px;
+}
+
+.result-map-overlay-crop-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.result-map-overlay-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+    background: #f7faf7;
+    border: 1px solid #e0e7e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.result-map-overlay-icon img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.result-map-overlay-text strong {
+    display: block;
+    font-size: 24px;
+    font-weight: 900;
+    color: #1f2b20;
+    line-height: 1.2;
+}
+
+.result-map-overlay-text p {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #6d7d6f;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+/* 지도 위 스크롤 안내 */
+.result-scroll-guide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    border: none;
+    color: #2e7d32;
+    cursor: pointer;
+}
+
+.result-scroll-guide-overlay {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    z-index: 25;
+    padding: 12px 18px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 20px rgba(35, 70, 42, 0.10);
+}
+
+.result-scroll-arrow {
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 800;
+}
+
+.result-scroll-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5f6d61;
+    white-space: nowrap;
+}
+
+/* =====================================================
+   결과 상세 영역
+   ===================================================== */
+
+.result-detail-section {
+    position: relative;
+    padding: 48px 20px 100px;
+    background:
+            radial-gradient(circle at left 20%, rgba(124, 196, 106, 0.18) 0, rgba(124, 196, 106, 0.18) 120px, transparent 121px),
+            radial-gradient(circle at right 85%, rgba(112, 196, 214, 0.25) 0, rgba(112, 196, 214, 0.25) 180px, transparent 181px),
+            linear-gradient(180deg, #f3f5f3 0%, #eef2ef 100%);
+    overflow: hidden;
+}
+
+.result-detail-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.result-summary-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.result-summary-item {
+    background: #ffffff;
+    border: 1px solid #e4ede4;
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 8px 20px rgba(35, 70, 42, 0.06);
+}
+
+.result-summary-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #7c8c7d;
+}
+
+.result-summary-value {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1f2b20;
+    line-height: 1.3;
+    word-break: keep-all;
+}
+
+.result-summary-crop .result-summary-value {
+    color: #2e7d32;
+}
+
+.result-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.result-detail-card {
+    min-height: 320px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e4ede4;
+    box-shadow: 0 16px 40px rgba(35, 70, 42, 0.08);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+.result-detail-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #111111;
+    text-align: center;
+    margin-bottom: 22px;
+    letter-spacing: -0.5px;
+}
+
+.result-detail-body {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.9;
+    color: #1f2b20;
+    white-space: pre-line;
+    word-break: keep-all;
+    text-align: left;
+    flex: 1;
+}
+
+/* 날씨 카드 */
+.result-weather-card {
+    min-height: auto;
+    margin-top: 28px;
+}
+
+.result-weather-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 0;
+}
+
+.result-weather-metric {
+    background: #f7faf7;
+    border: 1px solid #e1eae2;
+    border-radius: 18px;
+    padding: 18px 16px;
+    text-align: center;
+}
+
+.result-weather-metric-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #738174;
+}
+
+.result-weather-metric-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 900;
+    color: #1f2b20;
+    line-height: 1.2;
+}
+
+/* 리스크 페이지 이동 버튼 */
+.result-detail-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.btn-result-risk {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    height: 54px;
+    padding: 0 28px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #23462a 0%, #2e7d32 100%);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(35, 70, 42, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-result-risk:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(35, 70, 42, 0.22);
+}
+
+.btn-result-risk:active {
+    transform: translateY(0);
+}
+
+.btn-result-risk:focus-visible {
+    outline: 3px solid rgba(46, 125, 50, 0.25);
+    outline-offset: 3px;
+}
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
+@media (max-width: 1024px) {
+    .result-summary-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .result-map-card {
+        height: 68vh;
+        min-height: 520px;
+    }
+
+    .result-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-weather-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .result-detail-card {
+        min-height: 280px;
+    }
+}
+
+@media (max-width: 640px) {
+    .result-hero-section {
+        padding: 14px 14px 20px;
+    }
+
+    .result-map-card {
+        height: 62vh;
+        min-height: 420px;
+        border-radius: 18px;
+    }
+
+    .result-legend {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        max-width: none;
+        justify-content: center;
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .result-legend-item {
+        width: 46px;
+    }
+
+    .result-legend-item img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .legend-color {
+        width: 24px;
+        height: 12px;
+    }
+
+    .result-map-overlay {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        min-width: auto;
+        max-width: none;
+        padding: 14px;
+    }
+
+    .result-map-overlay-text strong {
+        font-size: 20px;
+    }
+
+    .result-scroll-guide-overlay {
+        bottom: 18px;
+        padding: 10px 14px 8px;
+    }
+
+    .result-scroll-arrow {
+        font-size: 26px;
+    }
+
+    .result-scroll-text {
+        font-size: 11px;
+    }
+
+    .result-detail-section {
+        padding: 36px 14px 70px;
+    }
+
+    .result-summary-item {
+        padding: 14px 16px;
+    }
+
+    .result-summary-value {
+        font-size: 18px;
+    }
+
+    .result-detail-card {
+        min-height: 240px;
+        padding: 24px 20px;
+        border-radius: 18px;
+    }
+
+    .result-detail-title {
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+
+    .result-detail-body {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .result-weather-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .result-weather-metric {
+        padding: 16px 14px;
+    }
+
+    .result-weather-metric-value {
+        font-size: 20px;
+    }
+
+    .result-detail-action {
+        margin-top: 22px;
+    }
+
+    .btn-result-risk {
+        width: 100%;
+        min-width: auto;
+        height: 50px;
+        font-size: 15px;
+        padding: 0 20px;
+    }
+}

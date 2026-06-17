@@ -6,11 +6,11 @@
 
 
     <select id="getLoginUser" parameterType="UserDTO" resultType="UserDTO">
-        SELECT user_id      AS userId,
-               login_id     AS loginId,
+        SELECT user_id,
+               login_id,
                name,
                email,
-               region_id    AS regionId,
+               region_id,
                status
         FROM users
         WHERE login_id      = #{loginId}
@@ -23,6 +23,48 @@
         UPDATE users
         SET last_login_at = NOW()
         WHERE user_id = #{userId}
+    </update>
+
+    <select id="getLoginUserIncludeDeleted" parameterType="UserDTO" resultType="UserDTO">
+        SELECT user_id,
+               login_id,
+               name,
+               email,
+               password_hash,
+               region_id,
+               favorite_crop_id,
+               status,
+               deleted_at
+        FROM users
+        WHERE login_id = #{loginId}
+          AND password_hash = #{passwordHash}
+            LIMIT 1
+    </select>
+
+    <select id="getDeletedUserWithin15Days" parameterType="UserDTO" resultType="UserDTO">
+        SELECT user_id,
+               login_id,
+               name,
+               email,
+               status,
+               deleted_at
+        FROM users
+        WHERE user_id = #{userId}
+          AND status = 'DELETED'
+          AND deleted_at IS NOT NULL
+          AND deleted_at > DATE_SUB(NOW(), INTERVAL 15 DAY)
+            LIMIT 1
+    </select>
+
+    <update id="restoreUser" parameterType="UserDTO">
+        UPDATE users
+        SET status = 'ACTIVE',
+            deleted_at = NULL,
+            updated_at = NOW()
+        WHERE user_id = #{userId}
+          AND status = 'DELETED'
+          AND deleted_at IS NOT NULL
+          AND deleted_at > DATE_SUB(NOW(), INTERVAL 15 DAY)
     </update>
 
 </mapper>

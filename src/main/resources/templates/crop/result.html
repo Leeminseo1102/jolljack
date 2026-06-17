@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재배 분석 결과</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/crop.css}">
+    <link rel="stylesheet" th:href="@{/css/result.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+<body>
+
+<header class="crop-header" th:if="${reportMode != true}">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/main/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <nav class="crop-nav">
+            <a th:href="@{/crop/region}" class="crop-nav-item active">
+                🌱 재배 분석
+            </a>
+            <a th:href="@{/diag/ImgTrans}" class="crop-nav-item">
+                🔍 AI 병충해 진단
+            </a>
+        </nav>
+
+        <div class="crop-header-user">
+            <span class="header-username" th:text="${session.userName} + '님'">사용자님</span>
+            <a th:href="@{/mypage/view}" class="crop-nav-item">마이페이지</a>
+        </div>
+
+    </div>
+</header>
+
+<header class="crop-header" th:if="${reportMode == true}">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/mypage/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <div class="crop-header-user">
+            <span class="header-username" th:text="${session.userName} + '님'">사용자님</span>
+        </div>
+
+    </div>
+</header>
+
+<main class="result-main">
+
+    <section class="result-hero-section">
+        <div class="result-hero-inner">
+
+            <div class="result-map-card">
+                <div class="result-legend">
+                    <div class="result-legend-item" data-crop="벼">
+                        <img th:src="@{/img/bbuu.png}" alt="벼">
+                        <span class="legend-color legend-rice"></span>
+                    </div>
+                    <div class="result-legend-item" data-crop="감자">
+                        <img th:src="@{/img/gamja.png}" alt="감자">
+                        <span class="legend-color legend-potato"></span>
+                    </div>
+                    <div class="result-legend-item" data-crop="사과">
+                        <img th:src="@{/img/saga.png}" alt="사과">
+                        <span class="legend-color legend-apple"></span>
+                    </div>
+                    <div class="result-legend-item" data-crop="포도">
+                        <img th:src="@{/img/podo.png}" alt="포도">
+                        <span class="legend-color legend-grape"></span>
+                    </div>
+                    <div class="result-legend-item" data-crop="고추">
+                        <img th:src="@{/img/gochu.png}" alt="고추">
+                        <span class="legend-color legend-pepper"></span>
+                    </div>
+                    <div class="result-legend-item" data-crop="배추">
+                        <img th:src="@{/img/bachu.png}" alt="배추">
+                        <span class="legend-color legend-cabbage"></span>
+                    </div>
+                </div>
+
+                <div class="result-map-overlay">
+                    <div class="result-map-overlay-title">현재 추천 작물</div>
+                    <div class="result-map-overlay-crop-wrap">
+                        <div class="result-map-overlay-icon">
+                            <img id="cropIcon" th:src="@{/img/logo.png}" alt="추천 작물 아이콘">
+                        </div>
+                        <div class="result-map-overlay-text">
+                            <strong id="mapCropName">-</strong>
+                            <p id="mapRegionName">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="btnScrollDetail" class="result-scroll-guide result-scroll-guide-overlay">
+                    <span class="result-scroll-arrow">⌄</span>
+                    <span class="result-scroll-text">스크롤해서 자세히 보기</span>
+                </button>
+
+                <div id="resultMap" class="result-map"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="detailSection" class="result-detail-section">
+        <div class="result-detail-inner">
+
+            <div class="result-summary-bar">
+                <div class="result-summary-item">
+                    <span class="result-summary-label">선택 지역</span>
+                    <strong id="fullRegionName" class="result-summary-value">-</strong>
+                </div>
+
+                <div class="result-summary-item result-summary-crop">
+                    <span class="result-summary-label">추천 작물</span>
+                    <strong id="cropName" class="result-summary-value">-</strong>
+                </div>
+
+                <div class="result-summary-item">
+                    <span class="result-summary-label">추천 점수</span>
+                    <strong id="score" class="result-summary-value">-</strong>
+                </div>
+            </div>
+
+            <div class="result-detail-grid">
+                <article class="result-detail-card">
+                    <h2 class="result-detail-title">추천 이유</h2>
+                    <div id="recommendedReason" class="result-detail-body">
+                        내용을 불러오는 중입니다.
+                    </div>
+                </article>
+
+                <article class="result-detail-card">
+                    <h2 class="result-detail-title">재배 방법</h2>
+                    <div id="cultivationMethod" class="result-detail-body">
+                        내용을 불러오는 중입니다.
+                    </div>
+                </article>
+            </div>
+
+            <article class="result-detail-card result-weather-card">
+                <h2 class="result-detail-title">날씨 요약</h2>
+
+                <div class="result-weather-metrics">
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">1년 평균 기온</span>
+                        <strong id="yearAvgTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">1년 최고 기온</span>
+                        <strong id="yearMaxTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">1년 최저 기온</span>
+                        <strong id="yearMinTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">6개월 평균 기온</span>
+                        <strong id="sixMonthAvgTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">6개월 최고 기온</span>
+                        <strong id="sixMonthMaxTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">6개월 최저 기온</span>
+                        <strong id="sixMonthMinTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">3개월 평균 기온</span>
+                        <strong id="threeMonthAvgTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">3개월 최고 기온</span>
+                        <strong id="threeMonthMaxTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                    <div class="result-weather-metric">
+                        <span class="result-weather-metric-label">3개월 최저 기온</span>
+                        <strong id="threeMonthMinTempValue" class="result-weather-metric-value">-</strong>
+                    </div>
+                </div>
+            </article>
+
+            <div class="result-detail-action">
+                <a th:if="${reportMode == true}"
+                   th:href="@{/mypage/analysis/risk/{analysisId}(analysisId=${analysisId})}"
+                   class="btn-result-risk">
+                    리스크 페이지로 이동
+                </a>
+
+                <a th:if="${reportMode != true}"
+                   th:href="@{/crop/risk}"
+                   class="btn-result-risk">
+                    리스크 페이지로 이동
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+    const REPORT_MODE = /*[[${reportMode}]]*/ false;
+    const ANALYSIS_ID = /*[[${analysisId}]]*/ null;
+</script>
+
+<script type="text/javascript"
+        src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=pyg81drfh3"></script>
+
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/result.js}"></script>
+
+</body>
+</html>
