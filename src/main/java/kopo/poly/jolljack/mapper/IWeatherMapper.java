@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IWeatherMapper {
 
-    Long getRegionId(Long userId);
+    Long getRegionId(RegionGridDTO pDTO) throws Exception;
 
-    RegionGridDTO getRegionGrid(Long regionId);
+    RegionGridDTO getRegionGrid(RegionGridDTO pDTO) throws Exception;
 }
