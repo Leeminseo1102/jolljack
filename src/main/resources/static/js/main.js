@@ -1,4 +1,6 @@
 const mainHeader = document.querySelector('.main-header');
+const mainSidebar = document.getElementById('mainSidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
 
 if (mainHeader) {
     window.addEventListener('scroll', function () {
@@ -47,5 +49,28 @@ if (btnLogout) {
             }
         });
 
+    });
+}
+// 사이드바
+if (mainSidebar && sidebarToggle) {
+
+    sidebarToggle.addEventListener('click', function () {
+
+        mainSidebar.classList.toggle('open');
+
+        const isOpen = mainSidebar.classList.contains('open');
+
+        sidebarToggle.setAttribute(
+            'aria-expanded',
+            isOpen
+        );
+
+        sidebarToggle.setAttribute(
+            'aria-label',
+            isOpen ? '사이드바 닫기' : '사이드바 열기'
+        );
+
+        sidebarToggle.textContent =
+            isOpen ? '›' : '‹';
     });
 }

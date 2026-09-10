@@ -36,6 +36,133 @@
     </div>
 </header>
 
+<!-- 사이드바 -->
+<aside th:if="${session.userId != null}"
+       class="main-sidebar"
+       id="mainSidebar">
+
+    <button type="button"
+            class="sidebar-toggle"
+            id="sidebarToggle"
+            aria-label="사이드바 열기"
+            aria-expanded="false">
+        ‹
+    </button>
+
+    <div class="sidebar-inner">
+
+        <!-- 날씨 조회 성공 -->
+        <div th:if="${weather != null}"
+             class="weather-card">
+
+            <p class="weather-region"
+               th:text="${weather.region}">
+                서울특별시 강남구
+            </p>
+
+            <div class="weather-main">
+
+                <div class="weather-icon-wrap"
+                     th:switch="${weather.weather}">
+
+                    <img th:case="'맑음'"
+                         th:src="@{/img/sunny.png}"
+                         class="weather-icon"
+                         alt="맑음">
+
+                    <img th:case="'구름 많음'"
+                         th:src="@{/img/cloudy.png}"
+                         class="weather-icon"
+                         alt="구름 많음">
+
+                    <img th:case="'흐림'"
+                         th:src="@{/img/overcast.png}"
+                         class="weather-icon"
+                         alt="흐림">
+
+                    <img th:case="'비'"
+                         th:src="@{/img/rain.png}"
+                         class="weather-icon"
+                         alt="비">
+
+                    <img th:case="'눈'"
+                         th:src="@{/img/snow.png}"
+                         class="weather-icon"
+                         alt="눈">
+
+                    <img th:case="'눈 / 비'"
+                         th:src="@{/img/sleet.png}"
+                         class="weather-icon"
+                         alt="눈 / 비">
+
+                    <img th:case="*"
+                         th:src="@{/img/cloudy.png}"
+                         class="weather-icon"
+                         alt="날씨">
+
+                </div>
+
+                <div class="weather-summary">
+                    <strong class="weather-status"
+                            th:text="${weather.weather}">
+                        맑음
+                    </strong>
+
+                    <span class="weather-temp"
+                          th:text="${weather.temp + '℃'}">
+                        18℃
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="weather-detail">
+
+                <div class="weather-detail-item">
+                    <span class="weather-detail-label">습도</span>
+                    <strong th:text="${weather.humidity + '%'}">70%</strong>
+                </div>
+
+                <div class="weather-detail-item">
+                    <span class="weather-detail-label">강수량</span>
+                    <strong th:text="${weather.rainfall}">강수없음</strong>
+                </div>
+
+                <div class="weather-detail-item">
+                    <span class="weather-detail-label">강수확률</span>
+                    <strong th:text="${weather.rainChance + '%'}">20%</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 날씨 조회 실패 -->
+        <div th:if="${weather == null}"
+             class="weather-card weather-card-empty">
+            <p>날씨 정보를 불러올 수 없습니다.</p>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <nav class="sidebar-menu">
+
+            <button type="button"
+                    class="sidebar-menu-item">
+                농업 사전
+            </button>
+
+            <button type="button"
+                    class="sidebar-menu-item">
+                작물 마켓
+            </button>
+
+        </nav>
+
+    </div>
+
+</aside>
+
 <section class="hero-section">
     <div class="hero-inner">
         <div class="hero-text">
