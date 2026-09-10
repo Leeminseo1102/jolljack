@@ -1,9 +1,11 @@
 package kopo.poly.jolljack.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 
 import java.util.List;
 
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record RegionWeatherRE(
         Response response
@@ -11,7 +13,14 @@ public record RegionWeatherRE(
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record Response(
+            Header header,
             Body body
+    ) {}
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record Header(
+            String resultCode,
+            String resultMsg
     ) {}
 
     @JsonIgnoreProperties(ignoreUnknown = true)
