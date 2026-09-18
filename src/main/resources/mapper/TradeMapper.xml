@@ -4,14 +4,15 @@
 
 <mapper namespace="kopo.poly.jolljack.mapper.ITradeMapper">
 
-    <select id="getTradePostCount" parameterType="TradePageDTO" resultType="Long">
+    <select id="getTradePostCount" parameterType="TradeSearchDTO" resultType="Long">
         SELECT COUNT(*)
         FROM trade_post
         WHERE region_id = #{regionId}
           AND status != 'DELETED'
     </select>
 
-    <select id="getTradePostList" parameterType="TradePageDTO" resultType="TradePostListDTO">
+
+    <select id="getTradePostList" parameterType="TradeSearchDTO" resultType="TradePostListDTO">
         SELECT trade_post_id,
                region_id,
                title,
