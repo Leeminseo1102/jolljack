@@ -1,0 +1,962 @@
+body {
+    background: #f7fbf8;
+}
+
+
+/* =====================================================
+   전체
+   ===================================================== */
+
+.trade-main {
+    padding: 40px 24px 80px;
+}
+
+.trade-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   제목
+   ===================================================== */
+
+.trade-page-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.trade-title {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 800;
+    color: #263428;
+}
+
+.trade-subtitle {
+    margin: 7px 0 0;
+    font-size: 14px;
+    color: #788078;
+}
+
+.trade-register-btn {
+    padding: 11px 20px;
+    border: 0;
+    border-radius: 10px;
+    background: #2e7d32;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.trade-register-btn:hover {
+    background: #256b29;
+}
+
+
+/* =====================================================
+   전체 3단
+   ===================================================== */
+
+.trade-layout {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr) 235px;
+    gap: 18px;
+    align-items: start;
+}
+
+
+/* =====================================================
+   패널
+   ===================================================== */
+
+.trade-region-panel,
+.trade-list-panel,
+.trade-top-panel {
+    background: #fff;
+    border: 1px solid #e2ebe3;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(35, 70, 42, 0.05);
+}
+
+.trade-panel-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #293b2b;
+}
+
+
+/* =====================================================
+   왼쪽 지역 패널
+   ===================================================== */
+
+.trade-region-panel {
+    padding: 22px 18px;
+    text-align: center;
+}
+
+.trade-region-icon {
+    margin-top: 28px;
+    font-size: 31px;
+}
+
+.trade-region-label {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #8c938d;
+}
+
+.trade-region-name {
+    display: block;
+    margin-top: 7px;
+    min-height: 30px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #2d4230;
+    word-break: keep-all;
+}
+
+.trade-region-btn {
+    width: 100%;
+    margin-top: 19px;
+    padding: 10px;
+    border: 1px solid #acd6ae;
+    border-radius: 10px;
+    background: #f1f8f1;
+    color: #2e7d32;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.trade-region-btn:hover {
+    background: #e6f3e7;
+}
+
+.trade-region-count-box {
+    margin-top: 23px;
+    padding-top: 18px;
+    border-top: 1px solid #edf1ed;
+}
+
+.trade-region-count-label {
+    display: block;
+    font-size: 12px;
+    color: #8b918c;
+}
+
+.trade-region-count {
+    display: block;
+    margin-top: 5px;
+    font-size: 20px;
+    color: #2e7d32;
+}
+
+.trade-region-guide {
+    margin: 22px 0 0;
+    font-size: 11px;
+    line-height: 1.7;
+    color: #a1a7a2;
+}
+
+
+/* =====================================================
+   거래 목록
+   ===================================================== */
+
+.trade-list-panel {
+    min-height: 560px;
+    padding: 18px;
+    background: #fdfbf8;
+}
+
+.trade-content {
+    width: 100%;
+}
+
+.trade-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trade-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+    border: 1px solid #e3ebe3;
+    border-radius: 13px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.trade-item:hover {
+    transform: translateY(-1px);
+    border-color: #b2d7b5;
+    box-shadow: 0 5px 14px rgba(35, 70, 42, 0.07);
+}
+
+
+/* =====================================================
+   이미지
+   ===================================================== */
+
+.trade-item-image {
+    width: 105px;
+    height: 85px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #edf4ed;
+}
+
+
+/* =====================================================
+   게시글 정보
+   ===================================================== */
+
+.trade-item-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.trade-item-title {
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #333;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trade-item-price {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #2e7d32;
+}
+
+.trade-item-quantity {
+    font-size: 12px;
+    color: #6f766f;
+}
+
+.trade-item-date {
+    font-size: 11px;
+    color: #aaa;
+}
+
+
+/* =====================================================
+   게시글 없음
+   ===================================================== */
+
+.trade-empty {
+    min-height: 520px;
+    align-items: center;
+    justify-content: center;
+}
+
+.trade-empty-image {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+
+/* =====================================================
+   페이징
+   ===================================================== */
+
+.trade-pagination {
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 25px;
+}
+
+.trade-page-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #dce7dc;
+    border-radius: 9px;
+    background: #fff;
+    color: #666;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.trade-page-btn:hover {
+    border-color: #a5d6a7;
+    background: #f2f8f2;
+    color: #2e7d32;
+}
+
+.trade-page-btn.active {
+    border-color: #2e7d32;
+    background: #2e7d32;
+    color: #fff;
+}
+
+
+/* =====================================================
+   TOP 5
+   ===================================================== */
+
+.trade-top-panel {
+    padding: 22px 17px;
+}
+
+.trade-top-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 17px;
+}
+
+.trade-top-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 0;
+    border-bottom: 1px solid #edf1ed;
+}
+
+.trade-top-item:last-child {
+    border-bottom: 0;
+}
+
+.trade-top-rank {
+    width: 21px;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: #2e7d32;
+}
+
+.trade-top-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.trade-top-info strong {
+    overflow: hidden;
+    font-size: 12px;
+    color: #444;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trade-top-info span {
+    font-size: 11px;
+    color: #888;
+}
+
+.trade-top-heart {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #df6b73;
+}
+
+
+/* =====================================================
+   지역 선택 모달
+   ===================================================== */
+
+.trade-region-modal-form {
+    padding-top: 5px;
+}
+
+.trade-modal-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.trade-modal-form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #424c43;
+}
+
+.trade-modal-select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d9e4da;
+    border-radius: 9px;
+    background: #fff;
+    font-size: 13px;
+    outline: none;
+}
+
+.trade-modal-select:focus {
+    border-color: #65a86a;
+}
+
+.trade-modal-guide {
+    margin: 13px 0 0;
+    font-size: 12px;
+    color: #929993;
+}
+
+
+/* =====================================================
+   채팅 버튼
+   ===================================================== */
+
+.trade-chat-btn {
+    position: fixed;
+    right: 32px;
+    bottom: 30px;
+    width: 58px;
+    height: 58px;
+    border: 0;
+    border-radius: 50%;
+    background: #2e7d32;
+    color: #fff;
+    font-size: 25px;
+    box-shadow: 0 8px 22px rgba(46, 125, 50, 0.25);
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    .trade-layout {
+        grid-template-columns: 180px minmax(0, 1fr);
+    }
+
+    .trade-top-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .trade-main {
+        padding: 28px 14px 70px;
+    }
+
+    .trade-page-title {
+        align-items: flex-start;
+    }
+
+    .trade-title {
+        font-size: 28px;
+    }
+
+    .trade-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-top-panel {
+        grid-column: auto;
+    }
+
+    .trade-list-panel {
+        min-height: 420px;
+    }
+
+    .trade-empty {
+        min-height: 400px;
+    }
+
+    .trade-item-image {
+        width: 85px;
+        height: 75px;
+    }
+}
+
+
+/* =====================================================
+   거래 상세 모달
+   ===================================================== */
+
+.trade-detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+
+.trade-detail-modal[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   상세 모달 배경
+   ===================================================== */
+
+.trade-detail-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.52);
+}
+
+
+/* =====================================================
+   상세 모달 본체
+   ===================================================== */
+
+.trade-detail-dialog {
+    position: relative;
+    z-index: 1;
+
+    width: min(1080px, calc(100vw - 48px));
+    max-height: calc(100vh - 48px);
+
+    overflow-y: auto;
+
+    border: 1px solid #e2ebe3;
+    border-radius: 18px;
+
+    background: #fff;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =====================================================
+   닫기 버튼
+   ===================================================== */
+
+.trade-detail-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+
+    width: 40px;
+    height: 40px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    color: #555;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+.trade-detail-close-btn:hover {
+    background: #f2f5f2;
+}
+
+
+/* =====================================================
+   상세 모달 레이아웃
+   ===================================================== */
+
+.trade-detail-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 1fr);
+
+    min-height: 560px;
+}
+
+
+/* =====================================================
+   상세 상품 이미지
+   ===================================================== */
+
+.trade-detail-image-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 560px;
+
+    padding: 24px;
+
+    border-radius: 18px 0 0 18px;
+
+    background: #f8faf8;
+
+    overflow: hidden;
+}
+
+
+.trade-detail-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+    max-height: 560px;
+
+    object-fit: contain;
+}
+
+
+/* =====================================================
+   상세 상품 정보
+   ===================================================== */
+
+.trade-detail-info {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    padding: 54px 42px 36px;
+}
+
+
+/* =====================================================
+   상세 제목
+   ===================================================== */
+
+.trade-detail-title {
+    margin: 0 48px 12px 0;
+
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.4;
+
+    color: #263428;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   상세 가격
+   ===================================================== */
+
+.trade-detail-price {
+    margin: 0 0 14px;
+
+    font-size: 28px;
+    font-weight: 800;
+
+    color: #2e7d32;
+}
+
+
+/* =====================================================
+   상세 지역 / 등록일
+   ===================================================== */
+
+.trade-detail-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    font-size: 13px;
+
+    color: #8b918c;
+}
+
+
+.trade-detail-meta span + span::before {
+    content: "·";
+
+    margin-right: 8px;
+
+    color: #bcc2bc;
+}
+
+
+/* =====================================================
+   상세 상태 / 수량
+   ===================================================== */
+
+.trade-detail-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.trade-detail-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    background: #edf7ee;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #2e7d32;
+}
+
+
+.trade-detail-quantity {
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #6f766f;
+}
+
+
+/* =====================================================
+   상세 구분선
+   ===================================================== */
+
+.trade-detail-divider {
+    width: 100%;
+    height: 1px;
+
+    margin: 26px 0;
+
+    background: #edf1ed;
+}
+
+
+/* =====================================================
+   상세 영역 제목
+   ===================================================== */
+
+.trade-detail-section-title {
+    margin: 0 0 12px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    color: #293b2b;
+}
+
+
+/* =====================================================
+   상세 상품 설명
+   ===================================================== */
+
+.trade-detail-description {
+    min-height: 130px;
+}
+
+
+.trade-detail-content {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.8;
+
+    color: #555;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   상세 판매자
+   ===================================================== */
+
+.trade-detail-seller {
+    margin-bottom: 28px;
+}
+
+
+.trade-detail-seller-name {
+    display: block;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    color: #333;
+}
+
+
+/* =====================================================
+   상세 하단 버튼
+   ===================================================== */
+
+.trade-detail-actions {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+
+    gap: 10px;
+
+    margin-top: auto;
+}
+
+
+/* =====================================================
+   상세 관심 버튼
+   ===================================================== */
+
+.trade-detail-favorite-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    min-height: 52px;
+
+    border: 1px solid #d9e4da;
+    border-radius: 10px;
+
+    background: #fff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #555;
+
+    cursor: pointer;
+}
+
+
+.trade-detail-favorite-btn:hover {
+    border-color: #acd6ae;
+    background: #f7fbf8;
+}
+
+
+#tradeDetailFavoriteIcon {
+    font-size: 21px;
+
+    color: #df6b73;
+}
+
+
+/* =====================================================
+   상세 채팅 버튼
+   ===================================================== */
+
+.trade-detail-chat-btn {
+    min-height: 52px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #2e7d32;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #fff;
+
+    cursor: pointer;
+}
+
+
+.trade-detail-chat-btn:hover {
+    background: #256b29;
+}
+
+
+/* =====================================================
+   상세 모달 반응형
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    .trade-detail-modal {
+        padding: 16px;
+    }
+
+    .trade-detail-dialog {
+        width: min(720px, calc(100vw - 32px));
+    }
+
+    .trade-detail-body {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-detail-image-area {
+        height: 360px;
+        min-height: 360px;
+
+        border-radius: 18px 18px 0 0;
+    }
+
+    .trade-detail-image {
+        max-height: 100%;
+    }
+
+    .trade-detail-info {
+        padding: 36px 30px 30px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .trade-detail-modal {
+        padding: 0;
+    }
+
+    .trade-detail-dialog {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+
+        border: 0;
+        border-radius: 0;
+    }
+
+    .trade-detail-image-area {
+        height: 320px;
+        min-height: 320px;
+
+        padding: 16px;
+
+        border-radius: 0;
+    }
+
+    .trade-detail-info {
+        padding: 32px 20px 24px;
+    }
+
+    .trade-detail-title {
+        font-size: 22px;
+    }
+
+    .trade-detail-price {
+        font-size: 25px;
+    }
+
+    .trade-detail-actions {
+        grid-template-columns: 120px minmax(0, 1fr);
+    }
+}

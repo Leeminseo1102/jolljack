@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -26,6 +27,12 @@ public class S3Service implements IS3Service {
 
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
+
+    @Value("${aws.s3.trade-bucket-name}")
+    private String tradeBucketName;
+
+    @Value("${aws.s3.trade-upload-prefix:trade/}")
+    private String tradeUploadPrefix;
 
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
@@ -93,6 +100,23 @@ public class S3Service implements IS3Service {
         return prefix + today + "/" + UUID.randomUUID() + extension;
     }
 
+    private String createTradeS3Key(String mimeType) {
+
+        String extension = getExtensionByMimeType(mimeType);
+
+        String today = LocalDate.now()
+                .format(DateTimeFormatter.BASIC_ISO_DATE);
+
+        String prefix = CmmUtil.nvl(tradeUploadPrefix);
+
+        if (!prefix.endsWith("/")) {
+            prefix += "/";
+        }
+
+        return prefix + today + "/" + UUID.randomUUID() + extension;
+    }
+
+
     private String getExtensionByMimeType(String mimeType) {
 
         mimeType = CmmUtil.nvl(mimeType);
@@ -110,4 +134,66 @@ public class S3Service implements IS3Service {
             return ".img";
         }
     }
+
+    @Override
+    public String uploadTradeImage(MultipartFile image) throws Exception {
+
+        String mimeType = CmmUtil.nvl(image.getContentType());
+        String s3Key = createTradeS3Key(mimeType);
+
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(tradeBucketName)
+                .key(s3Key)
+                .contentType(mimeType)
+                .contentLength(image.getSize())
+                .build();
+
+        s3Client.putObject(
+                putObjectRequest,
+                RequestBody.fromInputStream(image.getInputStream(), image.getSize())
+        );
+
+        log.info("거래 대표 이미지 S3 업로드 완료 : {}", s3Key);
+
+        return s3Key;
+    }
+
+    @Override
+    public void deleteTradeImage(String s3Key) throws Exception {
+
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(tradeBucketName)
+                .key(s3Key)
+                .build();
+
+        s3Client.deleteObject(deleteObjectRequest);
+
+        log.info("거래 대표 이미지 S3 삭제 완료 : {}", s3Key);
+    }
+
+    @Override
+    public String createTradePresignedUrl(String s3Key) throws Exception {
+
+        log.info("{}.createTradePresignedUrl Start!", this.getClass().getName());
+
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(tradeBucketName)
+                .key(s3Key)
+                .build();
+
+        GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofMinutes(presignedUrlExpirationMinutes))
+                .getObjectRequest(getObjectRequest)
+                .build();
+
+        String presignedUrl = s3Presigner.presignGetObject(presignRequest)
+                .url()
+                .toString();
+
+        log.info("거래 이미지 Presigned URL 생성 완료 s3Key : {}", s3Key);
+        log.info("{}.createTradePresignedUrl End!", this.getClass().getName());
+
+        return presignedUrl;
+    }
+
 }

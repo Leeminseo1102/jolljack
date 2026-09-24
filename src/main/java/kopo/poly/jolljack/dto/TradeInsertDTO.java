@@ -5,13 +5,17 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record TradePostListDTO(
+public record TradeInsertDTO(
 
         Long tradePostId,
+
+        Long sellerUserId,
 
         Long regionId,
 
         String title,
+
+        String content,
 
         Integer price,
 
@@ -19,11 +23,10 @@ public record TradePostListDTO(
 
         String imageKey,
 
-        String imageUrl,
-
         String status,
 
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
 
+        LocalDateTime updatedAt
 ) {
 }

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>상품 등록 - AGRIWATCH</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/crop.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+
+<body>
+
+<header class="crop-header">
+    <div class="crop-header-inner">
+
+        <a th:href="@{/main/view}" class="crop-header-logo">
+            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
+            <span class="crop-header-logo-text">AGRIWATCH</span>
+        </a>
+
+        <nav class="crop-nav">
+
+            <a th:href="@{/crop/region}"
+               class="crop-nav-item">
+                🌱 재배 분석
+            </a>
+
+            <a th:href="@{/diag/ImgTrans}"
+               class="crop-nav-item">
+                🔍 AI 병충해 진단
+            </a>
+
+            <a th:href="@{/trade/view}"
+               class="crop-nav-item active">
+                🛒 작물 거래
+            </a>
+
+        </nav>
+
+        <div class="crop-header-user">
+
+            <span class="header-username"
+                  th:text="${session.userName} + '님'">
+                사용자님
+            </span>
+
+            <a th:href="@{/mypage/view}"
+               class="crop-nav-item">
+                마이페이지
+            </a>
+
+        </div>
+
+    </div>
+</header>
+
+
+<main class="trade-register-main">
+
+    <div class="trade-register-inner">
+
+        <div class="trade-register-page-title">
+
+            <div>
+                <h1 class="trade-register-title">
+                    상품 등록
+                </h1>
+
+                <p class="trade-register-subtitle">
+                    판매할 농작물의 정보와 거래 지역을 입력해주세요.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form id="tradeRegisterForm"
+              th:action="@{/trade/registerProc}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <!-- 상단 : 이미지 + 상품 정보 -->
+            <div class="trade-register-top">
+
+                <!-- 대표 이미지 -->
+                <section class="trade-register-card trade-image-card">
+
+                    <div class="trade-register-card-header">
+
+                        <h2 class="trade-register-card-title">
+                            대표 이미지
+                        </h2>
+
+                        <p class="trade-register-card-desc">
+                            상품을 가장 잘 보여주는 이미지 1장을 등록해주세요.
+                        </p>
+
+                    </div>
+
+                    <div class="trade-image-area">
+
+                        <label for="tradeImage"
+                               class="trade-image-upload">
+
+                            <div id="tradeImagePlaceholder"
+                                 class="trade-image-placeholder">
+
+                                <span class="trade-image-icon">
+                                    +
+                                </span>
+
+                                <strong>
+                                    이미지 등록
+                                </strong>
+
+                                <span>
+                                    JPG, PNG, WEBP
+                                </span>
+
+                                <span class="trade-image-size-text">
+                                    최대 5MB
+                                </span>
+
+                            </div>
+
+                            <img id="tradeImagePreview"
+                                 class="trade-image-preview"
+                                 alt="상품 이미지 미리보기"
+                                 hidden>
+
+                        </label>
+
+                        <input type="file"
+                               id="tradeImage"
+                               name="image"
+                               accept=".jpg,.jpeg,.png,.webp"
+                               hidden>
+
+                    </div>
+
+                    <p id="tradeImageMsg"
+                       class="trade-register-msg"></p>
+
+                </section>
+
+
+                <!-- 상품 정보 -->
+                <section class="trade-register-card trade-info-card">
+
+                    <div class="trade-register-card-header">
+
+                        <h2 class="trade-register-card-title">
+                            상품 정보
+                        </h2>
+
+                        <p class="trade-register-card-desc">
+                            판매할 상품의 기본 정보를 입력해주세요.
+                        </p>
+
+                    </div>
+
+
+                    <div class="trade-form-group">
+
+                        <label for="tradeTitle"
+                               class="trade-form-label">
+                            상품 제목
+                        </label>
+
+                        <input type="text"
+                               id="tradeTitle"
+                               name="title"
+                               class="trade-form-input"
+                               placeholder="판매할 상품의 제목을 입력해주세요.">
+
+                    </div>
+
+
+                    <div class="trade-form-row">
+
+                        <div class="trade-form-group">
+
+                            <label for="tradePrice"
+                                   class="trade-form-label">
+                                가격
+                            </label>
+
+                            <div class="trade-input-unit">
+
+                                <input type="number"
+                                       id="tradePrice"
+                                       name="price"
+                                       class="trade-form-input"
+                                       min="0"
+                                       placeholder="0">
+
+                                <span class="trade-input-unit-text">
+                                    원
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="trade-form-group">
+
+                            <label for="tradeQuantity"
+                                   class="trade-form-label">
+                                수량
+                            </label>
+
+                            <div class="trade-input-unit">
+
+                                <input type="number"
+                                       id="tradeQuantity"
+                                       name="quantity"
+                                       class="trade-form-input"
+                                       min="1"
+                                       placeholder="1">
+
+                                <span class="trade-input-unit-text">
+                                    개
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- 거래 지역 -->
+            <section class="trade-register-card">
+
+                <div class="trade-register-card-header">
+
+                    <h2 class="trade-register-card-title">
+                        거래 지역
+                    </h2>
+
+                    <p class="trade-register-card-desc">
+                        상품을 거래할 지역을 선택해주세요.
+                    </p>
+
+                </div>
+
+
+                <div class="trade-form-row">
+
+                    <div class="trade-form-group">
+
+                        <label for="tradeSidoSelect"
+                               class="trade-form-label">
+                            시도
+                        </label>
+
+                        <select id="tradeSidoSelect"
+                                class="trade-form-select">
+
+                            <option value="">
+                                시도를 선택해주세요
+                            </option>
+
+                            <option th:each="sido : ${sidoList}"
+                                    th:value="${sido.sidoName}"
+                                    th:text="${sido.sidoName}">
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="trade-form-group">
+
+                        <label for="tradeSigunguSelect"
+                               class="trade-form-label">
+                            시군구
+                        </label>
+
+                        <select id="tradeSigunguSelect"
+                                name="regionId"
+                                class="trade-form-select"
+                                disabled>
+
+                            <option value="">
+                                시군구를 선택해주세요
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <p id="tradeRegionMsg"
+                   class="trade-register-msg"></p>
+
+            </section>
+
+
+            <!-- 상품 설명 -->
+            <section class="trade-register-card">
+
+                <div class="trade-register-card-header">
+
+                    <h2 class="trade-register-card-title">
+                        상품 설명
+                    </h2>
+
+                    <p class="trade-register-card-desc">
+                        상품 상태와 거래 방법 등 구매자에게 필요한 정보를 입력해주세요.
+                    </p>
+
+                </div>
+
+                <div class="trade-form-group trade-content-group">
+
+                    <label for="tradeContent"
+                           class="trade-form-label">
+                        상세 내용
+                    </label>
+
+                    <textarea id="tradeContent"
+                              name="content"
+                              class="trade-form-textarea"
+                              placeholder="예) 직접 재배한 고추입니다. 수확 후 바로 포장했으며 직거래 가능합니다."></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- 버튼 -->
+            <div class="trade-register-actions">
+
+                <a th:href="@{/trade/view}"
+                   class="trade-register-cancel">
+                    취소
+                </a>
+
+                <button type="submit"
+                        id="tradeRegisterBtn"
+                        class="trade-register-submit">
+                    상품 등록
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<div th:replace="~{modal/modal :: commonModal}"></div>
+
+
+<script th:inline="javascript">
+    const CTX = /*[[@{/}]]*/ '/';
+</script>
+
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/register.js}"></script>
+
+</body>
+</html>

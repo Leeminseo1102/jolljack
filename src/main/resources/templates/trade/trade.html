@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>작물 거래 - AGRIWATCH</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/crop.css}">
+    <link rel="stylesheet" th:href="@{/css/trade.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     헤더
+     ===================================================== -->
+
+<header class="crop-header">
+
+    <div class="crop-header-inner">
+
+        <a th:href="@{/main/view}"
+           class="crop-header-logo">
+
+            <img th:src="@{/img/logo.png}"
+                 alt="AGRIWATCH">
+
+            <span class="crop-header-logo-text">
+                AGRIWATCH
+            </span>
+
+        </a>
+
+
+        <nav class="crop-nav">
+
+            <a th:href="@{/crop/region}"
+               class="crop-nav-item">
+                🌱 재배 분석
+            </a>
+
+            <a th:href="@{/diag/ImgTrans}"
+               class="crop-nav-item">
+                🔍 AI 병충해 진단
+            </a>
+
+            <a th:href="@{/trade/view}"
+               class="crop-nav-item active">
+                🛒 작물 거래
+            </a>
+
+        </nav>
+
+
+        <div class="crop-header-user">
+
+            <span class="header-username"
+                  th:text="${session.userName} + '님'">
+                사용자님
+            </span>
+
+            <a th:href="@{/mypage/view}"
+               class="crop-nav-item">
+                마이페이지
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     거래 메인
+     ===================================================== -->
+
+<main class="trade-main">
+
+    <div class="trade-inner">
+
+
+        <!-- =====================================================
+             페이지 제목
+             ===================================================== -->
+
+        <div class="trade-page-title">
+
+            <div>
+
+                <h1 class="trade-title">
+                    작물 거래
+                </h1>
+
+                <p class="trade-subtitle">
+                    지역별 농산물 거래 게시글을 확인해보세요.
+                </p>
+
+            </div>
+
+
+            <!-- 상품 등록 기능 연결 예정 -->
+            <a th:href="@{/trade/register}"
+               class="trade-register-btn">
+                + 상품 등록
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             현재 선택된 거래 지역
+             TradePageDTO가 아닌 Controller Model 값 사용
+             ===================================================== -->
+
+        <input type="hidden"
+               id="currentSidoName"
+               th:value="${currentSidoName}">
+
+
+        <!-- =====================================================
+             거래 전체 레이아웃
+             ===================================================== -->
+
+        <div class="trade-layout">
+
+
+            <!-- =====================================================
+                 왼쪽 : 거래 지역
+                 ===================================================== -->
+
+            <aside class="trade-region-panel">
+
+                <h2 class="trade-panel-title">
+                    거래 지역
+                </h2>
+
+
+                <div class="trade-region-icon">
+                    📍
+                </div>
+
+
+                <span class="trade-region-label">
+                    현재 거래 지역
+                </span>
+
+
+                <strong id="tradeRegionName"
+                        class="trade-region-name"
+                        th:text="${currentSidoName}">
+                    서울특별시
+                </strong>
+
+
+                <button type="button"
+                        id="tradeRegionBtn"
+                        class="trade-region-btn">
+                    지역 변경
+                </button>
+
+
+                <div class="trade-region-count-box">
+
+                    <span class="trade-region-count-label">
+                        이 지역의 거래글
+                    </span>
+
+
+                    <strong id="tradeRegionCount"
+                            class="trade-region-count"
+                            th:text="${trade.totalCount + '개'}">
+                        0개
+                    </strong>
+
+                </div>
+
+
+                <p class="trade-region-guide">
+                    선택한 시도의 거래글만<br>
+                    표시됩니다.
+                </p>
+
+            </aside>
+
+
+            <!-- =====================================================
+                 가운데 : 거래 게시글
+                 ===================================================== -->
+
+            <section class="trade-list-panel">
+
+
+                <!-- =================================================
+                     거래 게시글 없음
+                     AJAX 전환을 위해 DOM은 항상 유지
+                     ================================================= -->
+
+                <div id="tradeEmpty"
+                     class="trade-empty"
+                     th:style="${trade.totalCount == 0}
+                        ? 'display: flex;'
+                        : 'display: none;'">
+
+                    <img th:src="@{/img/trade0.png}"
+                         class="trade-empty-image"
+                         alt="등록된 상품이 아직 없습니다.">
+
+                </div>
+
+
+                <!-- =================================================
+                     거래 게시글 있음
+                     ================================================= -->
+
+                <div id="tradeContent"
+                     class="trade-content"
+                     th:style="${trade.totalCount > 0}
+                        ? 'display: block;'
+                        : 'display: none;'">
+
+
+                    <!-- =============================================
+                         거래 게시글 목록
+                         ============================================= -->
+
+                    <div id="tradeList"
+                         class="trade-list">
+
+
+                        <article th:each="post : ${trade.tradeList}"
+                                 class="trade-item"
+                                 th:attr="data-id=${post.tradePostId}">
+
+
+                            <img th:src="${post.imageUrl}"
+                                 class="trade-item-image"
+                                 alt="상품 이미지">
+
+
+                            <div class="trade-item-info">
+
+
+                                <h2 class="trade-item-title"
+                                    th:text="${post.title}">
+                                    게시글 제목
+                                </h2>
+
+
+                                <p class="trade-item-price"
+                                   th:text="${#numbers.formatInteger(post.price, 0, 'COMMA') + '원'}">
+                                    10,000원
+                                </p>
+
+
+                                <span th:if="${post.quantity != null}"
+                                      class="trade-item-quantity"
+                                      th:text="${'수량 ' + post.quantity}">
+                                    수량 1
+                                </span>
+
+
+                                <span class="trade-item-date"
+                                      th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">
+                                    2026.09.21
+                                </span>
+
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+
+                    <!-- =============================================
+                         페이지네이션
+                         ============================================= -->
+
+                    <div id="tradePagination"
+                         class="trade-pagination"
+                         th:style="${trade.totalPages > 1}
+                            ? 'display: flex;'
+                            : 'display: none;'">
+
+
+                        <th:block th:if="${trade.totalPages > 1}">
+
+                            <button type="button"
+                                    class="trade-page-btn"
+                                    th:each="pageNo : ${#numbers.sequence(1, trade.totalPages)}"
+                                    th:text="${pageNo}"
+                                    th:attr="data-page=${pageNo}"
+                                    th:classappend="${pageNo == trade.page} ? ' active'">
+                                1
+                            </button>
+
+                        </th:block>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 오른쪽 : 관심 등록 TOP 5
+                 현재는 화면 확인용 더미 데이터
+                 ===================================================== -->
+
+            <aside class="trade-top-panel">
+
+                <h2 class="trade-panel-title">
+                    관심 등록 TOP 5
+                </h2>
+
+
+                <div class="trade-top-list">
+
+
+                    <div class="trade-top-item">
+
+                        <span class="trade-top-rank">
+                            1
+                        </span>
+
+                        <div class="trade-top-info">
+
+                            <strong>
+                                햇감자 판매합니다
+                            </strong>
+
+                            <span>
+                                20,000원
+                            </span>
+
+                        </div>
+
+                        <span class="trade-top-heart">
+                            ♥ 15
+                        </span>
+
+                    </div>
+
+
+                    <div class="trade-top-item">
+
+                        <span class="trade-top-rank">
+                            2
+                        </span>
+
+                        <div class="trade-top-info">
+
+                            <strong>
+                                직접 재배한 고추
+                            </strong>
+
+                            <span>
+                                15,000원
+                            </span>
+
+                        </div>
+
+                        <span class="trade-top-heart">
+                            ♥ 11
+                        </span>
+
+                    </div>
+
+
+                    <div class="trade-top-item">
+
+                        <span class="trade-top-rank">
+                            3
+                        </span>
+
+                        <div class="trade-top-info">
+
+                            <strong>
+                                배추 판매합니다
+                            </strong>
+
+                            <span>
+                                8,000원
+                            </span>
+
+                        </div>
+
+                        <span class="trade-top-heart">
+                            ♥ 9
+                        </span>
+
+                    </div>
+
+
+                    <div class="trade-top-item">
+
+                        <span class="trade-top-rank">
+                            4
+                        </span>
+
+                        <div class="trade-top-info">
+
+                            <strong>
+                                농가 직거래 사과
+                            </strong>
+
+                            <span>
+                                30,000원
+                            </span>
+
+                        </div>
+
+                        <span class="trade-top-heart">
+                            ♥ 7
+                        </span>
+
+                    </div>
+
+
+                    <div class="trade-top-item">
+
+                        <span class="trade-top-rank">
+                            5
+                        </span>
+
+                        <div class="trade-top-info">
+
+                            <strong>
+                                포도 한 박스 판매
+                            </strong>
+
+                            <span>
+                                25,000원
+                            </span>
+
+                        </div>
+
+                        <span class="trade-top-heart">
+                            ♥ 5
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </aside>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     거래 상세 모달
+     ===================================================== -->
+
+<div id="tradeDetailModal"
+     class="trade-detail-modal"
+     hidden>
+
+
+    <div id="tradeDetailBackdrop"
+         class="trade-detail-backdrop">
+    </div>
+
+
+    <section class="trade-detail-dialog"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="tradeDetailTitle">
+
+
+        <button type="button"
+                id="tradeDetailCloseBtn"
+                class="trade-detail-close-btn"
+                aria-label="상세창 닫기">
+            ×
+        </button>
+
+
+        <div class="trade-detail-body">
+
+
+            <!-- =================================================
+                 왼쪽 : 상품 이미지
+                 ================================================= -->
+
+            <div class="trade-detail-image-area">
+
+                <img id="tradeDetailImage"
+                     class="trade-detail-image"
+                     alt="상품 이미지">
+
+            </div>
+
+
+            <!-- =================================================
+                 오른쪽 : 상품 정보
+                 ================================================= -->
+
+            <div class="trade-detail-info">
+
+
+                <h2 id="tradeDetailTitle"
+                    class="trade-detail-title">
+                    상품 제목
+                </h2>
+
+
+                <p id="tradeDetailPrice"
+                   class="trade-detail-price">
+                    0원
+                </p>
+
+
+                <div class="trade-detail-meta">
+
+                    <span id="tradeDetailRegion">
+                        지역
+                    </span>
+
+                    <span id="tradeDetailDate">
+                        등록일
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     거래 상태 / 수량
+                     ================================================= -->
+
+                <div class="trade-detail-summary">
+
+                    <span id="tradeDetailStatus"
+                          class="trade-detail-status">
+                        판매중
+                    </span>
+
+                    <span id="tradeDetailQuantity"
+                          class="trade-detail-quantity">
+                        수량 1개
+                    </span>
+
+                </div>
+
+
+                <div class="trade-detail-divider">
+                </div>
+
+
+                <!-- =================================================
+                     상품 설명
+                     ================================================= -->
+
+                <div class="trade-detail-description">
+
+                    <h3 class="trade-detail-section-title">
+                        상품 설명
+                    </h3>
+
+                    <p id="tradeDetailContent"
+                       class="trade-detail-content">
+                        상품 설명
+                    </p>
+
+                </div>
+
+
+                <div class="trade-detail-divider">
+                </div>
+
+
+                <!-- =================================================
+                     판매자 정보
+                     ================================================= -->
+
+                <div class="trade-detail-seller">
+
+                    <h3 class="trade-detail-section-title">
+                        판매자
+                    </h3>
+
+                    <strong id="tradeDetailSellerName"
+                            class="trade-detail-seller-name">
+                        판매자명
+                    </strong>
+
+                </div>
+
+
+                <!-- =================================================
+                     하단 버튼
+                     ================================================= -->
+
+                <div class="trade-detail-actions">
+
+
+                    <button type="button"
+                            id="tradeDetailFavoriteBtn"
+                            class="trade-detail-favorite-btn">
+
+                        <span id="tradeDetailFavoriteIcon">
+                            ♡
+                        </span>
+
+                        <span>
+                            관심
+                        </span>
+
+                        <span id="tradeDetailFavoriteCount">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <button type="button"
+                            id="tradeDetailChatBtn"
+                            class="trade-detail-chat-btn">
+                        💬 판매자와 채팅
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =====================================================
+     거래 지역 변경 모달 템플릿
+     거래 분류 기준은 시도
+     ===================================================== -->
+
+<template id="tradeRegionModalTemplate">
+
+    <div class="trade-region-modal-form">
+
+
+        <div class="trade-modal-form-group">
+
+            <label for="tradeSidoSelect">
+                거래 지역
+            </label>
+
+
+            <select id="tradeSidoSelect"
+                    class="trade-modal-select">
+
+
+                <option value="">
+                    시도를 선택해주세요
+                </option>
+
+
+                <option th:each="sido : ${sidoList}"
+                        th:value="${sido.sidoName}"
+                        th:text="${sido.sidoName}"
+                        th:selected="${sido.sidoName == currentSidoName}">
+                    서울특별시
+                </option>
+
+
+            </select>
+
+        </div>
+
+
+        <p class="trade-modal-guide">
+            선택한 시도에 등록된 거래 게시글을 보여줍니다.
+        </p>
+
+
+    </div>
+
+</template>
+
+
+<!-- =====================================================
+     거래 채팅 버튼
+     기능 연결 예정
+     ===================================================== -->
+
+<button type="button"
+        class="trade-chat-btn"
+        aria-label="거래 채팅">
+    💬
+</button>
+
+
+<!-- =====================================================
+     공통 모달
+     ===================================================== -->
+
+<div th:replace="~{modal/modal :: commonModal}">
+</div>
+
+
+<!-- =====================================================
+     JavaScript
+     ===================================================== -->
+
+<script th:inline="javascript">
+
+    const CTX = /*[[@{/}]]*/ '/';
+
+</script>
+
+
+<script th:src="@{/js/modal.js}">
+</script>
+
+<script th:src="@{/js/trade.js}">
+</script>
+
+
+</body>
+</html>

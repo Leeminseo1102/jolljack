@@ -1,0 +1,517 @@
+/* =====================================================
+   거래 상품 등록
+   ===================================================== */
+
+.trade-register-main {
+    min-height: calc(100vh - 64px);
+    padding: 48px 24px 90px;
+
+    background:
+            radial-gradient(
+                    circle at 12% 10%,
+                    rgba(122, 190, 118, 0.11),
+                    transparent 330px
+            ),
+            radial-gradient(
+                    circle at 88% 18%,
+                    rgba(167, 214, 161, 0.10),
+                    transparent 360px
+            ),
+            #f4f8f4;
+}
+
+
+.trade-register-inner {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   페이지 타이틀
+   ===================================================== */
+
+.trade-register-page-title {
+    margin-bottom: 28px;
+}
+
+.trade-register-title {
+    margin: 0 0 8px;
+
+    color: #203327;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.trade-register-subtitle {
+    margin: 0;
+
+    color: #7d8d80;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   상단 2열
+   ===================================================== */
+
+.trade-register-top {
+    display: grid;
+    grid-template-columns: 370px minmax(0, 1fr);
+    gap: 22px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   카드
+   ===================================================== */
+
+.trade-register-card {
+    margin-bottom: 22px;
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border: 1px solid #dfe9e0;
+    border-radius: 20px;
+
+    box-shadow:
+            0 5px 18px rgba(35, 70, 42, 0.045),
+            0 1px 2px rgba(35, 70, 42, 0.03);
+}
+
+.trade-register-top .trade-register-card {
+    margin-bottom: 0;
+}
+
+.trade-register-card-header {
+    margin-bottom: 24px;
+}
+
+.trade-register-card-title {
+    margin: 0 0 6px;
+
+    color: #27362b;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.trade-register-card-desc {
+    margin: 0;
+
+    color: #859087;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+
+/* =====================================================
+   이미지
+   ===================================================== */
+
+.trade-image-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.trade-image-area {
+    width: 100%;
+}
+
+.trade-image-upload {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #fbfdfb;
+
+    border: 2px dashed #c9dccb;
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.trade-image-upload:hover {
+    background: #f6fbf6;
+    border-color: #79b87c;
+}
+
+.trade-image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #7e8d81;
+    text-align: center;
+}
+
+.trade-image-icon {
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf6eb;
+    border-radius: 50%;
+
+    color: #2e7d32;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.trade-image-placeholder strong {
+    margin-bottom: 5px;
+
+    color: #455649;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.trade-image-placeholder span:not(.trade-image-icon) {
+    color: #96a198;
+    font-size: 12px;
+}
+
+.trade-image-size-text {
+    margin-top: 3px;
+}
+
+.trade-image-preview {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.trade-image-preview[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   상품 정보
+   ===================================================== */
+
+.trade-info-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.trade-form-group {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.trade-form-group:last-child {
+    margin-bottom: 0;
+}
+
+.trade-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.trade-form-row .trade-form-group {
+    margin-bottom: 0;
+}
+
+.trade-form-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #354538;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   입력창
+   ===================================================== */
+
+.trade-form-input,
+.trade-form-select,
+.trade-form-textarea {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #d7e3d8;
+    border-radius: 11px;
+
+    color: #354138;
+
+    outline: none;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+}
+
+.trade-form-input,
+.trade-form-select {
+    height: 50px;
+    padding: 0 15px;
+
+    font-size: 14px;
+}
+
+.trade-form-select {
+    cursor: pointer;
+}
+
+.trade-form-select:disabled {
+    background: #f3f6f3;
+
+    color: #a0aaa2;
+
+    cursor: not-allowed;
+}
+
+.trade-form-textarea {
+    min-height: 210px;
+
+    padding: 15px;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.7;
+
+    resize: vertical;
+}
+
+.trade-form-input:focus,
+.trade-form-select:focus,
+.trade-form-textarea:focus {
+    border-color: #78b77b;
+
+    box-shadow:
+            0 0 0 3px rgba(46, 125, 50, 0.08);
+}
+
+.trade-form-input::placeholder,
+.trade-form-textarea::placeholder {
+    color: #a8b2aa;
+}
+
+
+/* =====================================================
+   가격 / 수량 단위
+   ===================================================== */
+
+.trade-input-unit {
+    position: relative;
+}
+
+.trade-input-unit .trade-form-input {
+    padding-right: 48px;
+}
+
+.trade-input-unit-text {
+    position: absolute;
+
+    top: 50%;
+    right: 15px;
+
+    transform: translateY(-50%);
+
+    color: #79867b;
+    font-size: 13px;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   설명
+   ===================================================== */
+
+.trade-content-group {
+    margin-bottom: 0;
+}
+
+
+/* =====================================================
+   메시지
+   ===================================================== */
+
+.trade-register-msg {
+    min-height: 16px;
+
+    margin-top: 9px;
+
+    color: #c62828;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   버튼
+   ===================================================== */
+
+.trade-register-actions {
+    margin-top: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+.trade-register-cancel,
+.trade-register-submit {
+    min-width: 126px;
+    height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.1s ease;
+}
+
+.trade-register-cancel {
+    background: #ffffff;
+
+    border: 1px solid #d5e0d6;
+
+    color: #59665b;
+}
+
+.trade-register-cancel:hover {
+    background: #f6f9f6;
+    border-color: #c5d3c7;
+}
+
+.trade-register-submit {
+    background: #2e7d32;
+
+    border: 1px solid #2e7d32;
+
+    color: #ffffff;
+
+    cursor: pointer;
+}
+
+.trade-register-submit:hover {
+    background: #256b29;
+    border-color: #256b29;
+}
+
+.trade-register-submit:active,
+.trade-register-cancel:active {
+    transform: translateY(1px);
+}
+
+.trade-register-submit:disabled {
+    background: #9bb99d;
+    border-color: #9bb99d;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   number
+   ===================================================== */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+}
+
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    .trade-register-top {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-image-card {
+        align-items: flex-start;
+    }
+
+    .trade-image-area {
+        max-width: 360px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .trade-register-main {
+        padding: 32px 16px 60px;
+    }
+
+    .trade-register-title {
+        font-size: 27px;
+    }
+
+    .trade-register-card {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .trade-form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .trade-register-actions {
+        flex-direction: column-reverse;
+    }
+
+    .trade-register-cancel,
+    .trade-register-submit {
+        width: 100%;
+    }
+
+    .trade-image-area {
+        max-width: none;
+    }
+}
