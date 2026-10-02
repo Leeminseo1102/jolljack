@@ -2,42 +2,54 @@ body {
     background: #f5f7fa;
 }
 
-/* ===== 헤더 ===== */
+
+/* =====================================================
+   헤더
+   ===================================================== */
+
 .main-header {
     width: 100%;
     height: 74px;
-    background: #ffffff;
-    border-bottom: 1px solid #edf1ed;
+
     position: sticky;
     top: 0;
     z-index: 50;
+
+    border-bottom: 1px solid #edf1ed;
+
+    background: #ffffff;
 }
 
 .header-inner {
-    max-width: 1180px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    max-width: 1180px;
+    height: 100%;
+
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
 .header-logo {
     display: inline-flex;
     align-items: center;
+
     gap: 10px;
 }
 
 .header-logo img {
     width: 42px;
     height: 42px;
+
     object-fit: contain;
 }
 
 .header-logo-text {
     font-size: 22px;
     font-weight: 900;
+
     color: #61b436;
 }
 
@@ -45,25 +57,31 @@ body {
 .nav-member {
     display: flex;
     align-items: center;
+
     gap: 12px;
 }
 
 .btn-nav-menu,
 .btn-nav-mypage,
 .btn-nav-logout {
-    height: 38px;
-    padding: 0 14px;
-    border-radius: 999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    height: 38px;
+
+    padding: 0 14px;
+
+    border-radius: 999px;
+
     font-size: 13px;
     font-weight: 700;
 }
 
 .btn-nav-menu {
-    color: #405044;
     background: #f2f6f2;
+
+    color: #405044;
 }
 
 .btn-nav-menu:hover {
@@ -72,23 +90,28 @@ body {
 
 .nav-username {
     margin-left: 8px;
+
     font-size: 13px;
     font-weight: 800;
+
     color: #2f3b31;
 }
 
 .btn-nav-mypage {
-    color: #2e7d32;
     background: #eaf6ea;
+
+    color: #2e7d32;
 }
 
 .btn-nav-mypage.active {
     background: #2e7d32;
+
     color: #ffffff;
 }
 
 .btn-nav-logout {
     background: #f4f4f4;
+
     color: #555;
 }
 
@@ -96,9 +119,14 @@ body {
     background: #e7e7e7;
 }
 
-/* ===== 전체 ===== */
+
+/* =====================================================
+   전체
+   ===================================================== */
+
 .mypage-wrap {
     max-width: 1180px;
+
     margin: 0 auto;
     padding: 42px 24px 80px;
 }
@@ -110,66 +138,95 @@ body {
 .mypage-badge {
     display: inline-flex;
     align-items: center;
+
+    margin-bottom: 12px;
     padding: 6px 12px;
+
     border-radius: 999px;
+
     background: #eaf6ea;
-    color: #2e7d32;
+
     font-size: 13px;
     font-weight: 800;
-    margin-bottom: 12px;
+
+    color: #2e7d32;
 }
 
 .mypage-title {
     font-size: 34px;
     font-weight: 900;
-    color: #1f2b20;
+
     letter-spacing: -1px;
+
+    color: #1f2b20;
 }
 
 .mypage-desc {
     margin-top: 8px;
-    color: #718074;
+
     font-size: 15px;
+
+    color: #718074;
 }
 
-/* ===== 카드 ===== */
+
+/* =====================================================
+   카드
+   ===================================================== */
+
 .mypage-grid {
     display: grid;
+
     grid-template-columns: 0.95fr 1.05fr;
+
     gap: 22px;
+
     align-items: stretch;
+
     margin-bottom: 22px;
 }
 
 .mypage-card {
-    background: #ffffff;
+    padding: 28px;
+
     border: 1px solid #eaf0ea;
     border-radius: 22px;
+
+    background: #ffffff;
+
     box-shadow: 0 14px 36px rgba(35, 70, 42, 0.08);
-    padding: 28px;
 }
 
 .card-head {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+
     gap: 16px;
+
     margin-bottom: 22px;
 }
 
 .card-title {
     font-size: 21px;
     font-weight: 900;
+
     color: #1f2b20;
 }
 
 .card-desc {
     margin-top: 4px;
-    color: #7b887d;
+
     font-size: 13px;
+
+    color: #7b887d;
 }
 
-/* ===== 내 정보 ===== */
+
+/* =====================================================
+   내 정보
+   ===================================================== */
+
 .info-list {
     border-top: 1px solid #eef3ee;
 }
@@ -177,42 +234,64 @@ body {
 .info-row {
     display: flex;
     justify-content: space-between;
+
     gap: 20px;
+
     padding: 17px 0;
+
     border-bottom: 1px solid #eef3ee;
 }
 
 .info-label {
     min-width: 72px;
-    color: #7c887e;
+
     font-weight: 700;
+
+    color: #7c887e;
 }
 
 .info-value {
-    color: #223024;
-    font-weight: 800;
     text-align: right;
+
+    font-weight: 800;
+
+    color: #223024;
+
     word-break: break-all;
 }
 
 .info-actions {
     display: flex;
     flex-wrap: wrap;
+
     gap: 9px;
+
     margin-top: 22px;
 }
 
-/* ===== 버튼 ===== */
+
+/* =====================================================
+   버튼
+   ===================================================== */
+
 .mypage-btn {
-    height: 42px;
-    padding: 0 16px;
-    border-radius: 12px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    height: 42px;
+
+    padding: 0 16px;
+
+    border-radius: 12px;
+
     font-size: 13px;
     font-weight: 800;
-    transition: transform 0.15s, opacity 0.15s, background 0.15s;
+
+    transition:
+            transform 0.15s,
+            opacity 0.15s,
+            background 0.15s;
 }
 
 .mypage-btn:hover {
@@ -221,21 +300,29 @@ body {
 
 .mypage-btn.small {
     height: 38px;
+
     padding: 0 14px;
 }
 
 .btn-green {
-    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    background: linear-gradient(
+            135deg,
+            #4caf50,
+            #2e7d32
+    );
+
     color: #ffffff;
 }
 
 .btn-gray {
     background: #eef2ee;
+
     color: #465348;
 }
 
 .btn-red {
     background: #fff0f0;
+
     color: #c62828;
 }
 
@@ -243,19 +330,29 @@ body {
     background: #ffe2e2;
 }
 
-/* ===== 작물 선택 ===== */
+
+/* =====================================================
+   작물 선택
+   ===================================================== */
+
 .crop-select-box {
     width: 100%;
+
     padding: 18px 16px 20px;
+
     border: 2px solid #e3e9e3;
     border-radius: 18px;
+
     background: #fbfdfb;
+
     overflow: hidden;
 }
 
 .crop-grid {
     display: grid;
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 14px 12px;
 }
 
@@ -264,9 +361,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
     min-width: 0;
     min-height: 124px;
+
     cursor: pointer;
+
     transition: transform 0.15s ease;
 }
 
@@ -275,182 +375,869 @@ body {
 }
 
 .crop-icon-box {
-    width: 76px;
-    height: 76px;
-    border: 2px solid #cfd7cf;
-    border-radius: 15px;
-    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 76px;
+    height: 76px;
+
+    border: 2px solid #cfd7cf;
+    border-radius: 15px;
+
+    background: #ffffff;
+
     overflow: hidden;
+
     transition: all 0.2s ease;
 }
 
 .crop-icon-box img {
+    display: block;
+
     width: 78%;
     height: 78%;
+
     object-fit: contain;
-    display: block;
 }
 
 .crop-name {
     margin-top: 10px;
+
     font-size: 16px;
     font-weight: 900;
+
     color: #111;
 }
 
 .crop-item.selected .crop-icon-box {
     transform: scale(1.06);
+
     box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14);
 }
 
 .crop-rice.selected .crop-icon-box {
-    background: #E4E66B;
     border-color: #d0d24d;
+
+    background: #e4e66b;
 }
 
 .crop-potato.selected .crop-icon-box {
-    background: #F0B400;
     border-color: #d39d00;
+
+    background: #f0b400;
 }
 
 .crop-apple.selected .crop-icon-box {
-    background: #EA0000;
     border-color: #c80000;
+
+    background: #ea0000;
 }
 
 .crop-grape.selected .crop-icon-box {
-    background: #A45AE9;
     border-color: #8f46d0;
+
+    background: #a45ae9;
 }
 
 .crop-pepper.selected .crop-icon-box {
-    background: #A8001F;
     border-color: #8b0019;
+
+    background: #a8001f;
 }
 
 .crop-cabbage.selected .crop-icon-box {
-    background: #61E61A;
     border-color: #4fd414;
+
+    background: #61e61a;
 }
 
 #cropMsg,
 #regionMsg {
     min-height: 18px;
+
     margin-top: 10px;
 }
 
-/* ===== 리포트 ===== */
+
+/* =====================================================
+   리포트
+   ===================================================== */
+
 .report-card {
     padding-bottom: 30px;
 }
 
 .report-columns {
     display: grid;
+
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
     gap: 18px;
 }
 
 .report-panel {
+    padding: 18px;
+
     border: 1px solid #edf2ed;
     border-radius: 18px;
-    padding: 18px;
+
     background: #fbfdfb;
 }
 
 .report-panel-head {
     display: flex;
-    justify-content: space-between;
-    gap: 12px;
     align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
     margin-bottom: 14px;
 }
 
 .report-panel-head h3 {
     font-size: 17px;
     font-weight: 900;
+
     color: #243126;
 }
 
 .report-panel-head span {
     padding: 4px 10px;
+
     border-radius: 999px;
+
     background: #eaf6ea;
-    color: #2e7d32;
+
     font-size: 12px;
     font-weight: 800;
+
+    color: #2e7d32;
 }
 
 .empty-report {
     padding: 28px 12px;
+
     border-radius: 14px;
+
     background: #ffffff;
-    color: #8a958c;
+
     text-align: center;
     font-weight: 700;
+
+    color: #8a958c;
 }
 
 .report-list {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 }
 
 .report-item {
     width: 100%;
+
     padding: 15px;
-    border-radius: 14px;
-    background: #ffffff;
+
     border: 1px solid #eef3ee;
+    border-radius: 14px;
+
+    background: #ffffff;
+
     text-align: left;
-    transition: transform 0.15s, box-shadow 0.15s;
+
+    transition:
+            transform 0.15s,
+            box-shadow 0.15s;
 }
 
 .report-item:hover {
     transform: translateY(-2px);
+
     box-shadow: 0 8px 18px rgba(35, 70, 42, 0.08);
 }
 
 .report-main {
     display: flex;
-    justify-content: space-between;
-    gap: 12px;
     align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 12px;
+
     margin-bottom: 7px;
 }
 
 .report-main strong {
     font-size: 15px;
-    color: #203022;
     font-weight: 900;
+
+    color: #203022;
 }
 
 .report-main span {
     max-width: 55%;
-    font-size: 12px;
-    color: #718074;
-    font-weight: 700;
+
     text-align: right;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #718074;
 }
 
 .report-sub {
     display: flex;
     justify-content: space-between;
+
     gap: 12px;
-    color: #8a958c;
+
     font-size: 12px;
+
+    color: #8a958c;
 }
 
 .report-sub span:first-child {
     max-width: 60%;
+
     overflow: hidden;
+
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-/* ===== 지역 모달 ===== */
+
+/* =====================================================
+   거래 관리
+   ===================================================== */
+
+.trade-manage-card {
+    margin-top: 22px;
+}
+
+.mypage-trade-columns {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.mypage-trade-panel {
+    min-width: 0;
+
+    padding: 18px;
+
+    border: 1px solid #edf2ed;
+    border-radius: 18px;
+
+    background: #fbfdfb;
+}
+
+.mypage-trade-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+.mypage-trade-panel-head h3 {
+    font-size: 17px;
+    font-weight: 900;
+
+    color: #243126;
+}
+
+.mypage-trade-panel-head span {
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background: #eaf6ea;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    color: #2e7d32;
+}
+
+.empty-trade {
+    padding: 32px 12px;
+
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    text-align: center;
+    font-weight: 700;
+
+    color: #8a958c;
+}
+
+.mypage-trade-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.mypage-trade-item {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 14px;
+
+    border: 1px solid #eef3ee;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+            transform 0.15s,
+            box-shadow 0.15s,
+            border-color 0.15s;
+}
+
+.mypage-trade-item:hover {
+    transform: translateY(-2px);
+
+    border-color: #cfe3d0;
+
+    box-shadow: 0 8px 18px rgba(35, 70, 42, 0.08);
+}
+
+.mypage-trade-image {
+    width: 78px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #f2f6f2;
+
+    object-fit: cover;
+}
+
+.mypage-trade-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.mypage-trade-title {
+    overflow: hidden;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    color: #203022;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mypage-trade-price {
+    font-size: 14px;
+    font-weight: 900;
+
+    color: #2e7d32;
+}
+
+.mypage-trade-detail {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    font-size: 11px;
+
+    color: #8a958c;
+}
+
+.mypage-trade-detail span + span::before {
+    content: "·";
+
+    margin-right: 8px;
+
+    color: #c0c7c1;
+}
+
+.mypage-trade-status {
+    flex-shrink: 0;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    background: #edf7ee;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    color: #2e7d32;
+}
+
+
+/* =====================================================
+   거래 상세 모달
+   ===================================================== */
+
+.trade-detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+.trade-detail-modal[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   상세 모달 배경
+   ===================================================== */
+
+.trade-detail-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.52);
+}
+
+
+/* =====================================================
+   상세 모달 본체
+   ===================================================== */
+
+.trade-detail-dialog {
+    position: relative;
+    z-index: 1;
+
+    width: min(1080px, calc(100vw - 48px));
+    max-height: calc(100vh - 48px);
+
+    overflow-y: auto;
+
+    border: 1px solid #e2ebe3;
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =====================================================
+   상세 닫기 버튼
+   ===================================================== */
+
+.trade-detail-close-btn {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 2;
+
+    width: 40px;
+    height: 40px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    font-size: 28px;
+    line-height: 1;
+
+    color: #555;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.trade-detail-close-btn:hover {
+    background: #f2f5f2;
+}
+
+
+/* =====================================================
+   상세 레이아웃
+   ===================================================== */
+
+.trade-detail-body {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(380px, 1fr);
+
+    min-height: 560px;
+}
+
+
+/* =====================================================
+   상세 이미지
+   ===================================================== */
+
+.trade-detail-image-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 560px;
+
+    padding: 24px;
+
+    border-radius: 18px 0 0 18px;
+
+    background: #f8faf8;
+
+    overflow: hidden;
+}
+
+.trade-detail-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    max-height: 560px;
+
+    object-fit: contain;
+}
+
+
+/* =====================================================
+   상세 정보
+   ===================================================== */
+
+.trade-detail-info {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    padding: 54px 42px 36px;
+}
+
+.trade-detail-title {
+    margin: 0 48px 12px 0;
+
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.4;
+
+    color: #263428;
+
+    word-break: break-word;
+}
+
+.trade-detail-price {
+    margin: 0 0 14px;
+
+    font-size: 28px;
+    font-weight: 800;
+
+    color: #2e7d32;
+}
+
+
+/* =====================================================
+   상세 지역 / 날짜
+   ===================================================== */
+
+.trade-detail-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    font-size: 13px;
+
+    color: #8b918c;
+}
+
+.trade-detail-meta span + span::before {
+    content: "·";
+
+    margin-right: 8px;
+
+    color: #bcc2bc;
+}
+
+
+/* =====================================================
+   상세 상태 / 수량
+   ===================================================== */
+
+.trade-detail-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.trade-detail-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    background: #edf7ee;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #2e7d32;
+}
+
+.trade-detail-status-select {
+    min-width: 105px;
+    height: 34px;
+
+    padding: 0 30px 0 12px;
+
+    border: 1px solid #acd6ae;
+    border-radius: 999px;
+
+    background: #edf7ee;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #2e7d32;
+
+    cursor: pointer;
+    outline: none;
+}
+
+.trade-detail-status-select:focus {
+    border-color: #2e7d32;
+
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.08);
+}
+
+.trade-detail-delete-btn {
+    height: 34px;
+
+    padding: 0 14px;
+
+    border: 1px solid #f0c7c7;
+    border-radius: 999px;
+
+    background: #fff3f3;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #c62828;
+
+    cursor: pointer;
+}
+
+.trade-detail-delete-btn:hover {
+    border-color: #e8a8a8;
+
+    background: #ffe8e8;
+}
+
+.trade-detail-status-select[hidden],
+.trade-detail-delete-btn[hidden],
+.trade-detail-actions[hidden] {
+    display: none;
+}
+
+.trade-detail-quantity {
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #6f766f;
+}
+
+
+/* =====================================================
+   상세 구분선
+   ===================================================== */
+
+.trade-detail-divider {
+    width: 100%;
+    height: 1px;
+
+    margin: 26px 0;
+
+    background: #edf1ed;
+}
+
+
+/* =====================================================
+   상세 영역 제목
+   ===================================================== */
+
+.trade-detail-section-title {
+    margin: 0 0 12px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    color: #293b2b;
+}
+
+
+/* =====================================================
+   상세 설명
+   ===================================================== */
+
+.trade-detail-description {
+    min-height: 130px;
+}
+
+.trade-detail-content {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.8;
+
+    color: #555;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   상세 판매자
+   ===================================================== */
+
+.trade-detail-seller {
+    margin-bottom: 28px;
+}
+
+.trade-detail-seller-name {
+    display: block;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    color: #333;
+}
+
+
+/* =====================================================
+   상세 하단 버튼
+   ===================================================== */
+
+.trade-detail-actions {
+    display: grid;
+
+    grid-template-columns:
+        150px
+        minmax(0, 1fr);
+
+    gap: 10px;
+
+    margin-top: auto;
+}
+
+
+/* =====================================================
+   관심 버튼
+   ===================================================== */
+
+.trade-detail-favorite-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    min-height: 52px;
+
+    border: 1px solid #d9e4da;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #555;
+
+    cursor: pointer;
+}
+
+.trade-detail-favorite-btn:hover {
+    border-color: #acd6ae;
+
+    background: #f7fbf8;
+}
+
+#tradeDetailFavoriteIcon {
+    font-size: 21px;
+
+    color: #df6b73;
+}
+
+
+/* =====================================================
+   채팅 버튼
+   ===================================================== */
+
+.trade-detail-chat-btn {
+    min-height: 52px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #2e7d32;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    cursor: pointer;
+}
+
+.trade-detail-chat-btn:hover {
+    background: #256b29;
+}
+
+
+/* =====================================================
+   지역 수정 모달
+   ===================================================== */
+
 .hidden {
     display: none !important;
 }
@@ -465,32 +1252,47 @@ body {
 
 .region-modal-form label {
     display: block;
+
     margin-bottom: 6px;
+
     font-size: 13px;
     font-weight: 800;
+
     color: #334235;
 }
 
 .form-select {
     width: 100%;
     height: 46px;
+
     padding: 0 13px;
+
     border: 1.5px solid #dfe7df;
     border-radius: 12px;
+
     background: #fbfdfb;
+
     font-size: 14px;
 }
 
 .form-select:focus {
     border-color: #53a65c;
+
     background: #ffffff;
+
     box-shadow: 0 0 0 3px rgba(83, 166, 92, 0.1);
 }
 
-/* ===== 반응형 ===== */
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
 @media (max-width: 960px) {
+
     .mypage-grid,
-    .report-columns {
+    .report-columns,
+    .mypage-trade-columns {
         grid-template-columns: 1fr;
     }
 
@@ -501,15 +1303,45 @@ body {
     .btn-nav-menu {
         display: none;
     }
+
+    .trade-detail-modal {
+        padding: 16px;
+    }
+
+    .trade-detail-dialog {
+        width: min(720px, calc(100vw - 32px));
+    }
+
+    .trade-detail-body {
+        grid-template-columns: 1fr;
+    }
+
+    .trade-detail-image-area {
+        height: 360px;
+        min-height: 360px;
+
+        border-radius: 18px 18px 0 0;
+    }
+
+    .trade-detail-image {
+        max-height: 100%;
+    }
+
+    .trade-detail-info {
+        padding: 36px 30px 30px;
+    }
 }
 
+
 @media (max-width: 640px) {
+
     .mypage-wrap {
         padding: 30px 16px 60px;
     }
 
     .mypage-card {
         padding: 22px;
+
         border-radius: 18px;
     }
 
@@ -528,6 +1360,7 @@ body {
 
     .info-row {
         flex-direction: column;
+
         gap: 6px;
     }
 
@@ -538,11 +1371,13 @@ body {
     .report-main,
     .report-sub {
         flex-direction: column;
+
         gap: 5px;
     }
 
     .report-main span {
         max-width: 100%;
+
         text-align: left;
     }
 
@@ -550,7 +1385,60 @@ body {
         max-width: 100%;
     }
 
+    .mypage-trade-item {
+        align-items: flex-start;
+    }
+
+    .mypage-trade-image {
+        width: 68px;
+        height: 62px;
+    }
+
+    .mypage-trade-status {
+        margin-left: auto;
+    }
+
     .nav-username {
         display: none;
+    }
+
+    .trade-detail-modal {
+        padding: 0;
+    }
+
+    .trade-detail-dialog {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+
+        border: 0;
+        border-radius: 0;
+    }
+
+    .trade-detail-image-area {
+        height: 320px;
+        min-height: 320px;
+
+        padding: 16px;
+
+        border-radius: 0;
+    }
+
+    .trade-detail-info {
+        padding: 32px 20px 24px;
+    }
+
+    .trade-detail-title {
+        font-size: 22px;
+    }
+
+    .trade-detail-price {
+        font-size: 25px;
+    }
+
+    .trade-detail-actions {
+        grid-template-columns:
+            120px
+            minmax(0, 1fr);
     }
 }

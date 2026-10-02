@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>마이페이지 - AGRIWATCH</title>
 
     <link rel="stylesheet" th:href="@{/css/common.css}">
@@ -13,253 +14,807 @@
 <body>
 
 <header class="main-header">
+
     <div class="header-inner">
 
-        <a th:href="@{/main/view}" class="header-logo">
-            <img th:src="@{/img/logo.png}" alt="AGRIWATCH">
-            <span class="header-logo-text">AGRIWATCH</span>
+        <a th:href="@{/main/view}"
+           class="header-logo">
+
+            <img th:src="@{/img/logo.png}"
+                 alt="AGRIWATCH">
+
+            <span class="header-logo-text">
+                AGRIWATCH
+            </span>
+
         </a>
 
         <nav class="header-nav">
-            <div class="nav-member">
-                <span class="nav-username"
-                      th:text="${session.userName} + '님'">사용자님</span>
 
-                <a th:href="@{/mypage/view}" class="btn-nav-mypage active">마이페이지</a>
-                <button type="button" id="btnLogout" class="btn-nav-logout">로그아웃</button>
+            <div class="nav-member">
+
+                <span class="nav-username"
+                      th:text="${session.userName} + '님'">
+                    사용자님
+                </span>
+
+                <a th:href="@{/mypage/view}"
+                   class="btn-nav-mypage active">
+                    마이페이지
+                </a>
+
+                <button type="button"
+                        id="btnLogout"
+                        class="btn-nav-logout">
+                    로그아웃
+                </button>
+
             </div>
+
         </nav>
 
     </div>
+
 </header>
+
 
 <main class="mypage-wrap">
 
+    <!-- =====================================================
+         마이페이지 제목
+         ===================================================== -->
+
     <section class="mypage-title-section">
-        <p class="mypage-badge">내 계정 관리</p>
-        <h1 class="mypage-title">마이페이지</h1>
-        <p class="mypage-desc">내 정보, 선호 작물, 저장된 분석 기록을 확인할 수 있습니다.</p>
+
+        <p class="mypage-badge">
+            내 계정 관리
+        </p>
+
+        <h1 class="mypage-title">
+            마이페이지
+        </h1>
+
+        <p class="mypage-desc">
+            내 정보, 선호 작물, 저장된 분석 기록을 확인할 수 있습니다.
+        </p>
+
     </section>
+
+
+    <!-- =====================================================
+         기본 정보
+         ===================================================== -->
 
     <section class="mypage-grid">
 
         <!-- 내 정보 -->
         <div class="mypage-card info-card">
+
             <div class="card-head">
+
                 <div>
-                    <h2 class="card-title">내 정보</h2>
-                    <p class="card-desc">회원 기본 정보입니다.</p>
+                    <h2 class="card-title">
+                        내 정보
+                    </h2>
+
+                    <p class="card-desc">
+                        회원 기본 정보입니다.
+                    </p>
                 </div>
+
             </div>
+
 
             <div class="info-list">
-                <div class="info-row">
-                    <span class="info-label">이름</span>
-                    <span class="info-value" th:text="${userInfo.name()}">홍길동</span>
-                </div>
 
                 <div class="info-row">
-                    <span class="info-label">이메일</span>
-                    <span class="info-value" th:text="${userInfo.email()}">test@test.com</span>
+                    <span class="info-label">
+                        이름
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${userInfo.name()}">
+                        홍길동
+                    </span>
                 </div>
 
-                <div class="info-row">
-                    <span class="info-label">가입일</span>
-                    <span class="info-value" th:text="${userInfo.createdAt()}">2026-01-01</span>
-                </div>
 
                 <div class="info-row">
-                    <span class="info-label">지역</span>
-                    <span class="info-value" th:text="${userInfo.fullRegionName()}">서울특별시 관악구</span>
+                    <span class="info-label">
+                        이메일
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${userInfo.email()}">
+                        test@test.com
+                    </span>
                 </div>
+
+
+                <div class="info-row">
+                    <span class="info-label">
+                        가입일
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${userInfo.createdAt()}">
+                        2026-01-01
+                    </span>
+                </div>
+
+
+                <div class="info-row">
+                    <span class="info-label">
+                        지역
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${userInfo.fullRegionName()}">
+                        서울특별시 관악구
+                    </span>
+                </div>
+
             </div>
+
 
             <div class="info-actions">
-                <a th:href="@{/find/password}" class="mypage-btn btn-gray">비밀번호 변경</a>
-                <button type="button" id="btnOpenRegionModal" class="mypage-btn btn-green">지역 수정</button>
-                <button type="button" id="btnWithdraw" class="mypage-btn btn-red">회원탈퇴</button>
+
+                <a th:href="@{/find/password}"
+                   class="mypage-btn btn-gray">
+                    비밀번호 변경
+                </a>
+
+                <button type="button"
+                        id="btnOpenRegionModal"
+                        class="mypage-btn btn-green">
+                    지역 수정
+                </button>
+
+                <button type="button"
+                        id="btnWithdraw"
+                        class="mypage-btn btn-red">
+                    회원탈퇴
+                </button>
+
             </div>
+
         </div>
+
 
         <!-- 선호 작물 -->
         <div class="mypage-card crop-card">
+
             <div class="card-head">
+
                 <div>
-                    <h2 class="card-title">선호 작물</h2>
-                    <p class="card-desc">현재 선택된 작물을 변경할 수 있습니다.</p>
+                    <h2 class="card-title">
+                        선호 작물
+                    </h2>
+
+                    <p class="card-desc">
+                        현재 선택된 작물을 변경할 수 있습니다.
+                    </p>
                 </div>
-                <button type="button" id="btnSaveCrop" class="mypage-btn btn-green small">저장</button>
+
+                <button type="button"
+                        id="btnSaveCrop"
+                        class="mypage-btn btn-green small">
+                    저장
+                </button>
+
             </div>
 
-            <input type="hidden" id="favoriteCropId"
+
+            <input type="hidden"
+                   id="favoriteCropId"
                    th:value="${userInfo.favoriteCropId()}">
 
+
             <div class="crop-select-box">
-                <div class="crop-grid" id="cropGrid">
+
+                <div class="crop-grid"
+                     id="cropGrid">
 
                     <div class="crop-item crop-rice"
                          data-id="1"
                          th:classappend="${userInfo.favoriteCropId() == 1} ? ' selected' : ''">
+
                         <div class="crop-icon-box">
-                            <img th:src="@{/img/bbuu.png}" alt="벼">
+                            <img th:src="@{/img/bbuu.png}"
+                                 alt="벼">
                         </div>
-                        <div class="crop-name">벼</div>
+
+                        <div class="crop-name">
+                            벼
+                        </div>
+
                     </div>
+
 
                     <div class="crop-item crop-potato"
                          data-id="2"
                          th:classappend="${userInfo.favoriteCropId() == 2} ? ' selected' : ''">
+
                         <div class="crop-icon-box">
-                            <img th:src="@{/img/gamja.png}" alt="감자">
+                            <img th:src="@{/img/gamja.png}"
+                                 alt="감자">
                         </div>
-                        <div class="crop-name">감자</div>
+
+                        <div class="crop-name">
+                            감자
+                        </div>
+
                     </div>
+
 
                     <div class="crop-item crop-pepper"
                          data-id="3"
                          th:classappend="${userInfo.favoriteCropId() == 3} ? ' selected' : ''">
+
                         <div class="crop-icon-box">
-                            <img th:src="@{/img/gochu.png}" alt="고추">
+                            <img th:src="@{/img/gochu.png}"
+                                 alt="고추">
                         </div>
-                        <div class="crop-name">고추</div>
+
+                        <div class="crop-name">
+                            고추
+                        </div>
+
                     </div>
+
 
                     <div class="crop-item crop-grape"
                          data-id="4"
                          th:classappend="${userInfo.favoriteCropId() == 4} ? ' selected' : ''">
+
                         <div class="crop-icon-box">
-                            <img th:src="@{/img/podo.png}" alt="포도">
+                            <img th:src="@{/img/podo.png}"
+                                 alt="포도">
                         </div>
-                        <div class="crop-name">포도</div>
+
+                        <div class="crop-name">
+                            포도
+                        </div>
+
                     </div>
+
 
                     <div class="crop-item crop-cabbage"
                          data-id="5"
                          th:classappend="${userInfo.favoriteCropId() == 5} ? ' selected' : ''">
+
                         <div class="crop-icon-box">
-                            <img th:src="@{/img/bachu.png}" alt="배추">
+                            <img th:src="@{/img/bachu.png}"
+                                 alt="배추">
                         </div>
-                        <div class="crop-name">배추</div>
+
+                        <div class="crop-name">
+                            배추
+                        </div>
+
                     </div>
+
 
                     <div class="crop-item crop-apple"
                          data-id="6"
                          th:classappend="${userInfo.favoriteCropId() == 6} ? ' selected' : ''">
+
                         <div class="crop-icon-box">
-                            <img th:src="@{/img/saga.png}" alt="사과">
+                            <img th:src="@{/img/saga.png}"
+                                 alt="사과">
                         </div>
-                        <div class="crop-name">사과</div>
+
+                        <div class="crop-name">
+                            사과
+                        </div>
+
                     </div>
 
                 </div>
+
             </div>
 
-            <p id="cropMsg" class="msg-error"></p>
+
+            <p id="cropMsg"
+               class="msg-error">
+            </p>
+
         </div>
 
     </section>
 
-    <!-- 저장된 리포트 -->
+
+    <!-- =====================================================
+         저장된 리포트
+         ===================================================== -->
+
     <section class="mypage-card report-card">
+
         <div class="card-head">
+
             <div>
-                <h2 class="card-title">저장된 리포트 보기</h2>
-                <p class="card-desc">저장된 재배 분석과 병충해 진단 기록입니다.</p>
+                <h2 class="card-title">
+                    저장된 리포트 보기
+                </h2>
+
+                <p class="card-desc">
+                    저장된 재배 분석과 병충해 진단 기록입니다.
+                </p>
             </div>
+
         </div>
+
 
         <div class="report-columns">
 
             <!-- 분석 리포트 -->
             <div class="report-panel">
+
                 <div class="report-panel-head">
-                    <h3>재배 분석 리포트</h3>
-                    <span th:text="${analysisList != null ? #lists.size(analysisList) : 0} + '건'">0건</span>
+
+                    <h3>
+                        재배 분석 리포트
+                    </h3>
+
+                    <span th:text="${analysisList != null ? #lists.size(analysisList) : 0} + '건'">
+                        0건
+                    </span>
+
                 </div>
 
-                <div th:if="${analysisList == null or #lists.isEmpty(analysisList)}" class="empty-report">
+
+                <div th:if="${analysisList == null or #lists.isEmpty(analysisList)}"
+                     class="empty-report">
                     저장된 분석 리포트가 없습니다.
                 </div>
 
-                <div th:if="${analysisList != null and !#lists.isEmpty(analysisList)}" class="report-list">
+
+                <div th:if="${analysisList != null and !#lists.isEmpty(analysisList)}"
+                     class="report-list">
+
                     <button type="button"
                             class="report-item analysis-report-item"
                             th:each="item : ${analysisList}"
                             th:attr="data-id=${item.analysisId}">
+
                         <div class="report-main">
-                            <strong th:text="${item.cropName}">추천 작물</strong>
-                            <span th:text="${item.fullRegionName}">지역명</span>
+
+                            <strong th:text="${item.cropName}">
+                                추천 작물
+                            </strong>
+
+                            <span th:text="${item.fullRegionName}">
+                                지역명
+                            </span>
+
                         </div>
+
+
                         <div class="report-sub">
-                            <span th:text="'점수 ' + ${item.score}">점수 90</span>
-                            <span th:text="${item.createdAt}">2026-01-01</span>
+
+                            <span th:text="'점수 ' + ${item.score}">
+                                점수 90
+                            </span>
+
+                            <span th:text="${item.createdAt}">
+                                2026-01-01
+                            </span>
+
                         </div>
+
                     </button>
+
                 </div>
+
             </div>
+
 
             <!-- 진단 리포트 -->
             <div class="report-panel">
+
                 <div class="report-panel-head">
-                    <h3>AI 병충해 진단 리포트</h3>
-                    <span th:text="${diagnosisList != null ? #lists.size(diagnosisList) : 0} + '건'">0건</span>
+
+                    <h3>
+                        AI 병충해 진단 리포트
+                    </h3>
+
+                    <span th:text="${diagnosisList != null ? #lists.size(diagnosisList) : 0} + '건'">
+                        0건
+                    </span>
+
                 </div>
 
-                <div th:if="${diagnosisList == null or #lists.isEmpty(diagnosisList)}" class="empty-report">
+
+                <div th:if="${diagnosisList == null or #lists.isEmpty(diagnosisList)}"
+                     class="empty-report">
                     저장된 진단 리포트가 없습니다.
                 </div>
 
-                <div th:if="${diagnosisList != null and !#lists.isEmpty(diagnosisList)}" class="report-list">
+
+                <div th:if="${diagnosisList != null and !#lists.isEmpty(diagnosisList)}"
+                     class="report-list">
+
                     <button type="button"
                             class="report-item diagnosis-report-item"
                             th:each="item : ${diagnosisList}"
                             th:attr="data-id=${item.diagnosisId}">
+
                         <div class="report-main">
-                            <strong th:text="${item.predictedDiseaseName}">진단명</strong>
+
+                            <strong th:text="${item.predictedDiseaseName}">
+                                진단명
+                            </strong>
+
                         </div>
+
+
                         <div class="report-sub">
-                            <span th:text="${item.symptomSummary}">증상 요약</span>
-                            <span th:text="${item.createdAt}">2026-01-01</span>
+
+                            <span th:text="${item.symptomSummary}">
+                                증상 요약
+                            </span>
+
+                            <span th:text="${item.createdAt}">
+                                2026-01-01
+                            </span>
+
                         </div>
+
                     </button>
+
                 </div>
+
             </div>
 
         </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         거래 관리
+         ===================================================== -->
+
+    <section class="mypage-card trade-manage-card">
+
+        <div class="card-head">
+
+            <div>
+                <h2 class="card-title">
+                    거래 관리
+                </h2>
+
+                <p class="card-desc">
+                    관심 등록한 거래글과 내가 등록한 거래글을 확인할 수 있습니다.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="mypage-trade-columns">
+
+            <!-- 관심 거래글 -->
+            <div class="mypage-trade-panel">
+
+                <div class="mypage-trade-panel-head">
+
+                    <h3>
+                        관심 거래글
+                    </h3>
+
+                    <span id="favoriteTradeCount">
+                        0건
+                    </span>
+
+                </div>
+
+
+                <div id="favoriteTradeEmpty"
+                     class="empty-trade"
+                     hidden>
+                    관심 등록한 거래글이 없습니다.
+                </div>
+
+
+                <div id="favoriteTradeList"
+                     class="mypage-trade-list">
+                </div>
+
+            </div>
+
+
+            <!-- 내가 등록한 거래글 -->
+            <div class="mypage-trade-panel">
+
+                <div class="mypage-trade-panel-head">
+
+                    <h3>
+                        내가 등록한 거래글
+                    </h3>
+
+                    <span id="myTradeCount">
+                        0건
+                    </span>
+
+                </div>
+
+
+                <div id="myTradeEmpty"
+                     class="empty-trade"
+                     hidden>
+                    등록한 거래글이 없습니다.
+                </div>
+
+
+                <div id="myTradeList"
+                     class="mypage-trade-list">
+                </div>
+
+            </div>
+
+        </div>
+
     </section>
 
 </main>
 
-<!-- 지역 수정 모달용 템플릿 -->
+
+<!-- =====================================================
+     거래 상세 모달
+     ===================================================== -->
+
+<div id="tradeDetailModal"
+     class="trade-detail-modal"
+     hidden>
+
+    <div id="tradeDetailBackdrop"
+         class="trade-detail-backdrop">
+    </div>
+
+
+    <section class="trade-detail-dialog"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="tradeDetailTitle">
+
+        <button type="button"
+                id="tradeDetailCloseBtn"
+                class="trade-detail-close-btn"
+                aria-label="상세창 닫기">
+            ×
+        </button>
+
+
+        <div class="trade-detail-body">
+
+            <!-- 상품 이미지 -->
+            <div class="trade-detail-image-area">
+
+                <img id="tradeDetailImage"
+                     class="trade-detail-image"
+                     alt="상품 이미지">
+
+            </div>
+
+
+            <!-- 상품 정보 -->
+            <div class="trade-detail-info">
+
+                <h2 id="tradeDetailTitle"
+                    class="trade-detail-title">
+                    상품 제목
+                </h2>
+
+
+                <p id="tradeDetailPrice"
+                   class="trade-detail-price">
+                    0원
+                </p>
+
+
+                <div class="trade-detail-meta">
+
+                    <span id="tradeDetailRegion">
+                        지역
+                    </span>
+
+                    <span id="tradeDetailDate">
+                        등록일
+                    </span>
+
+                </div>
+
+
+                <div class="trade-detail-summary">
+
+                    <!-- 일반 상세용 상태 -->
+                    <span id="tradeDetailStatus"
+                          class="trade-detail-status">
+                        판매중
+                    </span>
+
+
+                    <!-- 내가 등록한 거래글 상태 변경 -->
+                    <select id="tradeDetailStatusSelect"
+                            class="trade-detail-status-select"
+                            hidden>
+
+                        <option value="SALE">
+                            판매중
+                        </option>
+
+                        <option value="RESERVED">
+                            예약중
+                        </option>
+
+                        <option value="SOLD">
+                            판매완료
+                        </option>
+
+                    </select>
+
+
+                    <!-- 내가 등록한 거래글 삭제 -->
+                    <button type="button"
+                            id="tradeDetailDeleteBtn"
+                            class="trade-detail-delete-btn"
+                            hidden>
+                        삭제
+                    </button>
+
+
+                    <span id="tradeDetailQuantity"
+                          class="trade-detail-quantity">
+                        수량 1개
+                    </span>
+
+                </div>
+
+
+                <div class="trade-detail-divider">
+                </div>
+
+
+                <div class="trade-detail-description">
+
+                    <h3 class="trade-detail-section-title">
+                        상품 설명
+                    </h3>
+
+                    <p id="tradeDetailContent"
+                       class="trade-detail-content">
+                        상품 설명
+                    </p>
+
+                </div>
+
+
+                <div class="trade-detail-divider">
+                </div>
+
+
+                <div class="trade-detail-seller">
+
+                    <h3 class="trade-detail-section-title">
+                        판매자
+                    </h3>
+
+                    <strong id="tradeDetailSellerName"
+                            class="trade-detail-seller-name">
+                        판매자명
+                    </strong>
+
+                </div>
+
+
+                <!-- 관심 거래글 상세에서만 표시 -->
+                <div id="tradeDetailActions"
+                     class="trade-detail-actions">
+
+                    <button type="button"
+                            id="tradeDetailFavoriteBtn"
+                            class="trade-detail-favorite-btn">
+
+                        <span id="tradeDetailFavoriteIcon">
+                            ♡
+                        </span>
+
+                        <span>
+                            관심
+                        </span>
+
+                        <span id="tradeDetailFavoriteCount">
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <button type="button"
+                            id="tradeDetailChatBtn"
+                            class="trade-detail-chat-btn">
+                        💬 판매자와 채팅
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =====================================================
+     지역 수정 모달 템플릿
+     ===================================================== -->
+
 <template id="regionModalTemplate">
+
     <div class="region-modal-form">
+
         <div class="form-group">
-            <label for="modalSidoSelect">시도</label>
-            <select id="modalSidoSelect" class="form-select">
-                <option value="">시도를 선택해주세요</option>
+
+            <label for="modalSidoSelect">
+                시도
+            </label>
+
+            <select id="modalSidoSelect"
+                    class="form-select">
+
+                <option value="">
+                    시도를 선택해주세요
+                </option>
+
                 <option th:each="sido : ${sidoList}"
                         th:value="${sido.sidoName}"
                         th:text="${sido.sidoName}">
                 </option>
+
             </select>
+
         </div>
+
 
         <div class="form-group">
-            <label for="modalSigunguSelect">시군구</label>
-            <select id="modalSigunguSelect" class="form-select" disabled>
-                <option value="">시군구를 선택해주세요</option>
+
+            <label for="modalSigunguSelect">
+                시군구
+            </label>
+
+            <select id="modalSigunguSelect"
+                    class="form-select"
+                    disabled>
+
+                <option value="">
+                    시군구를 선택해주세요
+                </option>
+
             </select>
+
         </div>
 
-        <p id="regionMsg" class="msg-error"></p>
+
+        <p id="regionMsg"
+           class="msg-error">
+        </p>
+
     </div>
+
 </template>
 
-<div th:replace="~{modal/modal :: commonModal}"></div>
+
+<div th:replace="~{modal/modal :: commonModal}">
+</div>
+
 
 <script th:inline="javascript">
     const CTX = /*[[@{/}]]*/ '/';
 </script>
+
 <script th:src="@{/js/modal.js}"></script>
 <script th:src="@{/js/mypage.js}"></script>
 

@@ -3,6 +3,8 @@ package kopo.poly.jolljack.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kopo.poly.jolljack.dto.RegionDTO;
+import kopo.poly.jolljack.dto.TradePostDetailDTO;
+import kopo.poly.jolljack.dto.TradePostListDTO;
 import kopo.poly.jolljack.service.IMyPageService;
 import kopo.poly.jolljack.service.ISignupService;
 import lombok.RequiredArgsConstructor;
@@ -166,5 +168,100 @@ public class MyPageController {
 
         return "diag/result";
     }
+
+    /**
+     * 관심 거래글 조회
+     */
+    @ResponseBody
+    @GetMapping("/getFavoriteTradeList")
+    public List<TradePostListDTO> getFavoriteTradeList(HttpSession session) throws Exception {
+
+        log.info("{}.getFavoriteTradeList Start!", this.getClass().getName());
+
+        Long userId =
+                (Long) session.getAttribute("userId");
+
+        List<TradePostListDTO> rList =
+                myPageService.getFavoriteTradeListProc(userId);
+
+        log.info("{}.getFavoriteTradeList End!", this.getClass().getName());
+
+        return rList;
+    }
+
+    /**
+     * 내가 등록한 거래글 조회
+     */
+    @ResponseBody
+    @GetMapping("/getMyTradeList")
+    public List<TradePostListDTO> getMyTradeList(HttpSession session) throws Exception {
+
+        log.info("{}.getMyTradeList Start!", this.getClass().getName());
+
+        Long userId =
+                (Long) session.getAttribute("userId");
+
+        List<TradePostListDTO> rList =
+                myPageService.getMyTradeListProc(userId);
+
+        log.info("{}.getMyTradeList End!", this.getClass().getName());
+
+        return rList;
+    }
+
+
+    /**
+     * 내가 등록한 거래글 상태 변경
+     */
+    @ResponseBody
+    @PostMapping("/updateMyTradeStatus")
+    public Map<String, Object> updateMyTradeStatus(@RequestParam Long tradePostId,
+                                                   @RequestParam String status,
+                                                   HttpSession session) throws Exception {
+
+        log.info("{}.updateMyTradeStatus Start!", this.getClass().getName());
+
+        Long userId =
+                (Long) session.getAttribute("userId");
+
+        TradePostDetailDTO pDTO = TradePostDetailDTO.builder()
+                .tradePostId(tradePostId)
+                .status(status)
+                .build();
+
+        Map<String, Object> rMap =
+                myPageService.updateMyTradeStatusProc(userId, pDTO);
+
+        log.info("{}.updateMyTradeStatus End!", this.getClass().getName());
+
+        return rMap;
+    }
+
+
+    /**
+     * 내가 등록한 거래글 삭제
+     */
+    @ResponseBody
+    @PostMapping("/deleteMyTradePost")
+    public Map<String, Object> deleteMyTradePost(@RequestParam Long tradePostId,
+                                                 HttpSession session) throws Exception {
+
+        log.info("{}.deleteMyTradePost Start!", this.getClass().getName());
+
+        Long userId =
+                (Long) session.getAttribute("userId");
+
+        TradePostDetailDTO pDTO = TradePostDetailDTO.builder()
+                .tradePostId(tradePostId)
+                .build();
+
+        Map<String, Object> rMap =
+                myPageService.deleteMyTradePostProc(userId, pDTO);
+
+        log.info("{}.deleteMyTradePost End!", this.getClass().getName());
+
+        return rMap;
+    }
+
 
 }

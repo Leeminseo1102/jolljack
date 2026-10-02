@@ -149,4 +149,73 @@
           AND deleted_at <![CDATA[<=]]> DATE_SUB(NOW(), INTERVAL 15 DAY)
     </delete>
 
+    <!--
+    거래 관심글 조회
+    -->
+    <select id="getFavoriteTradeList" parameterType="UserDTO" resultType="TradePostListDTO">
+        SELECT TP.trade_post_id,
+               TP.region_id,
+               TP.title,
+               TP.price,
+               TP.quantity,
+               TP.image_key,
+               NULL AS image_url,
+               TP.status,
+               TRUE AS favorite,
+               TP.created_at
+        FROM trade_favorite TF
+                 INNER JOIN trade_post TP
+                            ON TF.trade_post_id = TP.trade_post_id
+        WHERE TF.user_id = #{userId}
+          AND TP.status != 'DELETED'
+        ORDER BY TP.created_at DESC
+    </select>
+
+    <!--
+    내가 등록한 거래글 조회
+    -->
+    <select id="getMyTradeList" parameterType="UserDTO" resultType="TradePostListDTO">
+        SELECT TP.trade_post_id,
+               TP.region_id,
+               TP.title,
+               TP.price,
+               TP.quantity,
+               TP.image_key,
+               NULL AS image_url,
+               TP.status,
+               FALSE AS favorite,
+               TP.created_at
+        FROM trade_post TP
+        WHERE TP.seller_user_id = #{userId}
+          AND TP.status != 'DELETED'
+        ORDER BY TP.created_at DESC
+    </select>
+
+
+    <!--
+        내가 등록한 거래글 상태 변경
+        -->
+    <update id="updateMyTradeStatus" parameterType="TradePostDetailDTO">
+        UPDATE trade_post
+        SET status = #{status},
+            updated_at = NOW()
+        WHERE trade_post_id = #{tradePostId}
+          AND seller_user_id = #{sellerUserId}
+          AND status != 'DELETED'
+    </update>
+
+
+    <!--
+        내가 등록한 거래글 삭제
+        -->
+    <update id="deleteMyTradePost" parameterType="TradePostDetailDTO">
+        UPDATE trade_post
+        SET status = 'DELETED',
+            deleted_at = NOW(),
+            updated_at = NOW()
+        WHERE trade_post_id = #{tradePostId}
+          AND seller_user_id = #{sellerUserId}
+          AND status != 'DELETED'
+    </update>
+
 </mapper>
