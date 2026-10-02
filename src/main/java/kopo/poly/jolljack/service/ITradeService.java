@@ -1,10 +1,6 @@
 package kopo.poly.jolljack.service;
 
-import kopo.poly.jolljack.dto.RegionDTO;
-import kopo.poly.jolljack.dto.TradePageDTO;
-import kopo.poly.jolljack.dto.TradePostRegisterDTO;
-import kopo.poly.jolljack.dto.TradeSearchDTO;
-import kopo.poly.jolljack.dto.TradePostDetailDTO;
+import kopo.poly.jolljack.dto.*;
 
 import java.util.List;
 
@@ -21,4 +17,8 @@ public interface ITradeService {
     String registerTradePost(Long userId, TradePostRegisterDTO pDTO) throws Exception;
 
     TradePostDetailDTO getTradePostDetail(Long userId, TradePostDetailDTO pDTO) throws Exception;
+
+    TradePostDetailDTO toggleTradeFavorite(Long userId, TradeFavoriteDTO pDTO) throws Exception;
+
+    List<TradeFavoriteTopDTO> getTradeFavoriteTop5() throws Exception;
 }

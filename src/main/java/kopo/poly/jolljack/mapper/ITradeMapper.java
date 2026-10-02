@@ -1,12 +1,6 @@
 package kopo.poly.jolljack.mapper;
 
-import kopo.poly.jolljack.dto.RegionDTO;
-import kopo.poly.jolljack.dto.TradePostListDTO;
-import kopo.poly.jolljack.dto.TradeSearchDTO;
-import kopo.poly.jolljack.dto.UserDTO;
-import kopo.poly.jolljack.dto.TradeInsertDTO;
-import kopo.poly.jolljack.dto.TradePostDetailDTO;
-import kopo.poly.jolljack.dto.TradeFavoriteDTO;
+import kopo.poly.jolljack.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -33,4 +27,10 @@ public interface ITradeMapper {
     Long getTradeFavoriteCount(TradePostDetailDTO pDTO) throws Exception;
 
     Long getTradeFavoriteCheck(TradeFavoriteDTO pDTO) throws Exception;
+
+    int insertTradeFavorite(TradeFavoriteDTO pDTO) throws Exception;
+
+    int deleteTradeFavorite(TradeFavoriteDTO pDTO) throws Exception;
+
+    List<TradeFavoriteTopDTO> getTradeFavoriteTop5() throws Exception;
 }

@@ -20,6 +20,14 @@ public interface IMyPageMapper {
 
     List<DiseaseDiagnosisDTO> getDiagnosisList(UserDTO pDTO) throws Exception;
 
+    List<TradePostListDTO> getFavoriteTradeList(UserDTO pDTO) throws Exception;
+
+    List<TradePostListDTO> getMyTradeList(UserDTO pDTO) throws Exception;
+
+    int updateMyTradeStatus(TradePostDetailDTO pDTO) throws Exception;
+
+    int deleteMyTradePost(TradePostDetailDTO pDTO) throws Exception;
+
     int deleteExpiredDiagnosis() throws Exception;
 
     int deleteExpiredAnalysis() throws Exception;
