@@ -23,6 +23,8 @@ public record TradePostListDTO(
 
         String status,
 
+        Boolean favorite,
+
         LocalDateTime createdAt
 
 ) {

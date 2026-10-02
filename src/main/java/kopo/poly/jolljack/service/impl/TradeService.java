@@ -103,6 +103,17 @@ public class TradeService implements ITradeService {
                 imageUrl = s3Service.createTradePresignedUrl(tradeDTO.imageKey());
             }
 
+            TradeFavoriteDTO favoriteDTO = TradeFavoriteDTO.builder()
+                    .tradePostId(tradeDTO.tradePostId())
+                    .userId(userId)
+                    .build();
+
+            Long favoriteCheck =
+                    tradeMapper.getTradeFavoriteCheck(favoriteDTO);
+
+            boolean favorite =
+                    favoriteCheck != null && favoriteCheck > 0;
+
             TradePostListDTO resultDTO = TradePostListDTO.builder()
                     .tradePostId(tradeDTO.tradePostId())
                     .regionId(tradeDTO.regionId())
@@ -112,6 +123,7 @@ public class TradeService implements ITradeService {
                     .imageKey(tradeDTO.imageKey())
                     .imageUrl(imageUrl)
                     .status(tradeDTO.status())
+                    .favorite(favorite)
                     .createdAt(tradeDTO.createdAt())
                     .build();
 
@@ -412,4 +424,97 @@ public class TradeService implements ITradeService {
         return resultDTO;
     }
 
+    //관심글
+    @Override
+    public TradePostDetailDTO toggleTradeFavorite(Long userId, TradeFavoriteDTO pDTO) throws Exception {
+
+        log.info("{}.toggleTradeFavorite Start!", this.getClass().getName());
+
+        if (userId == null) {
+            throw new IllegalArgumentException("로그인 정보가 없습니다.");
+        }
+
+        if (pDTO == null || pDTO.tradePostId() == null) {
+            throw new IllegalArgumentException("거래글 정보가 없습니다.");
+        }
+
+        TradeFavoriteDTO favoriteDTO = TradeFavoriteDTO.builder()
+                .tradePostId(pDTO.tradePostId())
+                .userId(userId)
+                .build();
+
+        Long favoriteCheck =
+                tradeMapper.getTradeFavoriteCheck(favoriteDTO);
+
+        boolean favorite;
+
+        if (favoriteCheck != null && favoriteCheck > 0) {
+
+            int res =
+                    tradeMapper.deleteTradeFavorite(favoriteDTO);
+
+            if (res != 1) {
+                throw new Exception("관심 취소에 실패했습니다.");
+            }
+
+            favorite = false;
+
+            log.info("거래 관심 취소 userId : {}, tradePostId : {}",
+                    userId,
+                    pDTO.tradePostId());
+
+        } else {
+
+            int res =
+                    tradeMapper.insertTradeFavorite(favoriteDTO);
+
+            if (res != 1) {
+                throw new Exception("관심 등록에 실패했습니다.");
+            }
+
+            favorite = true;
+
+            log.info("거래 관심 등록 userId : {}, tradePostId : {}",
+                    userId,
+                    pDTO.tradePostId());
+        }
+
+        TradePostDetailDTO detailDTO = TradePostDetailDTO.builder()
+                .tradePostId(pDTO.tradePostId())
+                .build();
+
+        Long favoriteCount =
+                tradeMapper.getTradeFavoriteCount(detailDTO);
+
+        TradePostDetailDTO resultDTO = TradePostDetailDTO.builder()
+                .tradePostId(pDTO.tradePostId())
+                .favoriteCount(favoriteCount)
+                .favorite(favorite)
+                .build();
+
+        log.info("거래 관심 처리 완료 tradePostId : {}, favoriteCount : {}, favorite : {}",
+                resultDTO.tradePostId(),
+                resultDTO.favoriteCount(),
+                resultDTO.favorite());
+
+        log.info("{}.toggleTradeFavorite End!", this.getClass().getName());
+
+        return resultDTO;
+    }
+
+    @Override
+    public List<TradeFavoriteTopDTO> getTradeFavoriteTop5() throws Exception {
+
+        log.info("{}.getTradeFavoriteTop5 Start!", this.getClass().getName());
+
+        List<TradeFavoriteTopDTO> rList =
+                tradeMapper.getTradeFavoriteTop5();
+
+        log.info("관심 등록 TOP 5 조회건수 : {}",
+                rList.size());
+
+        log.info("{}.getTradeFavoriteTop5 End!", this.getClass().getName());
+
+        return rList;
+    }
 }
