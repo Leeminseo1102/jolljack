@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.jolljack.mapper.ITradeMessageMapper">
+
+
+    <!-- 거래 채팅방 조회 -->
+    <select id="getTradeMessageRoom" parameterType="TradeMessageRoomDTO" resultType="TradeMessageRoomDTO">
+        SELECT message_room_id,
+               trade_post_id,
+               buyer_user_id,
+               status,
+               created_at,
+               last_message_at
+        FROM trade_message_room
+        WHERE trade_post_id = #{tradePostId}
+          AND buyer_user_id = #{buyerUserId}
+            LIMIT 1
+    </select>
+
+
+    <!-- 거래 채팅방 생성 -->
+    <insert id="insertTradeMessageRoom" parameterType="TradeMessageRoomDTO">
+        INSERT INTO trade_message_room (
+            trade_post_id,
+            buyer_user_id
+        ) VALUES (
+                     #{tradePostId},
+                     #{buyerUserId}
+                 )
+    </insert>
+
+
+    <!-- 거래 채팅방 ID 조회 -->
+    <select id="getTradeMessageRoomById" parameterType="TradeMessageRoomDTO" resultType="TradeMessageRoomDTO">
+        SELECT message_room_id,
+               trade_post_id,
+               buyer_user_id,
+               status,
+               created_at,
+               last_message_at
+        FROM trade_message_room
+        WHERE message_room_id = #{messageRoomId}
+            LIMIT 1
+    </select>
+
+
+    <!-- 거래 메시지 목록 조회 -->
+    <select id="getTradeMessageList" parameterType="TradeMessageDTO" resultType="TradeMessageDTO">
+        SELECT message_id,
+               message_room_id,
+               sender_user_id,
+               message_text,
+               created_at,
+               read_at
+        FROM trade_message
+        WHERE message_room_id = #{messageRoomId}
+        ORDER BY message_id ASC
+    </select>
+
+
+    <!-- 거래 메시지 등록 -->
+    <insert id="insertTradeMessage" parameterType="TradeMessageDTO" useGeneratedKeys="true" keyProperty="messageId">
+        INSERT INTO trade_message (
+            message_room_id,
+            sender_user_id,
+            message_text
+        )
+        VALUES (
+                   #{messageRoomId},
+                   #{senderUserId},
+                   #{messageText}
+               )
+    </insert>
+
+
+    <!-- 채팅방 마지막 메시지 시간 갱신 -->
+    <update id="updateTradeMessageRoomLastMessage" parameterType="TradeMessageRoomDTO">
+        UPDATE trade_message_room
+        SET last_message_at = NOW()
+        WHERE message_room_id = #{messageRoomId}
+    </update>
+
+
+    <!-- 상대방 메시지 읽음 처리 -->
+    <update id="updateTradeMessageRead" parameterType="TradeMessageDTO">
+        UPDATE trade_message
+        SET read_at = NOW()
+        WHERE message_room_id = #{messageRoomId}
+          AND sender_user_id != #{senderUserId}
+          AND read_at IS NULL
+    </update>
+
+    <!-- 내 거래 채팅방 목록 조회 -->
+    <select id="getTradeMessageRoomList" parameterType="UserDTO" resultType="TradeMessageRoomListDTO">
+        SELECT TMR.message_room_id,
+               TMR.trade_post_id,
+               TP.title AS trade_post_title,
+               CASE
+                   WHEN TMR.buyer_user_id = #{userId} THEN TP.seller_user_id
+                   ELSE TMR.buyer_user_id
+                   END AS opponent_user_id,
+               CASE
+                   WHEN TMR.buyer_user_id = #{userId} THEN SU.name
+                   ELSE BU.name
+                   END AS opponent_name,
+               LM.message_text AS last_message_text,
+               TMR.last_message_at,
+               COALESCE(TM.unread_count, 0) AS unread_count
+        FROM trade_message_room TMR
+                 INNER JOIN trade_post TP
+                            ON TMR.trade_post_id = TP.trade_post_id
+                 INNER JOIN users SU
+                            ON TP.seller_user_id = SU.user_id
+                 INNER JOIN users BU
+                            ON TMR.buyer_user_id = BU.user_id
+                 LEFT JOIN (
+            SELECT message_room_id,
+                   MAX(message_id) AS last_message_id,
+                   SUM(
+                           CASE
+                               WHEN sender_user_id != #{userId}
+                               AND read_at IS NULL THEN 1
+                           ELSE 0
+                           END
+                   ) AS unread_count
+            FROM trade_message
+            GROUP BY message_room_id
+        ) TM
+                           ON TMR.message_room_id = TM.message_room_id
+                 LEFT JOIN trade_message LM
+                           ON TM.last_message_id = LM.message_id
+        WHERE TMR.buyer_user_id = #{userId}
+           OR TP.seller_user_id = #{userId}
+        ORDER BY COALESCE(TMR.last_message_at, TMR.created_at) DESC
+    </select>
+
+
+</mapper>

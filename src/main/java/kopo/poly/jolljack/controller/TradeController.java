@@ -269,4 +269,60 @@ public class TradeController {
 
         return rDTO;
     }
+
+    @ResponseBody
+    @PostMapping("/toggleTradeFavorite")
+    public TradePostDetailDTO toggleTradeFavorite(@RequestParam Long tradePostId, HttpSession session) throws Exception {
+
+        log.info("{}.toggleTradeFavorite Start!", this.getClass().getName());
+
+        try {
+
+            Long userId =
+                    (Long) session.getAttribute("userId");
+
+            log.info("거래 관심 처리 요청 userId : {}, tradePostId : {}",
+                    userId,
+                    tradePostId);
+
+            TradeFavoriteDTO pDTO = TradeFavoriteDTO.builder()
+                    .tradePostId(tradePostId)
+                    .build();
+
+            TradePostDetailDTO rDTO =
+                    tradeService.toggleTradeFavorite(userId, pDTO);
+
+            log.info("거래 관심 처리 응답 tradePostId : {}, favoriteCount : {}, favorite : {}",
+                    rDTO.tradePostId(),
+                    rDTO.favoriteCount(),
+                    rDTO.favorite());
+
+            log.info("{}.toggleTradeFavorite End!", this.getClass().getName());
+
+            return rDTO;
+
+        } catch (Exception e) {
+
+            log.info("{}.toggleTradeFavorite Error : {}",
+                    this.getClass().getName(),
+                    e.getMessage(),
+                    e);
+
+            throw e;
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/getTradeFavoriteTop5")
+    public List<TradeFavoriteTopDTO> getTradeFavoriteTop5() throws Exception {
+
+        log.info("{}.getTradeFavoriteTop5 Start!", this.getClass().getName());
+
+        List<TradeFavoriteTopDTO> rList =
+                tradeService.getTradeFavoriteTop5();
+
+        log.info("{}.getTradeFavoriteTop5 End!", this.getClass().getName());
+
+        return rList;
+    }
 }

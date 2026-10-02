@@ -53,6 +53,7 @@
                TP.image_key,
                NULL AS image_url,
                TP.status,
+               FALSE AS favorite,
                TP.created_at
         FROM trade_post TP
                  INNER JOIN region R
@@ -137,6 +138,41 @@
         FROM trade_favorite
         WHERE trade_post_id = #{tradePostId}
           AND user_id = #{userId}
+    </select>
+
+    <!--관심 등록-->
+    <insert id="insertTradeFavorite" parameterType="TradeFavoriteDTO">
+        INSERT INTO trade_favorite (
+            user_id,
+            trade_post_id
+        ) VALUES (
+                     #{userId},
+                     #{tradePostId}
+                 )
+    </insert>
+
+    <delete id="deleteTradeFavorite" parameterType="TradeFavoriteDTO">
+        DELETE FROM trade_favorite
+        WHERE user_id = #{userId}
+          AND trade_post_id = #{tradePostId}
+    </delete>
+
+    <!-- 관심 등록 TOP 5 조회 -->
+    <select id="getTradeFavoriteTop5" resultType="TradeFavoriteTopDTO">
+        SELECT TP.trade_post_id,
+               TP.title,
+               TP.price,
+               COUNT(TF.favorite_id) AS favorite_count
+        FROM trade_post TP
+                 INNER JOIN trade_favorite TF
+                            ON TP.trade_post_id = TF.trade_post_id
+        WHERE TP.status != 'DELETED'
+        GROUP BY TP.trade_post_id,
+            TP.title,
+            TP.price
+        ORDER BY favorite_count DESC,
+            TP.created_at DESC
+            LIMIT 5
     </select>
 
 
