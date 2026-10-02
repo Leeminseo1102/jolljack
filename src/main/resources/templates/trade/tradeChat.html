@@ -1,0 +1,262 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          th:fragment="tradeChat">
+
+
+    <!-- =====================================================
+         거래 채팅 모달
+         ===================================================== -->
+
+    <div id="tradeChatRoomModal"
+         class="trade-chat-modal"
+         hidden>
+
+
+        <div id="tradeChatRoomBackdrop"
+             class="trade-chat-backdrop">
+        </div>
+
+
+        <section class="trade-chat-dialog"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="tradeChatRoomTitle">
+
+
+            <!-- =================================================
+                 왼쪽 : 채팅방 목록
+                 ================================================= -->
+
+            <aside class="trade-chat-room-panel">
+
+
+                <div class="trade-chat-room-header">
+
+                    <div>
+
+                        <strong id="tradeChatRoomTitle"
+                                class="trade-chat-room-title">
+                            거래 채팅
+                        </strong>
+
+                        <p class="trade-chat-room-guide">
+                            거래 상대와 대화를 확인해보세요.
+                        </p>
+
+                    </div>
+
+
+                    <button type="button"
+                            id="tradeChatRoomCloseBtn"
+                            class="trade-chat-room-close-btn"
+                            aria-label="채팅 닫기">
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     채팅방 목록
+                     ================================================= -->
+
+                <div id="tradeChatRoomList"
+                     class="trade-chat-room-list">
+                </div>
+
+
+                <!-- =================================================
+                     채팅방 없음
+                     ================================================= -->
+
+                <div id="tradeChatRoomEmpty"
+                     class="trade-chat-room-empty"
+                     hidden>
+
+                    <div class="trade-chat-empty-icon">
+                        💬
+                    </div>
+
+                    <strong>
+                        아직 거래 채팅이 없습니다.
+                    </strong>
+
+                    <span>
+                        상품에서 판매자와 채팅을 시작해보세요.
+                    </span>
+
+                </div>
+
+
+            </aside>
+
+
+            <!-- =================================================
+                 오른쪽 : 메시지 영역
+                 ================================================= -->
+
+            <section id="tradeMessagePanel"
+                     class="trade-message-panel">
+
+
+                <!-- =================================================
+                     채팅 선택 전
+                     ================================================= -->
+
+                <div id="tradeMessageSelectEmpty"
+                     class="trade-message-select-empty">
+
+                    <div class="trade-message-select-icon">
+                        🌱
+                    </div>
+
+                    <strong>
+                        채팅방을 선택해주세요.
+                    </strong>
+
+                    <span>
+                        왼쪽 목록에서 대화할 상대를 선택하면<br>
+                        메시지를 확인할 수 있습니다.
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     실제 대화 영역
+                     ================================================= -->
+
+                <div id="tradeMessageModal"
+                     class="trade-message-wrap"
+                     hidden>
+
+
+                    <!-- =================================================
+                         채팅 상단
+                         ================================================= -->
+
+                    <div class="trade-message-header">
+
+
+                        <div class="trade-message-user-info">
+
+                            <strong id="tradeMessageTitle"
+                                    class="trade-message-title">
+                                거래 채팅
+                            </strong>
+
+                            <span id="tradeMessageOpponent"
+                                  class="trade-message-opponent">
+                                상대방
+                            </span>
+
+                        </div>
+
+
+                        <button type="button"
+                                id="tradeMessageCloseBtn"
+                                class="trade-message-close-btn"
+                                aria-label="채팅방 닫기">
+                            ×
+                        </button>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         거래 상품 정보
+                         ================================================= -->
+
+                    <div class="trade-message-product">
+
+                        <div class="trade-message-product-info">
+
+                            <span class="trade-message-product-label">
+                                거래 상품
+                            </span>
+
+                            <strong id="tradeMessageProductTitle"
+                                    class="trade-message-product-title">
+                                상품명
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         메시지 목록
+                         ================================================= -->
+
+                    <div id="tradeMessageList"
+                         class="trade-message-list">
+                    </div>
+
+
+                    <!-- =================================================
+                         메시지 없음
+                         ================================================= -->
+
+                    <div id="tradeMessageEmpty"
+                         class="trade-message-empty"
+                         hidden>
+
+                        <span>
+                            아직 대화 내용이 없습니다.
+                        </span>
+
+                        <strong>
+                            먼저 메시지를 보내보세요.
+                        </strong>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         메시지 입력
+                         ================================================= -->
+
+                    <form id="tradeMessageForm"
+                          class="trade-message-form">
+
+                        <input type="text"
+                               id="tradeMessageInput"
+                               class="trade-message-input"
+                               maxlength="500"
+                               autocomplete="off"
+                               placeholder="메시지를 입력해주세요.">
+
+
+                        <button type="submit"
+                                class="trade-message-send-btn">
+                            전송
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+
+            </section>
+
+
+        </section>
+
+    </div>
+
+
+    <!-- =====================================================
+         거래 채팅 버튼
+         ===================================================== -->
+
+    <button type="button"
+            id="tradeChatBtn"
+            class="trade-chat-btn"
+            aria-label="거래 채팅">
+        💬
+    </button>
+
+
+</th:block>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/crop.css}">
     <link rel="stylesheet" th:href="@{/css/trade.css}">
+    <link rel="stylesheet" th:href="@{/css/tradeChat.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
 </head>
 
@@ -103,7 +104,6 @@
             </div>
 
 
-            <!-- 상품 등록 기능 연결 예정 -->
             <a th:href="@{/trade/register}"
                class="trade-register-btn">
                 + 상품 등록
@@ -114,7 +114,6 @@
 
         <!-- =====================================================
              현재 선택된 거래 지역
-             TradePageDTO가 아닌 Controller Model 값 사용
              ===================================================== -->
 
         <input type="hidden"
@@ -272,6 +271,13 @@
 
                             </div>
 
+
+                            <span th:if="${post.favorite}"
+                                  class="trade-item-favorite">
+                                ♥
+                            </span>
+
+
                         </article>
 
                     </div>
@@ -310,7 +316,6 @@
 
             <!-- =====================================================
                  오른쪽 : 관심 등록 TOP 5
-                 현재는 화면 확인용 더미 데이터
                  ===================================================== -->
 
             <aside class="trade-top-panel">
@@ -321,133 +326,6 @@
 
 
                 <div class="trade-top-list">
-
-
-                    <div class="trade-top-item">
-
-                        <span class="trade-top-rank">
-                            1
-                        </span>
-
-                        <div class="trade-top-info">
-
-                            <strong>
-                                햇감자 판매합니다
-                            </strong>
-
-                            <span>
-                                20,000원
-                            </span>
-
-                        </div>
-
-                        <span class="trade-top-heart">
-                            ♥ 15
-                        </span>
-
-                    </div>
-
-
-                    <div class="trade-top-item">
-
-                        <span class="trade-top-rank">
-                            2
-                        </span>
-
-                        <div class="trade-top-info">
-
-                            <strong>
-                                직접 재배한 고추
-                            </strong>
-
-                            <span>
-                                15,000원
-                            </span>
-
-                        </div>
-
-                        <span class="trade-top-heart">
-                            ♥ 11
-                        </span>
-
-                    </div>
-
-
-                    <div class="trade-top-item">
-
-                        <span class="trade-top-rank">
-                            3
-                        </span>
-
-                        <div class="trade-top-info">
-
-                            <strong>
-                                배추 판매합니다
-                            </strong>
-
-                            <span>
-                                8,000원
-                            </span>
-
-                        </div>
-
-                        <span class="trade-top-heart">
-                            ♥ 9
-                        </span>
-
-                    </div>
-
-
-                    <div class="trade-top-item">
-
-                        <span class="trade-top-rank">
-                            4
-                        </span>
-
-                        <div class="trade-top-info">
-
-                            <strong>
-                                농가 직거래 사과
-                            </strong>
-
-                            <span>
-                                30,000원
-                            </span>
-
-                        </div>
-
-                        <span class="trade-top-heart">
-                            ♥ 7
-                        </span>
-
-                    </div>
-
-
-                    <div class="trade-top-item">
-
-                        <span class="trade-top-rank">
-                            5
-                        </span>
-
-                        <div class="trade-top-info">
-
-                            <strong>
-                                포도 한 박스 판매
-                            </strong>
-
-                            <span>
-                                25,000원
-                            </span>
-
-                        </div>
-
-                        <span class="trade-top-heart">
-                            ♥ 5
-                        </span>
-
-                    </div>
-
-
                 </div>
 
             </aside>
@@ -695,15 +573,11 @@
 
 
 <!-- =====================================================
-     거래 채팅 버튼
-     기능 연결 예정
+     거래 채팅
      ===================================================== -->
 
-<button type="button"
-        class="trade-chat-btn"
-        aria-label="거래 채팅">
-    💬
-</button>
+<div th:replace="~{trade/tradeChat :: tradeChat}">
+</div>
 
 
 <!-- =====================================================
@@ -729,6 +603,9 @@
 </script>
 
 <script th:src="@{/js/trade.js}">
+</script>
+
+<script th:src="@{/js/tradeChat.js}">
 </script>
 
 

@@ -1,0 +1,891 @@
+/* =====================================================
+   거래 채팅 전체
+   ===================================================== */
+
+.trade-chat-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 2100;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+.trade-chat-modal[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   채팅 배경
+   ===================================================== */
+
+.trade-chat-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.52);
+}
+
+
+/* =====================================================
+   채팅 본체
+   ===================================================== */
+
+.trade-chat-dialog {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        330px
+        minmax(0, 1fr);
+
+    width: min(980px, calc(100vw - 48px));
+    height: min(700px, calc(100vh - 48px));
+
+    overflow: hidden;
+
+    border: 1px solid #e2ebe3;
+    border-radius: 20px;
+
+    background: #fff;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =====================================================
+   왼쪽 채팅방 영역
+   ===================================================== */
+
+.trade-chat-room-panel {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+
+    border-right: 1px solid #e6ece6;
+
+    background: #fff;
+}
+
+
+/* =====================================================
+   채팅방 상단
+   ===================================================== */
+
+.trade-chat-room-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 22px 20px 18px;
+
+    border-bottom: 1px solid #edf1ed;
+}
+
+.trade-chat-room-title {
+    display: block;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    color: #263428;
+}
+
+.trade-chat-room-guide {
+    margin: 5px 0 0;
+
+    font-size: 11px;
+
+    color: #929993;
+}
+
+.trade-chat-room-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 26px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.trade-chat-room-close-btn:hover {
+    background: #f1f5f1;
+}
+
+
+/* =====================================================
+   채팅방 목록
+   ===================================================== */
+
+.trade-chat-room-list {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    background: #fff;
+}
+
+.trade-chat-room-list[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   채팅방
+   ===================================================== */
+
+.trade-chat-room-item {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    gap: 6px;
+
+    padding: 17px 18px;
+
+    border: 0;
+    border-bottom: 1px solid #f0f3f0;
+
+    background: #fff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+            background 0.15s,
+            border-color 0.15s;
+}
+
+.trade-chat-room-item:hover {
+    background: #f7faf7;
+}
+
+.trade-chat-room-item.active {
+    background: #edf7ee;
+
+    border-bottom-color: #dbeadb;
+}
+
+
+/* =====================================================
+   채팅방 상대 / 시간
+   ===================================================== */
+
+.trade-chat-room-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.trade-chat-room-opponent {
+    overflow: hidden;
+
+    min-width: 0;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    color: #2e3a30;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trade-chat-room-time {
+    flex-shrink: 0;
+
+    font-size: 10px;
+
+    color: #a0a6a1;
+}
+
+
+/* =====================================================
+   채팅방 거래글
+   ===================================================== */
+
+.trade-chat-room-product {
+    overflow: hidden;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    color: #4f8756;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   채팅방 마지막 메시지
+   ===================================================== */
+
+.trade-chat-room-bottom {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.trade-chat-room-last-message {
+    overflow: hidden;
+
+    flex: 1;
+
+    min-width: 0;
+
+    font-size: 12px;
+
+    color: #777f78;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   채팅방 안 읽은 메시지
+   ===================================================== */
+
+.trade-chat-room-unread {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 999px;
+
+    background: #df6b73;
+
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   채팅방 없음
+   ===================================================== */
+
+.trade-chat-room-empty {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #8d958e;
+}
+
+.trade-chat-room-empty[hidden] {
+    display: none;
+}
+
+.trade-chat-empty-icon {
+    margin-bottom: 5px;
+
+    font-size: 34px;
+}
+
+.trade-chat-room-empty strong {
+    font-size: 14px;
+
+    color: #59615a;
+}
+
+.trade-chat-room-empty span {
+    font-size: 11px;
+    line-height: 1.6;
+
+    color: #a0a6a1;
+}
+
+
+/* =====================================================
+   오른쪽 메시지 패널
+   ===================================================== */
+
+.trade-message-panel {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    background: #f7faf7;
+}
+
+
+/* =====================================================
+   채팅방 선택 전
+   ===================================================== */
+
+.trade-message-select-empty {
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+.trade-message-select-empty[hidden] {
+    display: none;
+}
+
+.trade-message-select-icon {
+    margin-bottom: 5px;
+
+    font-size: 38px;
+}
+
+.trade-message-select-empty strong {
+    font-size: 16px;
+
+    color: #4e5d50;
+}
+
+.trade-message-select-empty span {
+    font-size: 12px;
+    line-height: 1.7;
+
+    color: #9aa29b;
+}
+
+
+/* =====================================================
+   실제 채팅 영역
+   ===================================================== */
+
+.trade-message-wrap {
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    flex-direction: column;
+
+    min-height: 0;
+}
+
+.trade-message-wrap[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   메시지 상단
+   ===================================================== */
+
+.trade-message-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    min-height: 68px;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #e8ede8;
+
+    background: #fff;
+}
+
+.trade-message-user-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.trade-message-title {
+    font-size: 15px;
+    font-weight: 800;
+
+    color: #293b2b;
+}
+
+.trade-message-opponent {
+    overflow: hidden;
+
+    font-size: 12px;
+
+    color: #7e877f;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trade-message-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+.trade-message-close-btn:hover {
+    background: #f2f5f2;
+}
+
+
+/* =====================================================
+   채팅 상품 정보
+   ===================================================== */
+
+.trade-message-product {
+    padding: 12px 20px;
+
+    border-bottom: 1px solid #e9eee9;
+
+    background: #fff;
+}
+
+.trade-message-product-info {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.trade-message-product-label {
+    flex-shrink: 0;
+
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    background: #edf7ee;
+
+    color: #2e7d32;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.trade-message-product-title {
+    overflow: hidden;
+
+    min-width: 0;
+
+    color: #505950;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   메시지 목록
+   ===================================================== */
+
+.trade-message-list {
+    flex: 1;
+
+    min-height: 0;
+
+    padding: 22px;
+
+    overflow-y: auto;
+
+    background: #f7faf7;
+}
+
+.trade-message-list[hidden] {
+    display: none;
+}
+
+
+/* =====================================================
+   메시지 없음
+   ===================================================== */
+
+.trade-message-empty {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    color: #9aa19b;
+
+    text-align: center;
+}
+
+.trade-message-empty[hidden] {
+    display: none;
+}
+
+.trade-message-empty span {
+    font-size: 12px;
+}
+
+.trade-message-empty strong {
+    font-size: 13px;
+
+    color: #687069;
+}
+
+
+/* =====================================================
+   메시지
+   ===================================================== */
+
+.trade-message-item {
+    display: flex;
+
+    margin-bottom: 15px;
+
+    flex-direction: column;
+}
+
+.trade-message-item:last-child {
+    margin-bottom: 0;
+}
+
+.trade-message-item.mine {
+    align-items: flex-end;
+}
+
+.trade-message-item.opponent {
+    align-items: flex-start;
+}
+
+.trade-message-sender {
+    margin: 0 0 5px 4px;
+
+    font-size: 11px;
+
+    color: #828a83;
+}
+
+
+/* =====================================================
+   메시지 말풍선
+   ===================================================== */
+
+.trade-message-content {
+    max-width: 72%;
+
+    padding: 10px 13px;
+
+    border-radius: 13px;
+
+    font-size: 13px;
+    line-height: 1.55;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.trade-message-item.opponent .trade-message-content {
+    border: 1px solid #e1e8e2;
+
+    border-radius: 5px 13px 13px 13px;
+
+    background: #fff;
+
+    color: #374039;
+}
+
+.trade-message-item.mine .trade-message-content {
+    border: 1px solid #cde4cf;
+
+    border-radius: 13px 5px 13px 13px;
+
+    background: #dff0e1;
+
+    color: #2f4432;
+}
+
+
+/* =====================================================
+   메시지 시간 / 읽음
+   ===================================================== */
+
+.trade-message-meta {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 4px;
+
+    font-size: 10px;
+
+    color: #9da49e;
+}
+
+.trade-message-item.mine .trade-message-meta {
+    justify-content: flex-end;
+}
+
+.trade-message-unread {
+    color: #d89527;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   메시지 입력
+   ===================================================== */
+
+.trade-message-form {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 14px 16px;
+
+    border-top: 1px solid #e6ece6;
+
+    background: #fff;
+}
+
+.trade-message-input {
+    flex: 1;
+
+    min-width: 0;
+    height: 43px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dce5dd;
+    border-radius: 11px;
+
+    background: #fafcfa;
+
+    color: #333;
+
+    font-size: 13px;
+
+    outline: none;
+}
+
+.trade-message-input::placeholder {
+    color: #adb3ad;
+}
+
+.trade-message-input:focus {
+    border-color: #79ae7d;
+
+    background: #fff;
+}
+
+.trade-message-send-btn {
+    height: 43px;
+
+    padding: 0 18px;
+
+    flex-shrink: 0;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #2e7d32;
+
+    color: #fff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.trade-message-send-btn:hover {
+    background: #256b29;
+}
+
+
+/* =====================================================
+   하단 채팅 버튼
+   ===================================================== */
+
+.trade-chat-btn {
+    position: fixed;
+
+    right: 32px;
+    bottom: 30px;
+
+    z-index: 1200;
+
+    width: 58px;
+    height: 58px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #2e7d32;
+
+    color: #fff;
+
+    font-size: 25px;
+
+    box-shadow: 0 8px 22px rgba(46, 125, 50, 0.25);
+
+    cursor: pointer;
+
+    transition:
+            transform 0.15s,
+            background 0.15s;
+}
+
+.trade-chat-btn:hover {
+    transform: translateY(-2px);
+
+    background: #256b29;
+}
+
+
+/* =====================================================
+   반응형
+   ===================================================== */
+
+@media (max-width: 800px) {
+
+    .trade-chat-modal {
+        padding: 16px;
+    }
+
+    .trade-chat-dialog {
+        grid-template-columns:
+            280px
+            minmax(0, 1fr);
+
+        width: calc(100vw - 32px);
+        height: calc(100vh - 32px);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .trade-chat-modal {
+        padding: 0;
+    }
+
+    .trade-chat-dialog {
+        grid-template-columns: 1fr;
+
+        width: 100%;
+        height: 100%;
+
+        border: 0;
+        border-radius: 0;
+    }
+
+    .trade-chat-room-panel {
+        border-right: 0;
+    }
+
+    .trade-message-panel {
+        position: absolute;
+        inset: 0;
+
+        background: #f7faf7;
+    }
+
+    .trade-message-panel:has(.trade-message-wrap[hidden]) {
+        pointer-events: none;
+    }
+
+    .trade-message-select-empty {
+        display: none;
+    }
+
+    .trade-message-wrap {
+        background: #f7faf7;
+    }
+
+    .trade-message-content {
+        max-width: 82%;
+    }
+
+    .trade-chat-btn {
+        right: 20px;
+        bottom: 20px;
+    }
+}

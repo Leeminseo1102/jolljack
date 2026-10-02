@@ -188,22 +188,32 @@ body {
 }
 
 .trade-item {
+    position: relative;
+
     display: flex;
     align-items: center;
     gap: 16px;
+
     padding: 15px;
+
     border: 1px solid #e3ebe3;
     border-radius: 13px;
+
     background: #fff;
+
     cursor: pointer;
-    transition: transform 0.15s,
-    border-color 0.15s,
-    box-shadow 0.15s;
+
+    transition:
+            transform 0.15s,
+            border-color 0.15s,
+            box-shadow 0.15s;
 }
 
 .trade-item:hover {
     transform: translateY(-1px);
+
     border-color: #b2d7b5;
+
     box-shadow: 0 5px 14px rgba(35, 70, 42, 0.07);
 }
 
@@ -215,8 +225,11 @@ body {
 .trade-item-image {
     width: 105px;
     height: 85px;
+
     flex-shrink: 0;
+
     border-radius: 10px;
+
     background: #edf4ed;
 }
 
@@ -229,35 +242,62 @@ body {
     display: flex;
     flex: 1;
     flex-direction: column;
+
     gap: 5px;
+
     min-width: 0;
 }
 
 .trade-item-title {
     overflow: hidden;
+
     margin: 0;
+
     font-size: 16px;
     font-weight: 800;
+
     color: #333;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .trade-item-price {
     margin: 0;
+
     font-size: 16px;
     font-weight: 800;
+
     color: #2e7d32;
 }
 
 .trade-item-quantity {
     font-size: 12px;
+
     color: #6f766f;
 }
 
 .trade-item-date {
     font-size: 11px;
+
     color: #aaa;
+}
+
+
+/* =====================================================
+   관심 표시
+   ===================================================== */
+
+.trade-item-favorite {
+    position: absolute;
+
+    right: 18px;
+    bottom: 16px;
+
+    font-size: 29px;
+    line-height: 1;
+
+    color: #df6b73;
 }
 
 
@@ -267,12 +307,14 @@ body {
 
 .trade-empty {
     min-height: 520px;
+
     align-items: center;
     justify-content: center;
 }
 
 .trade-empty-image {
     display: block;
+
     width: 100%;
     max-width: 300px;
     height: auto;
@@ -286,30 +328,41 @@ body {
 .trade-pagination {
     align-items: center;
     justify-content: center;
+
     gap: 7px;
+
     margin-top: 25px;
 }
 
 .trade-page-btn {
     width: 36px;
     height: 36px;
+
     border: 1px solid #dce7dc;
     border-radius: 9px;
+
     background: #fff;
+
     color: #666;
+
     font-weight: 700;
+
     cursor: pointer;
 }
 
 .trade-page-btn:hover {
     border-color: #a5d6a7;
+
     background: #f2f8f2;
+
     color: #2e7d32;
 }
 
 .trade-page-btn.active {
     border-color: #2e7d32;
+
     background: #2e7d32;
+
     color: #fff;
 }
 
@@ -325,14 +378,18 @@ body {
 .trade-top-list {
     display: flex;
     flex-direction: column;
+
     margin-top: 17px;
 }
 
 .trade-top-item {
     display: flex;
     align-items: center;
+
     gap: 8px;
+
     padding: 14px 0;
+
     border-bottom: 1px solid #edf1ed;
 }
 
@@ -342,9 +399,12 @@ body {
 
 .trade-top-rank {
     width: 21px;
+
     flex-shrink: 0;
+
     font-size: 14px;
     font-weight: 800;
+
     color: #2e7d32;
 }
 
@@ -352,26 +412,34 @@ body {
     display: flex;
     flex: 1;
     flex-direction: column;
+
     gap: 4px;
+
     min-width: 0;
 }
 
 .trade-top-info strong {
     overflow: hidden;
+
     font-size: 12px;
+
     color: #444;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .trade-top-info span {
     font-size: 11px;
+
     color: #888;
 }
 
 .trade-top-heart {
     flex-shrink: 0;
+
     font-size: 11px;
+
     color: #df6b73;
 }
 
@@ -387,22 +455,29 @@ body {
 .trade-modal-form-group {
     display: flex;
     flex-direction: column;
+
     gap: 8px;
 }
 
 .trade-modal-form-group label {
     font-size: 13px;
     font-weight: 700;
+
     color: #424c43;
 }
 
 .trade-modal-select {
     width: 100%;
+
     padding: 11px 12px;
+
     border: 1px solid #d9e4da;
     border-radius: 9px;
+
     background: #fff;
+
     font-size: 13px;
+
     outline: none;
 }
 
@@ -412,28 +487,10 @@ body {
 
 .trade-modal-guide {
     margin: 13px 0 0;
+
     font-size: 12px;
+
     color: #929993;
-}
-
-
-/* =====================================================
-   채팅 버튼
-   ===================================================== */
-
-.trade-chat-btn {
-    position: fixed;
-    right: 32px;
-    bottom: 30px;
-    width: 58px;
-    height: 58px;
-    border: 0;
-    border-radius: 50%;
-    background: #2e7d32;
-    color: #fff;
-    font-size: 25px;
-    box-shadow: 0 8px 22px rgba(46, 125, 50, 0.25);
-    cursor: pointer;
 }
 
 
@@ -506,7 +563,6 @@ body {
     padding: 24px;
 }
 
-
 .trade-detail-modal[hidden] {
     display: none;
 }
@@ -552,8 +608,10 @@ body {
 
 .trade-detail-close-btn {
     position: absolute;
+
     top: 18px;
     right: 18px;
+
     z-index: 2;
 
     width: 40px;
@@ -574,7 +632,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-
 .trade-detail-close-btn:hover {
     background: #f2f5f2;
 }
@@ -586,7 +643,10 @@ body {
 
 .trade-detail-body {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(380px, 1fr);
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(380px, 1fr);
 
     min-height: 560px;
 }
@@ -613,12 +673,12 @@ body {
     overflow: hidden;
 }
 
-
 .trade-detail-image {
     display: block;
 
     width: 100%;
     height: 100%;
+
     max-height: 560px;
 
     object-fit: contain;
@@ -688,7 +748,6 @@ body {
     color: #8b918c;
 }
 
-
 .trade-detail-meta span + span::before {
     content: "·";
 
@@ -710,7 +769,6 @@ body {
     gap: 10px;
 }
 
-
 .trade-detail-status {
     display: inline-flex;
     align-items: center;
@@ -726,7 +784,6 @@ body {
 
     color: #2e7d32;
 }
-
 
 .trade-detail-quantity {
     font-size: 13px;
@@ -772,7 +829,6 @@ body {
     min-height: 130px;
 }
 
-
 .trade-detail-content {
     margin: 0;
 
@@ -794,7 +850,6 @@ body {
     margin-bottom: 28px;
 }
 
-
 .trade-detail-seller-name {
     display: block;
 
@@ -811,7 +866,10 @@ body {
 
 .trade-detail-actions {
     display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
+
+    grid-template-columns:
+        150px
+        minmax(0, 1fr);
 
     gap: 10px;
 
@@ -845,12 +903,11 @@ body {
     cursor: pointer;
 }
 
-
 .trade-detail-favorite-btn:hover {
     border-color: #acd6ae;
+
     background: #f7fbf8;
 }
-
 
 #tradeDetailFavoriteIcon {
     font-size: 21px;
@@ -878,7 +935,6 @@ body {
 
     cursor: pointer;
 }
-
 
 .trade-detail-chat-btn:hover {
     background: #256b29;
@@ -957,6 +1013,8 @@ body {
     }
 
     .trade-detail-actions {
-        grid-template-columns: 120px minmax(0, 1fr);
+        grid-template-columns:
+            120px
+            minmax(0, 1fr);
     }
 }

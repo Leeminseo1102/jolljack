@@ -22,6 +22,9 @@ const tradeRegionCount =
 const currentSidoInput =
     document.getElementById('currentSidoName');
 
+const tradeTopList =
+    document.querySelector('.trade-top-list');
+
 
 const tradeDetailModal =
     document.getElementById('tradeDetailModal');
@@ -58,6 +61,9 @@ const tradeDetailContent =
 
 const tradeDetailSellerName =
     document.getElementById('tradeDetailSellerName');
+
+const tradeDetailFavoriteBtn =
+    document.getElementById('tradeDetailFavoriteBtn');
 
 const tradeDetailFavoriteIcon =
     document.getElementById('tradeDetailFavoriteIcon');
@@ -164,6 +170,88 @@ function ajaxGet(url, callback) {
 }
 
 
+function ajaxPost(url, data, callback) {
+
+    console.log(
+        '[TRADE AJAX] POST 요청 :',
+        url
+    );
+
+
+    const xhr =
+        new XMLHttpRequest();
+
+
+    xhr.open(
+        'POST',
+        url,
+        true
+    );
+
+
+    xhr.setRequestHeader(
+        'Content-Type',
+        'application/x-www-form-urlencoded; charset=UTF-8'
+    );
+
+
+    xhr.onreadystatechange = function () {
+
+        if (xhr.readyState === 4) {
+
+            console.log(
+                '[TRADE AJAX] POST 응답 status :',
+                xhr.status
+            );
+
+
+            if (xhr.status === 200) {
+
+                const res =
+                    JSON.parse(xhr.responseText);
+
+
+                console.log(
+                    '[TRADE AJAX] POST 응답 데이터 :',
+                    res
+                );
+
+
+                callback(res);
+
+            } else {
+
+                console.error(
+                    '[TRADE AJAX] POST 요청 실패 :',
+                    xhr.status,
+                    xhr.responseText
+                );
+
+
+                openAlert(
+                    '오류',
+                    '요청 처리 중 오류가 발생했습니다.'
+                );
+            }
+        }
+    };
+
+
+    const params =
+        Object.entries(data)
+            .map(function ([key, value]) {
+
+                return encodeURIComponent(key)
+                    + '='
+                    + encodeURIComponent(value);
+            })
+            .join('&');
+
+
+    xhr.send(params);
+}
+
+
 /* =====================================================
    가격
    ===================================================== */
@@ -222,6 +310,130 @@ function formatTradeStatus(status) {
 
 
 /* =====================================================
+   관심 등록 TOP 5
+   ===================================================== */
+
+function renderTradeFavoriteTop5(list) {
+
+    if (!tradeTopList) {
+        return;
+    }
+
+
+    tradeTopList.innerHTML =
+        '';
+
+
+    list.forEach(function (item, index) {
+
+        const topItem =
+            document.createElement('div');
+
+
+        topItem.className =
+            'trade-top-item';
+
+
+        const rank =
+            document.createElement('span');
+
+
+        rank.className =
+            'trade-top-rank';
+
+        rank.textContent =
+            index + 1;
+
+
+        const info =
+            document.createElement('div');
+
+
+        info.className =
+            'trade-top-info';
+
+
+        const title =
+            document.createElement('strong');
+
+
+        title.textContent =
+            item.title;
+
+
+        const price =
+            document.createElement('span');
+
+
+        price.textContent =
+            formatPrice(item.price);
+
+
+        const favorite =
+            document.createElement('span');
+
+
+        favorite.className =
+            'trade-top-heart';
+
+        favorite.textContent =
+            '♥ ' + item.favoriteCount;
+
+
+        info.appendChild(
+            title
+        );
+
+        info.appendChild(
+            price
+        );
+
+
+        topItem.appendChild(
+            rank
+        );
+
+        topItem.appendChild(
+            info
+        );
+
+        topItem.appendChild(
+            favorite
+        );
+
+
+        tradeTopList.appendChild(
+            topItem
+        );
+    });
+}
+
+
+function loadTradeFavoriteTop5() {
+
+    if (!tradeTopList) {
+        return;
+    }
+
+
+    ajaxGet(
+        CTX + 'trade/getTradeFavoriteTop5',
+        function (list) {
+
+            if (!Array.isArray(list)) {
+                return;
+            }
+
+
+            renderTradeFavoriteTop5(
+                list
+            );
+        }
+    );
+}
+
+
+/* =====================================================
    거래 상세
    ===================================================== */
 
@@ -250,6 +462,10 @@ function renderTradePostDetail(item) {
 
     tradeDetailSellerName.textContent =
         item.sellerName;
+
+
+    tradeDetailFavoriteBtn.dataset.id =
+        item.tradePostId;
 
     tradeDetailFavoriteCount.textContent =
         item.favoriteCount == null
@@ -328,6 +544,69 @@ function loadTradePostDetail(tradePostId) {
    게시글 목록
    ===================================================== */
 
+function updateTradeItemFavorite(article, favorite) {
+
+    const favoriteIcon =
+        article.querySelector(
+            '.trade-item-favorite'
+        );
+
+
+    if (favorite) {
+
+        if (favoriteIcon) {
+            return;
+        }
+
+
+        const newFavoriteIcon =
+            document.createElement('span');
+
+
+        newFavoriteIcon.className =
+            'trade-item-favorite';
+
+        newFavoriteIcon.textContent =
+            '♥';
+
+
+        article.appendChild(
+            newFavoriteIcon
+        );
+
+        return;
+    }
+
+
+    if (favoriteIcon) {
+
+        favoriteIcon.remove();
+    }
+}
+
+
+function updateTradeListFavorite(tradePostId, favorite) {
+
+    const article =
+        tradeList.querySelector(
+            '.trade-item[data-id="'
+            + tradePostId
+            + '"]'
+        );
+
+
+    if (!article) {
+        return;
+    }
+
+
+    updateTradeItemFavorite(
+        article,
+        favorite
+    );
+}
+
+
 function renderTradeList(list) {
 
     console.log(
@@ -336,7 +615,8 @@ function renderTradeList(list) {
     );
 
 
-    tradeList.innerHTML = '';
+    tradeList.innerHTML =
+        '';
 
 
     list.forEach(function (item) {
@@ -396,8 +676,13 @@ function renderTradeList(list) {
             formatPrice(item.price);
 
 
-        info.appendChild(title);
-        info.appendChild(price);
+        info.appendChild(
+            title
+        );
+
+        info.appendChild(
+            price
+        );
 
 
         if (item.quantity != null) {
@@ -409,12 +694,13 @@ function renderTradeList(list) {
             quantity.className =
                 'trade-item-quantity';
 
-
             quantity.textContent =
                 '수량 ' + item.quantity;
 
 
-            info.appendChild(quantity);
+            info.appendChild(
+                quantity
+            );
         }
 
 
@@ -425,17 +711,33 @@ function renderTradeList(list) {
         date.className =
             'trade-item-date';
 
-
         date.textContent =
             formatDate(item.createdAt);
 
 
-        info.appendChild(date);
+        info.appendChild(
+            date
+        );
 
-        article.appendChild(image);
-        article.appendChild(info);
 
-        tradeList.appendChild(article);
+        article.appendChild(
+            image
+        );
+
+        article.appendChild(
+            info
+        );
+
+
+        updateTradeItemFavorite(
+            article,
+            item.favorite
+        );
+
+
+        tradeList.appendChild(
+            article
+        );
     });
 }
 
@@ -454,7 +756,8 @@ function renderPagination(page, totalPages) {
     );
 
 
-    tradePagination.innerHTML = '';
+    tradePagination.innerHTML =
+        '';
 
 
     if (totalPages <= 1) {
@@ -522,9 +825,11 @@ function renderTradePage(res) {
 
     if (res.totalCount === 0) {
 
-        tradeList.innerHTML = '';
+        tradeList.innerHTML =
+            '';
 
-        tradePagination.innerHTML = '';
+        tradePagination.innerHTML =
+            '';
 
         tradePagination.style.display =
             'none';
@@ -591,12 +896,16 @@ function loadTradePage(page, sidoName, callback) {
         url,
         function (res) {
 
-            renderTradePage(res);
+            renderTradePage(
+                res
+            );
 
 
             if (callback) {
 
-                callback(res);
+                callback(
+                    res
+                );
             }
         }
     );
@@ -652,6 +961,74 @@ tradeDetailBackdrop.addEventListener(
     function () {
 
         closeTradeDetailModal();
+    }
+);
+
+
+/* =====================================================
+   관심 등록 / 취소
+   ===================================================== */
+
+tradeDetailFavoriteBtn.addEventListener(
+    'click',
+    function () {
+
+        const tradePostId =
+            tradeDetailFavoriteBtn.dataset.id;
+
+
+        if (!tradePostId) {
+
+            console.warn(
+                '[TRADE] 관심 처리 tradePostId가 없습니다.'
+            );
+
+            return;
+        }
+
+
+        console.log(
+            '[TRADE] 관심 처리 tradePostId :',
+            tradePostId
+        );
+
+
+        ajaxPost(
+            CTX + 'trade/toggleTradeFavorite',
+            {
+                tradePostId: tradePostId
+            },
+            function (res) {
+
+                tradeDetailFavoriteIcon.textContent =
+                    res.favorite
+                        ? '♥'
+                        : '♡';
+
+
+                tradeDetailFavoriteCount.textContent =
+                    res.favoriteCount == null
+                        ? 0
+                        : res.favoriteCount;
+
+
+                updateTradeListFavorite(
+                    tradePostId,
+                    res.favorite
+                );
+
+
+                loadTradeFavoriteTop5();
+
+
+                console.log(
+                    '[TRADE] 관심 처리 완료 favorite :',
+                    res.favorite,
+                    'favoriteCount :',
+                    res.favoriteCount
+                );
+            }
+        );
     }
 );
 
@@ -870,3 +1247,10 @@ tradeRegionBtn.addEventListener(
         );
     }
 );
+
+
+/* =====================================================
+   초기 조회
+   ===================================================== */
+
+loadTradeFavoriteTop5();
